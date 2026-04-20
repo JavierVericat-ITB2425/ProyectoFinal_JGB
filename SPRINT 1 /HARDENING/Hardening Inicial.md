@@ -203,7 +203,7 @@ sudo nano /etc/ssh/sshd_config
 
 **sudo ufw default allow outgoing →** Indicamos que los paquetes desde el servidor hacia fuera sean habilitados   
 ```bash
-   **sudo ufw default allow outgoing** 
+   sudo ufw default allow outgoing 
 ```
 
 **sudo ufw allow 2222/tcp como el puerto 22** → Son para el SSH, primero el ssh es puerto 22 pero luego lo cambiamos a puerto 2222 para seguridad
@@ -1002,7 +1002,7 @@ systemctl status unattended-upgrades
    3. **Configuración de política restrictiva**
 
         
-      Ahora le indicaremos al firewall que bloquee cualquier paquete siempre y cuando no le hemos indicado lo contrario  
+Ahora le indicaremos al firewall que bloquee cualquier paquete siempre y cuando no le hemos indicado lo contrario  
 
 ```bash
 sudo ufw default deny incoming
