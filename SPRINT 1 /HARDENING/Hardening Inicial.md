@@ -171,7 +171,7 @@ sudo ufw enable
 1. **Instalación de Docker**
 
 <a name="instalar-paquetes"></a>
-1. **Instalar paquetes**
+  1.1 **Instalar paquetes**
 
    Ejecutamos lo siguiente para instalar los paquetes
 
