@@ -49,7 +49,6 @@
     - [Configurar actualizaciones automáticas](#configurar-actualizaciones-automticas)
     - [Comprobacion](#comprobacion)
 
-
 ---
 
 **N°:** GRUPO X
@@ -84,7 +83,7 @@ ssh-copy-id -i ~/.ssh/id_ed25519.pub isard@192.168.18.10
 ```
 
 <a name="comprobacin"></a>
-3. **Comprobación**
+#### **Comprobación**
 
    Podemos hacer ssh y no nos pide la contraseña
 
@@ -111,7 +110,7 @@ sudo nano /etc/ssh/sshd_config
    **PasswordAuthentication yes →** Obligamos a que el servidor solo acepte claves, y no contraseñas, lo cual lo hace que no se pueda intentar ataques de fuerza bruta
 
 <a name="comprobacion"></a>
-2. **Comprobacion**
+#### **Comprobación**
 
    Validamos si la configuración se ha realizado correctamente o hay algo en el archivo incorrecto
 
@@ -147,8 +146,6 @@ sudo ufw allow 2222/tcp
 ```bash
 sudo ufw allow 80/tcp
 ```
-
-
 
 ```bash
 sudo ufw allow 8443/tcp
@@ -203,8 +200,6 @@ sudo usermod -aG docker $USER
 mkdir -p ~/zth-node-cloud/keycloak
 ```
 
-
-
 ```bash
 cd ~/zth-node-cloud/keycloak
 ```
@@ -222,86 +217,45 @@ sudo nano docker-compose.yml
 
 ```yaml
 version: '3.8'
-
-   services:
-
-     zth-postgres:
-
-       image: postgres:16
-
-       container_name: zth-keycloak-db
-
-       restart: always
-
-       volumes:
-
-         - zth_db_data:/var/lib/postgresql/data
-
-       environment:
-
-         POSTGRES_DB: keycloak
-
-         POSTGRES_USER: keycloak
-
-         POSTGRES_PASSWORD: K3yl0ack_ZTH-db
-
-       networks:
-
-         - zth-network
-
-     zth-keycloak:
-
-       image: quay.io/keycloak/keycloak:24.0
-
-       container_name: zth-keycloak-server
-
-       command: start-dev
-
-       restart: always
-
-       environment:
-
-         KC_DB: postgres
-
-         KC_DB_URL: jdbc:postgresql://zth-postgres:5432/keycloak
-
-         KC_DB_USERNAME: keycloak
-
-         KC_DB_PASSWORD: K3yl0ack_ZTH-db
-
-         KEYCLOAK_ADMIN: admin
-
-         KEYCLOAK_ADMIN_PASSWORD: K3yl0ack-ZTH_
-
-         KC_HTTP_ENABLED: "true"
-
-         KC_PROXY: edge
-
-       ports:
-
-         - "8080:8080"
-
-       depends_on:
-
-         - zth-postgres
-
-       networks:
-
-         - zth-network
-
-   networks:
-
-     zth-network:
-
-       driver: bridge
-
-   volumes:
-
-     zth_db_data:
+services:
+  zth-postgres:
+    image: postgres:16
+    container_name: zth-keycloak-db
+    restart: always
+    volumes:
+      - zth_db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: K3yl0ack_ZTH-db
+    networks:
+      - zth-network
+  zth-keycloak:
+    image: quay.io/keycloak/keycloak:24.0
+    container_name: zth-keycloak-server
+    command: start-dev
+    restart: always
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://zth-postgres:5432/keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: K3yl0ack_ZTH-db
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: K3yl0ack-ZTH_
+      KC_HTTP_ENABLED: "true"
+      KC_PROXY: edge
+    ports:
+      - "8080:8080"
+    depends_on:
+      - zth-postgres
+    networks:
+      - zth-network
+networks:
+  zth-network:
+    driver: bridge
+volumes:
+  zth_db_data:
 ```
-
-   ###
-
 <a name="firewall-regla"></a>
 3. **Firewall Regla**
 
@@ -312,7 +266,7 @@ sudo ufw allow 8080/tcp
 ```
 
 <a name="comprobacin"></a>
-4. **Comprobación**
+#### **Comprobación**
 
    Ahora accederemos mediante la IP del servidor :8080 y nos pide las credenciales
 
@@ -370,14 +324,11 @@ sudo ufw allow 8080/tcp
    **Failure reset time →** Es el tiempo en que quedan registrados los intentos, se quedan guardados en memoria durante X tiempo, si por ejemplo fallan 1 vez por la mañana y 2 por la tarde se bloquea la cuenta
 
 <a name="comprobacin"></a>
-3. **Comprobación**
+#### **Comprobación**
 
    SI intentamos acceder y fallamos 3 veces la contraseña
 
    En el panel de administración, vemos que se ha bloqueado temporalmente
-
-   ###
-
 <a name="polticas-de-contraseas"></a>
 4. **Políticas de Contraseñas**
 
@@ -385,18 +336,12 @@ sudo ufw allow 8080/tcp
 
    Ahora en el apartado de Add Policy y marcamos las siguientes opciones
 
-<a name="digit-obligamos-a-poner-dgito-como-mnimo"></a>
-1. **Digit** →Obligamos a poner dígito como mínimo
-<a name="not-username-evitamos-que-la-contrasea-pongan-el-nombre-del-usuario"></a>
-2. **Not Username** → Evitamos que la contraseña pongan el nombre del usuario
-<a name="lowercase-characters-obligatorio-poner-mayscula-como-mnimo"></a>
-3. **Lowercase Characters** → Obligatorio poner mayúscula como mínimo
-<a name="uppercase-characters-obligatorio-poner-mayscula-como-mnimo"></a>
-4. **Uppercase Characters** → Obligatorio poner mayúscula como mínimo
-<a name="special-characters-obligatorio-poner-un-carcter-especial"></a>
-5. **Special Characters →** Obligatorio poner un carácter especial
-<a name="minimum-length-un-mnimo-de-longitud-obligatoria"></a>
-6. **Minimum Length →** Un mínimo de longitud obligatoria
+- **Digit**: Obligamos a poner dígito como mínimo
+- **Not Username**: Evitamos que la contraseña pongan el nombre del usuario
+- **Lowercase Characters**: Obligatorio poner mayúscula como mínimo
+- **Uppercase Characters**: Obligatorio poner mayúscula como mínimo
+- **Special Characters**: ** Obligatorio poner un carácter especial
+- **Minimum Length**: ** Un mínimo de longitud obligatoria
 
    Ahora lo configuramos de la siguiente manera
 
@@ -420,9 +365,6 @@ sudo ufw allow 8080/tcp
    Ahora crearemos el otro grupo como es el de los Trabajadores
 
    Ahora crearemos el Grupo de Auditoría
-
-   ###
-
 <a name="usuario"></a>
 6. **Usuario**
 
@@ -459,7 +401,7 @@ sudo ufw allow 8080/tcp
    Una vez creado, le indicamos el rol que es en este caso de Auditoría
 
 <a name="comprobacion"></a>
-7. **Comprobacion**
+#### **Comprobación**
 
    #### **giuseppe-admin**     Iniciaremos sesión con el usuario de administrador
 
@@ -480,9 +422,6 @@ sudo ufw allow 8080/tcp
    En este apartado podemos ver que tenemos el inicio de sesión, tanto la contraseña y si queremos cambiarla como MFA que en este caso es desde el dispositivo que hemos indicado, podemos ver cuando fue y a que hora
 
    #### **operador-bryan**     Ahora iniciaremos sesión con permisos de trabajador
-
-   ####
-
    Nos pedirá como antes usar una aplicación de la ya mencionadas
 
    Iniciamos
@@ -539,26 +478,15 @@ sudo apt install fail2ban -y
 sudo nano /etc/fail2ban/jail.local
 ```
 
-
-
 ```bash
-
-   [sshd]
-
+[sshd]
    enabled = true
-
    port = 2222
-
    filter = sshd
-
    logpath = /var/log/auth.log
-
    maxretry = 2
-
    findtime = 600
-
    bantime = -1
-
    banaction = ufw
 ```
 
@@ -594,22 +522,13 @@ sudo systemctl restart fail2ban
 ```bash
 sudo fail2ban-client status sshd
 ```
-
-   ###
-
 <a name="comprobacion"></a>
-4. **COMPROBACION**
+#### **Comprobación**
 
    Si desde cliente intentó acceder y fallo las contraseñas, nos sale este mensaje
 
    Si accedemos al server y miramos el fail2ban podemos ver que tenemos esta IP bloqueada
-
-   ###
-
    Corroboramos que la IP del cliente es la baneada
-
-   ###
-
    Para desbanear haremos esto
 
    Como podemos ver, tenemos la IP baneada, haremos un unban y la IP que queremos desbloquear y después de hacer eso, vemos que ya no tenemos la IP baneada
@@ -643,7 +562,7 @@ sudo dpkg-reconfigure --priority=low unattended-upgrades
 ```
 
 <a name="comprobacion"></a>
-2. **Comprobacion**
+#### **Comprobación**
 
    Para realizar si se está ejecutando correctamente, ejecutaremos el siguiente comando
 
@@ -659,9 +578,6 @@ Ahora le indicaremos al firewall que bloquee cualquier paquete siempre y cuando 
 ```bash
 sudo ufw default deny incoming
 ```
-
-bash
-
 ```bash
 sudo ufw status verbose
 ```
@@ -669,6 +585,9 @@ sudo ufw status verbose
 [http://192.168.18.10:8080/realms/zth-node-cloud/account](http://192.168.18.10:8080/realms/zth-node-cloud/account)
 
 <a name="s1-05-hardening-en-el-nodo-aws"></a>
+
+---
+
 # **S1-05: Hardening en el Nodo AWS**
 <a name="firewall---aws"></a>
 1. **Firewall - AWS**
@@ -690,8 +609,6 @@ sudo ufw status verbose
 ```bash
 sudo ufw default deny incoming
 ```
-
-bash
 sudo ufw default allow outgoing
 
    Creamos las reglas de SSH con puerto 222, tenemos también HTTPS con 443 y tenemos también el WireGuard
@@ -700,25 +617,17 @@ sudo ufw default allow outgoing
 sudo ufw allow 2222/tcp
 ```
 
-
-
 ```bash
 sudo ufw allow 8080/tcp
 ```
-
-
 
 ```bash
 sudo ufw allow 443/tcp
 ```
 
-
-
 ```bash
 sudo ufw allow 51820/udp
 ```
-
-
 
 ```bash
 sudo ufw enable
@@ -763,34 +672,21 @@ sudo apt update && sudo apt install fail2ban -y
 sudo nano /etc/fail2ban/jail.local
 ```
 
-
-
 ```bash
-
-   [sshd]
-
+[sshd]
    enabled = true
-
    port = 2222
-
    filter = sshd
-
    logpath = /var/log/auth.log
-
    maxretry = 3
-
    findtime = 600
-
    bantime = -1
-
    banaction = ufw
-
+   
 ```
 
-
-
 ```bash
-   sudo cat /etc/fail2ban/jail.local
+sudo cat /etc/fail2ban/jail.local
 ```
 
 <a name="reiniciamos-el-servicio-y-miramos-el-estado"></a>
@@ -799,21 +695,16 @@ sudo nano /etc/fail2ban/jail.local
 ```bash
 sudo systemctl restart fail2ban
 ```
-
-bash
 sudo systemctl status fail2ban
 
 <a name="comprobacion"></a>
-4. **COmprobacion**
+#### **Comprobación**
 
    Desde la máquina host fallamos 3 veces la contraseña a propósito
 
    Ahora miramos la IP que tenemos PÚBLICA
 
    Ahora desde el servidor de AWS podemos ver el baneo
-
-   ##
-
 <a name="actualizaciones-automticas-de-seguridad-en-aws"></a>
 3. **Actualizaciones Automáticas de Seguridad en AWS**
 
@@ -825,7 +716,7 @@ sudo systemctl status fail2ban
    Instalaremos el paquete inicialmente
 
 ```bash
-   sudo apt update && sudo apt install unattended-upgrades -y
+sudo apt update && sudo apt install unattended-upgrades -y
 ```
 
    Ejecutamos el siguiente comando
@@ -835,7 +726,7 @@ sudo dpkg-reconfigure --priority=low unattended-upgrades
 ```
 
 <a name="comprobacion"></a>
-2. **Comprobacion**
+#### **Comprobación**
 
    Para realizar si se está ejecutando correctamente, ejecutaremos el siguiente comando
 
