@@ -306,8 +306,6 @@ sudo nano docker-compose.yml
 ```yaml
 version: '3.8'
 
-   
-
    services:
 
      zth-postgres:
@@ -316,11 +314,11 @@ version: '3.8'
 
        container_name: zth-keycloak-db
 
-       restart: always  \# \<-- Esto hace que el contenedor se reinicie solo si el server falla
+       restart: always
 
        volumes:
 
-         - zth_db_data:/var/lib/postgresql/data  \# \<-- PERSISTENCIA AQUÍ
+         - zth_db_data:/var/lib/postgresql/data  
 
        environment:
 
@@ -334,8 +332,6 @@ version: '3.8'
 
          - zth-network
 
-   
-
      zth-keycloak:
 
        image: quay.io/keycloak/keycloak:24.0
@@ -344,7 +340,7 @@ version: '3.8'
 
        command: start-dev
 
-       restart: always  \# \<-- Persistencia de disponibilidad
+       restart: always
 
        environment:
 
@@ -376,28 +372,16 @@ version: '3.8'
 
          - zth-network
 
-   
-
    networks:
 
      zth-network:
 
        driver: bridge
 
-   
-
-   \# Definición de los volúmenes persistentes
-
    volumes:
 
-     zth_db_data:  \# Docker gestionará este espacio en /var/lib/docker/volumes/
+     zth_db_data:
 ```
-
-   
-
-   
-
-   
 
    ### 
 
@@ -873,23 +857,23 @@ sudo nano /etc/fail2ban/jail.local
 ```
 ```bash
 
-   \[sshd\]
+   [sshd]
 
-   enabled \= true
+   enabled = true
 
-   port \= 2222
+   port = 2222
 
-   filter \= sshd
+   filter = sshd
 
-   logpath \= /var/log/auth.log
+   logpath = /var/log/auth.log
 
-   maxretry \= 2
+   maxretry = 2
 
-   findtime \= 600
+   findtime = 600
 
-   bantime \= -1
+   bantime = -1
 
-   banaction \= ufw
+   banaction = ufw
 ```
 
    **[sshd] →** Indicamos que esta configuración se aplica al ssh
@@ -1122,23 +1106,23 @@ sudo nano /etc/fail2ban/jail.local
 ```
 ```bash
 
-   \[sshd\]
+   [sshd]
 
-   enabled \= true
+   enabled = true
 
-   port \= 2222
+   port = 2222
 
-   filter \= sshd
+   filter = sshd
 
-   logpath \= /var/log/auth.log
+   logpath = /var/log/auth.log
 
-   maxretry \= 3
+   maxretry = 3
 
-   findtime \= 600
+   findtime = 600
 
-   bantime \= -1
+   bantime = -1
 
-   banaction \= ufw
+   banaction = ufw
 
    ubuntu@zth-node-
 ```
