@@ -1,6 +1,11 @@
 
 
 
+
+<a name="s1-02---acceso-ssh-seguro-hardening-inicial"></a>
+# **S1-02 - Acceso SSH Seguro (Hardening Inicial)**
+
+
 # **Índice**
 - [S1-02 - Acceso SSH Seguro (Hardening Inicial)](#s1-02---acceso-ssh-seguro-hardening-inicial)
 - [S1-01 - Acceso SSH Seguro (Hardening Inicial) - Isard](#s1-01---acceso-ssh-seguro-hardening-inicial---isard)
@@ -14,6 +19,7 @@
   - [Firewall](#firewall)
   - [Crear reglas](#crear-reglas)
   - [Regla AWS](#regla-aws)
+    - [Security Group](#security-group)
   - [Instalación de Docker](#instalacin-de-docker)
   - [Instalar paquetes](#instalar-paquetes)
   - [Permisos](#permisos)
@@ -44,7 +50,9 @@
   - [Reiniciamos y comprobamos](#reiniciamos-y-comprobamos)
   - [COMPROBACION](#comprobacion)
   - [Actualizaciones Automáticas de Seguridad](#actualizaciones-automticas-de-seguridad)
+    - [Configurar actualizaciones automáticas](#configurar-actualizaciones-automticas)
   - [Comprobacion](#comprobacion)
+    - [Configuración de política restrictiva](#configuracin-de-poltica-restrictiva)
 - [S1-05: Hardening en el Nodo AWS](#s1-05-hardening-en-el-nodo-aws)
   - [Firewall - AWS](#firewall---aws)
   - [Reglas](#reglas)
@@ -61,8 +69,6 @@
 ---
 
 
-<a name="s1-02---acceso-ssh-seguro-hardening-inicial"></a>
-# **S1-02 - Acceso SSH Seguro (Hardening Inicial)**
 
 **N°:** GRUPO X
 
@@ -239,6 +245,7 @@ sudo ufw enable
 
    
 
+<a name="security-group"></a>
    1. Security Group  
         
       Ahora desde AWS, deberemos de crear una regla de entrada indicando el protocolo TCP y que sea por el puerto 2222  
@@ -970,6 +977,7 @@ sudo fail2ban-client status sshd
 
    
 
+<a name="configurar-actualizaciones-automticas"></a>
    1. **Configurar actualizaciones automáticas**
 
         
@@ -1007,6 +1015,7 @@ sudo dpkg-reconfigure --priority=low unattended-upgrades
 systemctl status unattended-upgrades
 ```
 
+<a name="configuracin-de-poltica-restrictiva"></a>
    3. **Configuración de política restrictiva**
 
         
