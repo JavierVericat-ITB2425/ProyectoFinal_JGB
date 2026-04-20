@@ -875,6 +875,7 @@ sudo apt install fail2ban -y
 ```bash
 sudo nano /etc/fail2ban/jail.local
 ```
+```bash
 
    \[sshd\]
 
@@ -893,8 +894,7 @@ sudo nano /etc/fail2ban/jail.local
    bantime \= -1
 
    banaction \= ufw
-
-   
+```
 
    \[sshd\] → Indicamos que esta configuración se aplica al ssh
 
