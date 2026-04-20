@@ -209,25 +209,20 @@ sudo nano /etc/ssh/sshd_config
 
    **sudo ufw default allow outgoing →** Indicamos que los paquetes desde el servidor hacia fuera sean habilitados
 
-   
-
-   **
 ```bash
 sudo ufw allow 2222/tcp
 ```
- como el puerto 22 →** Son para el SSH, primero el ssh es puerto 22 pero luego lo cambiamos a puerto 2222 para seguridad
+sudo ufw allow 2222/tcp como el puerto 22 → Son para el SSH, primero el ssh es puerto 22 pero luego lo cambiamos a puerto 2222 para seguridad
 
    
 
-   **sudo ufw allow 80/tcp y 8443/tcp →** Son para el servicio de Nginx tanto el http como https
+   **sudo ufw allow 80/tcp y 8443/tcp**→ Son para el servicio de Nginx tanto el http como https
 
-   
-
-   **
+  
 ```bash
 sudo ufw enable
 ```
- →** Hacemos que ahora quede configurado siempre que se inicie el servidor con esta configuración
+ Hacemos que ahora quede configurado siempre que se inicie el servidor con esta configuración
 
 <a name="regla-aws"></a>
 4. **Regla AWS**
@@ -978,15 +973,15 @@ sudo fail2ban-client status sshd
 sudo apt install unattended-upgrades -y sudo dpkg-reconfigure --priority=low
 ```
 
-      unattended-upgrades  
+  unattended-upgrades  
         
-      **sudo apt install unattended-upgrades -y →** Es un paquete el cual permite descargar actualizaciones y aplicarse automáticamente sin necesidad de interacción con el usuario  
+  **sudo apt install unattended-upgrades -y →** Es un paquete el cual permite descargar actualizaciones y aplicarse automáticamente sin necesidad de interacción con el usuario  
         
-      **sudo dpkg-reconfigure →** Aquí le indicamos que queremos reconfigurar el programa X  
+  **sudo dpkg-reconfigure →** Aquí le indicamos que queremos reconfigurar el programa X  
         
-      **--priority=low →** Indicamos que nos muestre todas las opciones posibles  
+  **--priority=low →** Indicamos que nos muestre todas las opciones posibles  
         
-      **unattended-upgrades →** Su función es la de revisar repositorios y si hay un nuevo “parche” lo descarga y se aplica, busca vulnerabilidades
+  **unattended-upgrades →** Su función es la de revisar repositorios y si hay un nuevo “parche” lo descarga y se aplica, busca vulnerabilidades
 
   Ejecutamos el siguiente comando
 
