@@ -1,99 +1,47 @@
-
-
 **N°:** GRUPO X
-
 **Integrantes:** Javier Vericat - Bryan Aguilera - Giuseppe Suarez
-
 **Profesores:** Sergi - David Sicart
 
-<a name="s1-01-acceso-ssh-seguro-hardening-inicial---isard"></a>
-
 # **Índice**
-- [S1-01 Acceso SSH Seguro (Hardening Inicial) - Isard](#s1-01-acceso-ssh-seguro-hardening-inicial---isard)
-  - [Gestion de claves](#1-gestion-de-claves)
-  - [Generar claves](#2-generar-claves)
-  - [Pasar claves](#3-pasar-claves)
-  - [Handering de SSH](#4-handering-de-ssh)
-  - [Cambiar puerto y archivo de configuración](#5-cambiar-puerto-y-archivo-de-configuracin)
-  - [Firewall](#6-firewall)
-  - [Crear reglas](#7-crear-reglas)
-  - [Regla AWS](#8-regla-aws)
-  - [Instalación de Docker](#9-instalacin-de-docker)
-  - [Instalar paquetes](#10-instalar-paquetes)
-  - [Permisos](#11-permisos)
-  - [Despliegue de KeyCloak](#12-despliegue-de-keycloak)
-  - [Creación de directorios](#13-creacin-de-directorios)
-  - [Crear y configurar archivo .yml](#14-crear-y-configurar-archivo-yml)
-  - [Firewall Regla](#15-firewall-regla)
-  - [Crear Realm](#16-crear-realm)
-  - [Configurar Realm](#17-configurar-realm)
-  - [Autenticación multifactor](#18-autenticacin-multifactor)
-  - [Configuración de Autenticación](#19-configuracin-de-autenticacin)
-  - [Políticas de ataques](#20-polticas-de-ataques)
-  - [Políticas de Contraseñas](#21-polticas-de-contraseas)
-  - [Roles y Grupos](#22-roles-y-grupos)
-  - [Usuario](#23-usuario)
-  - [Fail2Ban](#24-fail2ban)
-  - [Instalación del Fail2Ban](#25-instalacin-del-fail2ban)
-  - [Crear configuración inicial](#26-crear-configuracin-inicial)
-  - [Reiniciamos y comprobamos](#27-reiniciamos-y-comprobamos)
-  - [Actualizaciones Automáticas de Seguridad](#28-actualizaciones-automticas-de-seguridad)
-- [S1-05 Hardening en el Nodo AWS](#s1-05-hardening-en-el-nodo-aws)
-  - [Firewall - AWS](#1-firewall---aws)
-  - [Reglas](#2-reglas)
-  - [Dentro de la Instancia](#3-dentro-de-la-instancia)
-  - [Fail2Ban](#4-fail2ban)
-  - [Configuración](#5-configuracin)
-  - [Actualizaciones Automáticas de Seguridad en AWS](#6-actualizaciones-automticas-de-seguridad-en-aws)
-  - [Configurar actualizaciones automáticas](#7-configurar-actualizaciones-automticas)
-
----
-
-**N°:** GRUPO X
-
-**Integrantes:** Javier Vericat - Bryan Aguilera - Giuseppe Suarez
-
-**Profesores:** Sergi - David Sicart
-
-<a name="s1-01-acceso-ssh-seguro-hardening-inicial---isard"></a>
-# **Índice**
-- [Acceso SSH Seguro (Hardening Inicial) - Isard](#s1-01-acceso-ssh-seguro-hardening-inicial---isard)
-  - [Gestion de claves](#1-gestion-de-claves)
-  - [Generar claves](#2-generar-claves)
-  - [Pasar claves](#3-pasar-claves)
-  - [Handering de SSH](#4-handering-de-ssh)
-  - [Cambiar puerto y archivo de configuración](#5-cambiar-puerto-y-archivo-de-configuracin)
-  - [Firewall](#6-firewall)
-  - [Crear reglas](#7-crear-reglas)
-  - [Regla AWS](#8-regla-aws)
-  - [Instalación de Docker](#9-instalacin-de-docker)
-  - [Instalar paquetes](#10-instalar-paquetes)
-  - [Permisos](#11-permisos)
-  - [Despliegue de KeyCloak](#12-despliegue-de-keycloak)
-  - [Creación de directorios](#13-creacin-de-directorios)
-  - [Crear y configurar archivo .yml](#14-crear-y-configurar-archivo-yml)
-  - [Firewall Regla](#15-firewall-regla)
-  - [Crear Realm](#16-crear-realm)
-  - [Configurar Realm](#17-configurar-realm)
-  - [Autenticación multifactor](#18-autenticacin-multifactor)
-  - [Configuración de Autenticación](#19-configuracin-de-autenticacin)
-  - [Políticas de ataques](#20-polticas-de-ataques)
-  - [Políticas de Contraseñas](#21-polticas-de-contraseas)
-  - [Roles y Grupos](#22-roles-y-grupos)
-  - [Usuario](#23-usuario)
-  - [Fail2Ban](#24-fail2ban)
-  - [Instalación del Fail2Ban](#25-instalacin-del-fail2ban)
-  - [Crear configuración inicial](#26-crear-configuracin-inicial)
-  - [Reiniciamos y comprobamos](#27-reiniciamos-y-comprobamos)
-  - [Actualizaciones Automáticas de Seguridad](#28-actualizaciones-automticas-de-seguridad)
-- [Hardening en el Nodo AWS](#s1-05-hardening-en-el-nodo-aws)
-  - [Firewall - AWS](#1-firewall---aws)
-  - [Reglas](#2-reglas)
-  - [Dentro de la Instancia](#3-dentro-de-la-instancia)
-  - [Fail2Ban](#4-fail2ban)
-  - [Configuración](#5-configuracin)
-  - [Actualizaciones Automáticas de Seguridad en AWS](#6-actualizaciones-automticas-de-seguridad-en-aws)
-  - [Configurar actualizaciones automáticas](#7-configurar-actualizaciones-automticas)
+- [S1-01: Acceso SSH Seguro (Hardening Inicial) - Isard](#s1-01-acceso-ssh-seguro-hardening-inicial---isard)
+  - [1. Gestion de claves](#1-gestion-de-claves)
+    - [2. Generar claves](#2-generar-claves)
+    - [3. Pasar claves](#3-pasar-claves)
+  - [4. Handering de SSH](#4-handering-de-ssh)
+    - [5. Cambiar puerto y archivo de configuración](#5-cambiar-puerto-y-archivo-de-configuracin)
+  - [6. Firewall](#6-firewall)
+    - [7. Crear reglas](#7-crear-reglas)
+  - [8. Regla AWS](#8-regla-aws)
+  - [9. Instalación de Docker](#9-instalacin-de-docker)
+    - [10. Instalar paquetes](#10-instalar-paquetes)
+    - [11. Permisos](#11-permisos)
+  - [12. Despliegue de KeyCloak](#12-despliegue-de-keycloak)
+    - [13. Creación de directorios](#13-creacin-de-directorios)
+    - [14. Crear y configurar archivo .yml](#14-crear-y-configurar-archivo-yml)
+    - [15. Firewall Regla](#15-firewall-regla)
+  - [16. Crear Realm](#16-crear-realm)
+    - [17. Configurar Realm](#17-configurar-realm)
+  - [18. Autenticación multifactor](#18-autenticacin-multifactor)
+    - [19. Configuración de Autenticación](#19-configuracin-de-autenticacin)
+  - [20. Políticas de ataques](#20-polticas-de-ataques)
+  - [21. Políticas de Contraseñas](#21-polticas-de-contraseas)
+  - [22. Roles y Grupos](#22-roles-y-grupos)
+  - [23. Usuario](#23-usuario)
+  - [24. Fail2Ban](#24-fail2ban)
+    - [25. Instalación del Fail2Ban](#25-instalacin-del-fail2ban)
+    - [26. Crear configuración inicial](#26-crear-configuracin-inicial)
+    - [27. Reiniciamos y comprobamos](#27-reiniciamos-y-comprobamos)
+  - [28. Actualizaciones Automáticas de Seguridad](#28-actualizaciones-automticas-de-seguridad)
+    - [29. Configurar actualizaciones automáticas](#29-configurar-actualizaciones-automticas)
+    - [30. Configuración de política restrictiva](#30-configuracin-de-poltica-restrictiva)
+- [S1-05: Hardening en el Nodo AWS](#s1-05-hardening-en-el-nodo-aws)
+  - [1. Firewall - AWS](#1-firewall---aws)
+    - [2. Reglas](#2-reglas)
+    - [3. Dentro de la Instancia](#3-dentro- de-la-instancia)
+  - [4. Fail2Ban](#4-fail2ban)
+    - [5. Configuración](#5-configuracin)
+  - [6. Actualizaciones Automáticas de Seguridad en AWS](#6-actualizaciones-automticas-de-seguridad-en-aws)
+    - [7. Configurar actualizaciones automáticas](#7-configurar-actualizaciones-automticas)
 
 ---
 
@@ -101,14 +49,10 @@
 # **S1-01: Acceso SSH Seguro (Hardening Inicial) - Isard**
 
 <a name="1-gestion-de-claves"></a>
-
-<a name="1-gestion-de-claves"></a>
 ## **1. Gestion de claves**
 
 <a name="2-generar-claves"></a>
-
-<a name="2-generar-claves"></a>
-## **2. Generar claves**
+### **2. Generar claves**
 
    Crearemos las claves con este comando
 
@@ -119,9 +63,7 @@ ssh-keygen -t ed25519 -C "giuseppe-access"
    El algoritmo ed25519 es más seguro y más rápido que el predeterminado como es el RSA
 
 <a name="3-pasar-claves"></a>
-
-<a name="3-pasar-claves"></a>
-## **3. Pasar claves**
+### **3. Pasar claves**
 
    Ahora pasaremos las claves con el servidor que en este caso es del compañero
 
@@ -134,14 +76,10 @@ ssh-copy-id -i ~/.ssh/id_ed25519.pub isard@192.168.18.10
    Podemos hacer ssh y no nos pide la contraseña
 
 <a name="4-handering-de-ssh"></a>
-
-<a name="4-handering-de-ssh"></a>
 ## **4. Handering de SSH**
 
 <a name="5-cambiar-puerto-y-archivo-de-configuracin"></a>
-
-<a name="5-cambiar-puerto-y-archivo-de-configuracin"></a>
-## **5. Cambiar puerto y archivo de configuración**
+### **5. Cambiar puerto y archivo de configuración**
 
    Accedemos al archivo de configuración
 
@@ -168,14 +106,10 @@ sudo nano /etc/ssh/sshd_config
    Para finalizar miramos el servicio
 
 <a name="6-firewall"></a>
-
-<a name="6-firewall"></a>
 ## **6. Firewall**
 
 <a name="7-crear-reglas"></a>
-
-<a name="7-crear-reglas"></a>
-## **7. Crear reglas**
+### **7. Crear reglas**
 
    Bloqueamos todo y solo dejaremos lo que necesitaremos
 
@@ -210,8 +144,6 @@ sudo ufw enable
 ```
 
 <a name="8-regla-aws"></a>
-
-<a name="8-regla-aws"></a>
 ## **8. Regla AWS**
 
    1. Security Group
@@ -221,14 +153,10 @@ sudo ufw enable
       # **S1-02: Docker + Keycloak - Isard**
 
 <a name="9-instalacin-de-docker"></a>
-
-<a name="9-instalacin-de-docker"></a>
 ## **9. Instalación de Docker**
 
 <a name="10-instalar-paquetes"></a>
-
-<a name="10-instalar-paquetes"></a>
-## **10. Instalar paquetes**
+### **10. Instalar paquetes**
 
    Ejecutamos lo siguiente para instalar los paquetes
 
@@ -237,9 +165,7 @@ sudo apt install docker.io docker-compose -y
 ```
 
 <a name="11-permisos"></a>
-
-<a name="11-permisos"></a>
-## **11. Permisos**
+### **11. Permisos**
 
    Para evitar usar sudo, lo que haremos es lo siguiente
 
@@ -248,14 +174,10 @@ sudo usermod -aG docker $USER
 ```
 
 <a name="12-despliegue-de-keycloak"></a>
-
-<a name="12-despliegue-de-keycloak"></a>
 ## **12. Despliegue de KeyCloak**
 
 <a name="13-creacin-de-directorios"></a>
-
-<a name="13-creacin-de-directorios"></a>
-## **13. Creación de directorios**
+### **13. Creación de directorios**
 
    Crearemos las carpetas
 
@@ -268,9 +190,7 @@ cd ~/zth-node-cloud/keycloak
 ```
 
 <a name="14-crear-y-configurar-archivo-yml"></a>
-
-<a name="14-crear-y-configurar-archivo-yml"></a>
-## **14. Crear y configurar archivo .yml**
+### **14. Crear y configurar archivo .yml**
 
    Creamos el archivo con el comando
 
@@ -323,9 +243,7 @@ volumes:
 ```
 
 <a name="15-firewall-regla"></a>
-
-<a name="15-firewall-regla"></a>
-## **15. Firewall Regla**
+### **15. Firewall Regla**
 
    Ahora deberemos de crear una nueva regla para poder acceder al Keycloak
 
@@ -342,14 +260,10 @@ sudo ufw allow 8080/tcp
    # **S1-03: Configuración de Seguridad IAM - Isard**
 
 <a name="16-crear-realm"></a>
-
-<a name="16-crear-realm"></a>
 ## **16. Crear Realm**
 
 <a name="17-configurar-realm"></a>
-
-<a name="17-configurar-realm"></a>
-## **17. Configurar Realm**
+### **17. Configurar Realm**
 
    Ejecutamos lo siguiente para instalar los paquetes
 
@@ -360,14 +274,10 @@ sudo ufw allow 8080/tcp
    Ya hemos creado el Realm Correctamente
 
 <a name="18-autenticacin-multifactor"></a>
-
-<a name="18-autenticacin-multifactor"></a>
 ## **18. Autenticación multifactor**
 
 <a name="19-configuracin-de-autenticacin"></a>
-
-<a name="19-configuracin-de-autenticacin"></a>
-## **19. Configuración de Autenticación**
+### **19. Configuración de Autenticación**
 
    Desde nuestro Realm, nos vamos al apartado de configure y nos dirigimos donde nos dice Authentication
 
@@ -376,8 +286,6 @@ sudo ufw allow 8080/tcp
    Ahora marcamos la opción de Set as Default Action
 
    Esto lo que hará es que todo usuario nuevo deberá de tener una app para autenticarse
-
-<a name="20-polticas-de-ataques"></a>
 
 <a name="20-polticas-de-ataques"></a>
 ## **20. Políticas de ataques**
@@ -407,8 +315,6 @@ sudo ufw allow 8080/tcp
    En el panel de administración, vemos que se ha bloqueado temporalmente
 
 <a name="21-polticas-de-contraseas"></a>
-
-<a name="21-polticas-de-contraseas"></a>
 ## **21. Políticas de Contraseñas**
 
    Nos vamos al apartado de Authentication y nos vamos al apartado de Polices
@@ -425,8 +331,6 @@ sudo ufw allow 8080/tcp
    Ahora lo configuramos de la siguiente manera
 
    Obligamos a que las contraseñas tengan como mínimo 10 caracteres
-
-<a name="22-roles-y-grupos"></a>
 
 <a name="22-roles-y-grupos"></a>
 ## **22. Roles y Grupos**
@@ -446,8 +350,6 @@ sudo ufw allow 8080/tcp
    Ahora crearemos el otro grupo como es el de los Trabajadores
 
    Ahora crearemos el Grupo de Auditoría
-
-<a name="23-usuario"></a>
 
 <a name="23-usuario"></a>
 ## **23. Usuario**
@@ -541,14 +443,10 @@ sudo ufw allow 8080/tcp
    # **S1-04: Hardening Avanzado del Sistema - Isard**
 
 <a name="24-fail2ban"></a>
-
-<a name="24-fail2ban"></a>
 ## **24. Fail2Ban**
 
 <a name="25-instalacin-del-fail2ban"></a>
-
-<a name="25-instalacin-del-fail2ban"></a>
-## **25. Instalación del Fail2Ban**
+### **25. Instalación del Fail2Ban**
 
    Primero de todo realizaremos la instalación
 
@@ -557,9 +455,7 @@ sudo apt install fail2ban -y
 ```
 
 <a name="26-crear-configuracin-inicial"></a>
-
-<a name="26-crear-configuracin-inicial"></a>
-## **26. Crear configuración inicial**
+### **26. Crear configuración inicial**
 
    Creamos un .local para que si hay alguna actualización, que no se nos escriba el archivo .conf
 
@@ -598,9 +494,7 @@ sudo nano /etc/fail2ban/jail.local
    **banaction = ufw →** Indicamos que lo haga mediante ufw en vez de iptables, cuya ventaja es que lo bloquea directamente el firewall
 
 <a name="27-reiniciamos-y-comprobamos"></a>
-
-<a name="27-reiniciamos-y-comprobamos"></a>
-## **27. Reiniciamos y comprobamos**
+### **27. Reiniciamos y comprobamos**
 
    Ahora vamos a reiniciar el servicio
 
@@ -625,11 +519,10 @@ sudo fail2ban-client status sshd
    Como podemos ver, tenemos la IP baneada, haremos un unban y la IP que queremos desbloquear y después de hacer eso, vemos que ya no tenemos la IP baneada
 
 <a name="28-actualizaciones-automticas-de-seguridad"></a>
-
-<a name="28-actualizaciones-automticas-de-seguridad"></a>
 ## **28. Actualizaciones Automáticas de Seguridad**
 
-### **Configurar actualizaciones automáticas**
+<a name="29-configurar-actualizaciones-automticas"></a>
+### **29. Configurar actualizaciones automáticas**
 
       Para minimizar las vulnerabilidades, deberemos de indicar que los “parches” de seguridad se hagan de manera automática
 
@@ -661,7 +554,8 @@ sudo dpkg-reconfigure --priority=low unattended-upgrades
 systemctl status unattended-upgrades
 ```
 
-### **Configuración de política restrictiva**
+<a name="30-configuracin-de-poltica-restrictiva"></a>
+### **30. Configuración de política restrictiva**
 
 Ahora le indicaremos al firewall que bloquee cualquier paquete siempre y cuando no le hemos indicado lo contrario
 
@@ -677,19 +571,13 @@ sudo ufw status verbose
 ---
 
 <a name="s1-05-hardening-en-el-nodo-aws"></a>
-
-<a name="s1-05-hardening-en-el-nodo-aws"></a>
 # **S1-05: Hardening en el Nodo AWS**
-
-<a name="1-firewall---aws"></a>
 
 <a name="1-firewall---aws"></a>
 ## **1. Firewall - AWS**
 
 <a name="2-reglas"></a>
-
-<a name="2-reglas"></a>
-## **2. Reglas**
+### **2. Reglas**
 
    En AWS creamos reglas para el ssh por el puerto 2222
 
@@ -698,9 +586,7 @@ sudo ufw status verbose
    Todo lo que no se encuentra aqui sera denegado con DROP
 
 <a name="3-dentro-de-la-instancia"></a>
-
-<a name="3-dentro-de-la-instancia"></a>
-## **3. Dentro de la Instancia**
+### **3. Dentro de la Instancia**
 
    Ahora realizaremos la configuración dentro de la instancia, denegamos todo
 
@@ -753,22 +639,10 @@ sudo ufw status verbose
 ```
 
 <a name="4-fail2ban"></a>
-
-<a name="4-fail2ban"></a>
 ## **4. Fail2Ban**
 
-1. Instalación del Fail2Ban
-
-   Haremos la actualización, y procederemos a la instalación
-
-```bash
-sudo apt update && sudo apt install fail2ban -y
-```
-
 <a name="5-configuracin"></a>
-
-<a name="5-configuracin"></a>
-## **5. Configuración**
+### **5. Configuración**
 
    Ahora el archivo de configuración, tendríamos lo siguiente
 
@@ -786,21 +660,10 @@ sudo nano /etc/fail2ban/jail.local
    findtime = 600
    bantime = -1
    banaction = ufw
-   
 ```
 
 ```bash
 sudo cat /etc/fail2ban/jail.local
-```
-
-3. Reiniciamos el servicio y miramos el estado
-
-```bash
-sudo systemctl restart fail2ban
-```
-
-```bash
-sudo systemctl status fail2ban
 ```
 
 #### **Comprobación**
@@ -812,14 +675,10 @@ sudo systemctl status fail2ban
    Ahora desde el servidor de AWS podemos ver el baneo
 
 <a name="6-actualizaciones-automticas-de-seguridad-en-aws"></a>
-
-<a name="6-actualizaciones-automticas-de-seguridad-en-aws"></a>
 ## **6. Actualizaciones Automáticas de Seguridad en AWS**
 
 <a name="7-configurar-actualizaciones-automticas"></a>
-
-<a name="7-configurar-actualizaciones-automticas"></a>
-## **7. Configurar actualizaciones automáticas**
+### **7. Configurar actualizaciones automáticas**
 
    Como hemos realizado antes en ISARD, configuraremos para que se hagan las actualizaciones automáticas
 
