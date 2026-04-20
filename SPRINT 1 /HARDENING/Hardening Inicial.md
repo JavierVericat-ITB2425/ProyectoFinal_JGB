@@ -988,7 +988,7 @@ sudo apt install unattended-upgrades -y sudo dpkg-reconfigure --priority=low
         
       **unattended-upgrades →** Su función es la de revisar repositorios y si hay un nuevo “parche” lo descarga y se aplica, busca vulnerabilidades
 
-      ### **Ejecutamos el siguiente comando**
+  Ejecutamos el siguiente comando
 
 ```bash
 sudo dpkg-reconfigure --priority=low unattended-upgrades
@@ -1018,8 +1018,6 @@ bash
 ```bash
 sudo ufw status verbose
 ```
-
-      ### 
 
 [http://192.168.18.10:8080/realms/zth-node-cloud/account](http://192.168.18.10:8080/realms/zth-node-cloud/account)
 
