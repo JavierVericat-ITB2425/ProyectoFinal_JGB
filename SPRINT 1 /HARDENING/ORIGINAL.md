@@ -210,10 +210,12 @@ sudo ufw allow 8080/tcp
 ## **8. Autenticación multifactor**
 <a name="81-configuracin-de-autenticacin"></a>
 ### **8.1 Configuración de Autenticación**
-   Desde nuestro Realm, nos vamos al apartado de configure y nos dirigimos donde nos dice Authentication
-   Ahora nos dirigimos donde nos indican Requiere Actions
-   Ahora marcamos la opción de Set as Default Action
-   Esto lo que hará es que todo usuario nuevo deberá de tener una app para autenticarse
+   Desde nuestro Realm, configuraremos la autenticación multifactor siguiendo estos pasos:
+
+   - **Acceso**: Nos dirigimos al apartado de **Configure** y seleccionamos **Authentication**.
+   - **Acciones**: Entramos en la pestaña **Required Actions**.
+   - **Configuración**: Marcamos la opción de **Set as Default Action**.
+   - **Efecto**: Esto obligará a que todo usuario nuevo deba configurar una aplicación de autenticación para poder acceder.
 <a name="9-polticas-de-ataques"></a>
 ## **9. Políticas de ataques**
    Ahora deberemos de dirigirnos a donde dice Realm Settings y después a Security Defense
@@ -243,14 +245,18 @@ sudo ufw allow 8080/tcp
    Obligamos a que las contraseñas tengan como mínimo 10 caracteres
 <a name="11-roles-y-grupos"></a>
 ## **11. Roles y Grupos**
-   Ahora crearemos los roles estos se hacen desde Realm Roles
-   El primer role que crearemos será el de Administrador
-   Ahora el otro Role seria de Trabajadores
-   Ahora el otro Role seria de Auditoría
-   Ahora crearemos también un grupo que sea Administradores
-   Le asignamos un nombre
-   Ahora crearemos el otro grupo como es el de los Trabajadores
-   Ahora crearemos el Grupo de Auditoría
+   Para una gestión organizada, crearemos los roles y grupos necesarios:
+
+   **Roles de Realm**:
+   - Se crean desde el apartado **Realm Roles**.
+   - **Administrador**: Rol con privilegios totales.
+   - **Trabajadores**: Rol para operarios de nivel básico.
+   - **Auditoría**: Rol específico para visualización y revisión.
+
+   **Grupos de Usuarios**:
+   - **Administradores**: Asignamos un nombre y vinculamos el rol correspondiente.
+   - **Trabajadores**: Grupo para el personal operativo.
+   - **Auditoría**: Grupo para los auditores del sistema.
 <a name="12-usuario"></a>
 ## **12. Usuario**
 
