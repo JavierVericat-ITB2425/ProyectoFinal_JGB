@@ -1,5 +1,5 @@
 <a name="proyecto-final-hardening-inicial-y-despliegue-de-infraestructura-segura"></a>
-# **Proyecto Final: Hardening Inicial y Despliegue de Infraestructura Segura**
+# **Hardening Inicial y Despliegue de Infraestructura Segura**
 
 **N°:** GRUPO X
 **Integrantes:** Javier Vericat - Bryan Aguilera - Giuseppe Suarez
