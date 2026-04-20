@@ -1,4 +1,10 @@
+
+
+
+
 <a name="s1-02---acceso-ssh-seguro-hardening-inicial"></a>
+# **S1-02 - Acceso SSH Seguro (Hardening Inicial)**
+
 
 # **Índice**
 - [S1-02 - Acceso SSH Seguro (Hardening Inicial)](#s1-02---acceso-ssh-seguro-hardening-inicial)
@@ -51,7 +57,7 @@
 
 ---
 
-# **S1-02 - Acceso SSH Seguro (Hardening Inicial)**
+
 
 **N°:** GRUPO X
 
@@ -63,12 +69,12 @@
 # **S1-01 - Acceso SSH Seguro (Hardening Inicial) - Isard**
 
 <a name="gestion-de-claves"></a>
-1. ## **Gestion de claves**
+1. **Gestion de claves**
 
    
 
 <a name="generar-claves"></a>
-1. ### **Generar claves**
+1. **Generar claves**
 
    
 
@@ -95,7 +101,7 @@ ssh-keygen -t ed25519 -C "giuseppe-access"
    
 
 <a name="pasar-claves"></a>
-2. ### **Pasar claves**
+2. **Pasar claves**
 
    
 
@@ -106,7 +112,7 @@ ssh-copy-id -i ~/.ssh/id_ed25519.pub isard@192.168.18.10
 ```
 
 <a name="comprobacin"></a>
-3. ### **Comprobación**
+3. **Comprobación**
 
    
 
@@ -115,12 +121,12 @@ ssh-copy-id -i ~/.ssh/id_ed25519.pub isard@192.168.18.10
    
 
 <a name="handering-de-ssh"></a>
-2. ## **Handering de SSH**
+2. **Handering de SSH**
 
    
 
 <a name="cambiar-puerto-y-archivo-de-configuracin"></a>
-1. ### **Cambiar puerto y archivo de configuración**
+1. **Cambiar puerto y archivo de configuración**
 
    
 
@@ -136,21 +142,19 @@ sudo nano /etc/ssh/sshd_config
 
    
 
-   **Puerto** → Modificamos el puerto que viene por defecto para evitar ataques de botnets
+   **Port 2222** → Modificamos el puerto que viene por defecto para evitar ataques de botnets
 
    
 
-   **PermitRootLogin →** Prohibimos que un usuario con root o superusuario pueda acceder directamente
+   **PermitRootLogin no →** Prohibimos que un usuario con root o superusuario pueda acceder directamente
 
    
 
-   **PubkeyAuthentication →** Indicamos al servidor que puedas procesar y aceptar claves como la configurada
+   **PubkeyAuthentication yes →** Indicamos al servidor que puedas procesar y aceptar claves como la configurada
 
    
 
-   **PasswordAuthentication →** Obligamos a que el servidor solo acepte claves, y no contraseñas, lo cual lo hace que no se pueda intentar ataques de fuerza bruta 
-
-   
+   **PasswordAuthentication yes →** Obligamos a que el servidor solo acepte claves, y no contraseñas, lo cual lo hace que no se pueda intentar ataques de fuerza bruta    
 
    
 
@@ -163,7 +167,7 @@ sudo nano /etc/ssh/sshd_config
    
 
 <a name="comprobacion"></a>
-2. ### **Comprobacion**
+2. **Comprobacion**
 
    Validamos si la configuración se ha realizado correctamente o hay algo en el archivo incorrecto
 
@@ -178,12 +182,12 @@ sudo nano /etc/ssh/sshd_config
    
 
 <a name="firewall"></a>
-3. ## **Firewall**
+3. **Firewall**
 
    
 
 <a name="crear-reglas"></a>
-1. ### **Crear reglas**
+1. **Crear reglas**
 
    
 
@@ -197,32 +201,36 @@ sudo nano /etc/ssh/sshd_config
 
    
 
-   
+**sudo ufw default allow outgoing →** Indicamos que los paquetes desde el servidor hacia fuera sean habilitados   
+```bash
+   sudo ufw default allow outgoing 
+```
 
-   
-
-   **sudo ufw default allow outgoing** → Indicamos que los paquetes desde el servidor hacia fuera sean habilitados
-
+**sudo ufw allow 2222/tcp como el puerto 22** → Son para el SSH, primero el ssh es puerto 22 pero luego lo cambiamos a puerto 2222 para seguridad
 ```bash
 sudo ufw allow 2222/tcp
+
 ```
- como el puerto 22 → Son para el SSH, primero el ssh es puerto 22 pero luego lo cambiamos a puerto 2222 para seguridad
+**sudo ufw allow 80/tcp y 8443/tcp**→ Son para el servicio de Nginx tanto el http como https
+```bash
+sudo ufw allow 80/tcp
+```
 
-   
+```bash
+sudo ufw allow 8443/tcp
+```
 
-   **sudo ufw allow 80/tcp y 8443/tcp** → Son para el servicio de Nginx tanto el http como https
-
-   
+**sudo ufw enable** Hacemos que ahora quede configurado siempre que se inicie el servidor con esta configuración
 ```bash
 sudo ufw enable
 ```
- Hacemos que ahora quede configurado siempre que se inicie el servidor con esta configuración
 
 <a name="regla-aws"></a>
-4. ## **Regla AWS**
+4. **Regla AWS**
 
    
 
+<a name="security-group"></a>
    1. Security Group  
         
       Ahora desde AWS, deberemos de crear una regla de entrada indicando el protocolo TCP y que sea por el puerto 2222  
@@ -233,12 +241,12 @@ sudo ufw enable
       # **S1-02 - Docker \+ Keycloak - Isard**
 
 <a name="instalacin-de-docker"></a>
-1. ## **Instalación de Docker**
+1. **Instalación de Docker**
 
    
 
 <a name="instalar-paquetes"></a>
-1. ### **Instalar paquetes**
+1. **Instalar paquetes**
 
    
 
@@ -249,7 +257,7 @@ sudo apt install docker.io docker-compose -y
 ```
 
 <a name="permisos"></a>
-2. ### **Permisos**
+2. **Permisos**
 
    
 
@@ -260,12 +268,12 @@ sudo usermod -aG docker $USER
 ```
 
 <a name="despliegue-de-keycloak"></a>
-2. ## **Despliegue de KeyCloak**
+2. **Despliegue de KeyCloak**
 
    
 
 <a name="creacin-de-directorios"></a>
-1. ### **Creación de directorios**
+1. **Creación de directorios**
 
    
 
@@ -281,7 +289,7 @@ cd ~/zth-node-cloud/keycloak
 ```
 
 <a name="crear-y-configurar-archivo-yml"></a>
-2. ### **Crear y configurar archivo .yml**
+2. **Crear y configurar archivo .yml**
 
    
 
@@ -298,8 +306,6 @@ sudo nano docker-compose.yml
 ```yaml
 version: '3.8'
 
-   
-
    services:
 
      zth-postgres:
@@ -308,11 +314,11 @@ version: '3.8'
 
        container_name: zth-keycloak-db
 
-       restart: always  \# \<-- Esto hace que el contenedor se reinicie solo si el server falla
+       restart: always
 
        volumes:
 
-         - zth_db_data:/var/lib/postgresql/data  \# \<-- PERSISTENCIA AQUÍ
+         - zth_db_data:/var/lib/postgresql/data  
 
        environment:
 
@@ -326,8 +332,6 @@ version: '3.8'
 
          - zth-network
 
-   
-
      zth-keycloak:
 
        image: quay.io/keycloak/keycloak:24.0
@@ -336,7 +340,7 @@ version: '3.8'
 
        command: start-dev
 
-       restart: always  \# \<-- Persistencia de disponibilidad
+       restart: always
 
        environment:
 
@@ -368,33 +372,21 @@ version: '3.8'
 
          - zth-network
 
-   
-
    networks:
 
      zth-network:
 
        driver: bridge
 
-   
-
-   \# Definición de los volúmenes persistentes
-
    volumes:
 
-     zth_db_data:  \# Docker gestionará este espacio en /var/lib/docker/volumes/
+     zth_db_data:
 ```
-
-   
-
-   
-
-   
 
    ### 
 
 <a name="firewall-regla"></a>
-3. ### **Firewall Regla**
+3. **Firewall Regla**
 
    
 
@@ -405,7 +397,7 @@ sudo ufw allow 8080/tcp
 ```
 
 <a name="comprobacin"></a>
-4. ### **Comprobación**
+4. **Comprobación**
 
    
 
@@ -424,12 +416,12 @@ sudo ufw allow 8080/tcp
    # **S1-03 - Configuración de Seguridad IAM - Isard**
 
 <a name="crear-realm"></a>
-1. ## **Crear Realm**
+1. **Crear Realm**
 
    
 
 <a name="configurar-realm"></a>
-1. ### **Configurar Realm**
+1. **Configurar Realm**
 
    
 
@@ -456,12 +448,12 @@ sudo ufw allow 8080/tcp
    
 
 <a name="autenticacin-multifactor"></a>
-2. ##  **Autenticación multifactor**
+2. **Autenticación multifactor**
 
    
 
 <a name="configuracin-de-autenticacin"></a>
-1. ### **Configuración de Autenticación**
+1. **Configuración de Autenticación**
 
    Desde nuestro Realm, nos vamos al apartado de configure y nos dirigimos donde nos dice Authentication
 
@@ -482,7 +474,7 @@ sudo ufw allow 8080/tcp
    
 
 <a name="polticas-de-ataques"></a>
-2. ### **Políticas de ataques**
+2. **Políticas de ataques**
 
    
 
@@ -529,7 +521,7 @@ sudo ufw allow 8080/tcp
    
 
 <a name="comprobacin"></a>
-3. ### **Comprobación** 
+3. **Comprobación** 
 
    SI intentamos acceder y fallamos 3 veces la contraseña
 
@@ -540,7 +532,7 @@ sudo ufw allow 8080/tcp
    ### 
 
 <a name="polticas-de-contraseas"></a>
-4. ### **Políticas de Contraseñas**
+4. **Políticas de Contraseñas**
 
    Nos vamos al apartado de Authentication y nos vamos al apartado de Polices
 
@@ -550,11 +542,17 @@ sudo ufw allow 8080/tcp
 
    
 
+<a name="digit-obligamos-a-poner-dgito-como-mnimo"></a>
 1. **Digit** →Obligamos a poner dígito como mínimo  
+<a name="not-username-evitamos-que-la-contrasea-pongan-el-nombre-del-usuario"></a>
 2. **Not Username** → Evitamos que la contraseña pongan el nombre del usuario  
+<a name="lowercase-characters-obligatorio-poner-mayscula-como-mnimo"></a>
 3. **Lowercase Characters** → Obligatorio poner mayúscula como mínimo  
+<a name="uppercase-characters-obligatorio-poner-mayscula-como-mnimo"></a>
 4. **Uppercase Characters** → Obligatorio poner mayúscula como mínimo  
+<a name="special-characters-obligatorio-poner-un-carcter-especial"></a>
 5. **Special Characters →** Obligatorio poner un carácter especial  
+<a name="minimum-length-un-mnimo-de-longitud-obligatoria"></a>
 6. **Minimum Length →** Un mínimo de longitud obligatoria
 
    
@@ -568,7 +566,7 @@ sudo ufw allow 8080/tcp
    Obligamos a que las contraseñas tengan como mínimo 10 caracteres
 
 <a name="roles-y-grupos"></a>
-5. ### **Roles y Grupos**
+5. **Roles y Grupos**
 
    
 
@@ -610,7 +608,7 @@ sudo ufw allow 8080/tcp
    ### 
 
 <a name="usuario"></a>
-6. ### **Usuario**
+6. **Usuario**
 
    
 
@@ -694,7 +692,7 @@ sudo ufw allow 8080/tcp
    
 
 <a name="comprobacion"></a>
-7. ### **Comprobacion**
+7. **Comprobacion**
 
    #### **giuseppe-admin**     Iniciaremos sesión con el usuario de administrador
 
@@ -832,12 +830,12 @@ sudo ufw allow 8080/tcp
    # **S1-04: Hardening Avanzado del Sistema - Isard**
 
 <a name="fail2ban"></a>
-1. ## **Fail2Ban**
+1. **Fail2Ban**
 
    
 
 <a name="instalacin-del-fail2ban"></a>
-1. ### **Instalación del Fail2Ban**
+1. **Instalación del Fail2Ban**
 
    
 
@@ -848,7 +846,7 @@ sudo apt install fail2ban -y
 ```
 
 <a name="crear-configuracin-inicial"></a>
-2. ### **Crear configuración inicial**
+2. **Crear configuración inicial**
 
    
 
@@ -857,44 +855,44 @@ sudo apt install fail2ban -y
 ```bash
 sudo nano /etc/fail2ban/jail.local
 ```
+```bash
 
-   \[sshd\]
+   [sshd]
 
-   enabled \= true
+   enabled = true
 
-   port \= 2222
+   port = 2222
 
-   filter \= sshd
+   filter = sshd
 
-   logpath \= /var/log/auth.log
+   logpath = /var/log/auth.log
 
-   maxretry \= 2
+   maxretry = 2
 
-   findtime \= 600
+   findtime = 600
 
-   bantime \= -1
+   bantime = -1
 
-   banaction \= ufw
+   banaction = ufw
+```
 
-   
+   **[sshd] →** Indicamos que esta configuración se aplica al ssh
 
-   \[sshd\] → Indicamos que esta configuración se aplica al ssh
+   **enabled = true →** Indicamos que se ejecute
 
-   enabled \= true → Indicamos que se ejecute
+   **port = 2222 →** Indicamos en qué puerto debe de ejecutarse
 
-   port \= 2222 → Indicamos en qué puerto debe de ejecutarse
+   **filter = sshd →** Es un filtro para que busque errores como invalid password etc
 
-   filter \= sshd → Es un filtro para que busque errores como invalid password etc
+   **logpath = /var/log/auth.log →** Es donde se revisaran los logs
 
-   logpath \= /var/log/auth.log → Es donde se revisaran los logs
+   **maxretry = 2 →** Número máximo de intentos
 
-   maxretry \= 2 → Número máximo de intentos
+   **findtime = 600 →** Si fallo 2 veces, en menos de 10 min, se ejecuta el baneo
 
-   findtime \= 600 → Si fallo 2 veces, en menos de 10 min, se ejecuta el baneo
+   **bantime = -1 →** Indicamos que el baneo sea permanente
 
-   bantime \= -1 → Indicamos que el baneo sea permanente
-
-   banaction \= ufw → Indicamos que lo haga mediante ufw en vez de iptables, cuya ventaja es que lo bloquea directamente el firewall
+   **banaction = ufw →** Indicamos que lo haga mediante ufw en vez de iptables, cuya ventaja es que lo bloquea directamente el firewall
 
    
 
@@ -905,7 +903,7 @@ sudo nano /etc/fail2ban/jail.local
    
 
 <a name="reiniciamos-y-comprobamos"></a>
-3. ### **Reiniciamos y comprobamos** 
+3. **Reiniciamos y comprobamos** 
 
    Ahora vamos a reiniciar el servicio
 
@@ -922,7 +920,7 @@ sudo fail2ban-client status sshd
    ### 
 
 <a name="comprobacion"></a>
-4. ### **COMPROBACION**
+4. **COMPROBACION**
 
    Si desde cliente intentó acceder y fallo las contraseñas, nos sale este mensaje
 
@@ -944,11 +942,12 @@ sudo fail2ban-client status sshd
    Como podemos ver, tenemos la IP baneada, haremos un unban y la IP que queremos desbloquear y después de hacer eso, vemos que ya no tenemos la IP baneada
 
 <a name="actualizaciones-automticas-de-seguridad"></a>
-2. ## **Actualizaciones Automáticas de Seguridad**
+2. **Actualizaciones Automáticas de Seguridad**
 
    
 
-   1. ### **Configurar actualizaciones automáticas**
+<a name="configurar-actualizaciones-automticas"></a>
+   1. **Configurar actualizaciones automáticas**
 
         
       Para minimizar las vulnerabilidades, deberemos de indicar que los “parches” de seguridad se hagan de manera automática
@@ -958,8 +957,6 @@ sudo fail2ban-client status sshd
 ```bash
 sudo apt install unattended-upgrades -y sudo dpkg-reconfigure --priority=low
 ```
-
-  unattended-upgrades  
         
   **sudo apt install unattended-upgrades -y →** Es un paquete el cual permite descargar actualizaciones y aplicarse automáticamente sin necesidad de interacción con el usuario  
         
@@ -969,14 +966,14 @@ sudo apt install unattended-upgrades -y sudo dpkg-reconfigure --priority=low
         
   **unattended-upgrades →** Su función es la de revisar repositorios y si hay un nuevo “parche” lo descarga y se aplica, busca vulnerabilidades
 
-  **Ejecutamos el siguiente comando**
+  Ejecutamos el siguiente comando
 
 ```bash
 sudo dpkg-reconfigure --priority=low unattended-upgrades
 ```
 
 <a name="comprobacion"></a>
-2. ### **Comprobacion**
+2. **Comprobacion**
 
      
    Para realizar si se está ejecutando correctamente, ejecutaremos el siguiente comando
@@ -985,10 +982,11 @@ sudo dpkg-reconfigure --priority=low unattended-upgrades
 systemctl status unattended-upgrades
 ```
 
-   3. ### **Configuración de política restrictiva**
+<a name="configuracin-de-poltica-restrictiva"></a>
+   3. **Configuración de política restrictiva**
 
         
-      Ahora le indicaremos al firewall que bloquee cualquier paquete siempre y cuando no le hemos indicado lo contrario  
+Ahora le indicaremos al firewall que bloquee cualquier paquete siempre y cuando no le hemos indicado lo contrario  
 
 ```bash
 sudo ufw default deny incoming
@@ -999,20 +997,18 @@ bash
 sudo ufw status verbose
 ```
 
-      ### 
-
 [http://192.168.18.10:8080/realms/zth-node-cloud/account](http://192.168.18.10:8080/realms/zth-node-cloud/account)
 
 <a name="s1-05-hardening-en-el-nodo-aws"></a>
 # **S1-05: Hardening en el Nodo AWS**
 
 <a name="firewall---aws"></a>
-1. ## **Firewall - AWS**
+1. **Firewall - AWS**
 
    
 
 <a name="reglas"></a>
-1. ### **Reglas** 
+1. **Reglas** 
 
    
 
@@ -1027,7 +1023,7 @@ sudo ufw status verbose
    Todo lo que no se encuentra aqui sera denegado con DROP
 
 <a name="dentro-de-la-instancia"></a>
-2. ### **Dentro de la Instancia**
+2. **Dentro de la Instancia**
 
    
 
@@ -1040,13 +1036,9 @@ bash
 sudo ufw default allow outgoing
 
    Creamos las reglas de SSH con puerto 222, tenemos también HTTPS con 443 y tenemos también el WireGuard
-
-   Para finalizar activamos el Firewall
-
 ```bash
 sudo ufw allow 2222/tcp
 ```
-bash
 
 ```bash
 sudo ufw allow 8080/tcp
@@ -1055,7 +1047,7 @@ sudo ufw allow 8080/tcp
 ```bash
 sudo ufw allow 443/tcp
 ```
-bash
+
 
 ```bash
 sudo ufw allow 51820/udp
@@ -1070,20 +1062,32 @@ sudo ufw enable
 ```bash
 sudo ufw status verbose
 ```
+   Para finalizar activamos el Firewall
+
+```bash
+sudo ufw enable
+```
+
+   Revisión de las reglas
+
+```bash
+sudo ufw status verbose
+```
 
 <a name="fail2ban"></a>
-2. ## **Fail2Ban**
+2. **Fail2Ban**
 
      
+<a name="instalacin-del-fail2ban"></a>
 1. Instalación del Fail2Ban
 
    
 
    Haremos la actualización, y procederemos a la instalación
 
-   sudo apt update && 
+   
 ```bash
-sudo apt install fail2ban -y
+sudo apt update && sudo apt install fail2ban -y
 ```
 
    
@@ -1091,7 +1095,7 @@ sudo apt install fail2ban -y
    
 
 <a name="configuracin"></a>
-2. ### **Configuración**
+2. **Configuración**
 
    
 
@@ -1100,35 +1104,37 @@ sudo apt install fail2ban -y
 ```bash
 sudo nano /etc/fail2ban/jail.local
 ```
+```bash
 
-   \[sshd\]
+   [sshd]
 
-   enabled \= true
+   enabled = true
 
-   port \= 2222
+   port = 2222
 
-   filter \= sshd
+   filter = sshd
 
-   logpath \= /var/log/auth.log
+   logpath = /var/log/auth.log
 
-   maxretry \= 3
+   maxretry = 3
 
-   findtime \= 600
+   findtime = 600
 
-   bantime \= -1
+   bantime = -1
 
-   banaction \= ufw
+   banaction = ufw
 
    ubuntu@zth-node-
-
+```
    
-
+```bash
    sudo cat /etc/fail2ban/jail.local
-
+```
    
 
    
 
+<a name="reiniciamos-el-servicio-y-miramos-el-estado"></a>
 3. Reiniciamos el servicio y miramos el estado
 
 ```bash
@@ -1138,7 +1144,7 @@ bash
 sudo systemctl status fail2ban
 
 <a name="comprobacion"></a>
-4. ### **COmprobacion**
+4. **COmprobacion**
 
    Desde la máquina host fallamos 3 veces la contraseña a propósito
 
@@ -1155,12 +1161,12 @@ sudo systemctl status fail2ban
    ## 
 
 <a name="actualizaciones-automticas-de-seguridad-en-aws"></a>
-3. ## **Actualizaciones Automáticas de Seguridad en AWS**
+3. **Actualizaciones Automáticas de Seguridad en AWS**
 
    
 
 <a name="configurar-actualizaciones-automticas"></a>
-1. ### **Configurar actualizaciones automáticas**
+1. **Configurar actualizaciones automáticas**
 
    
 
@@ -1169,9 +1175,9 @@ sudo systemctl status fail2ban
    Instalaremos el paquete inicialmente
 
    
-
+```bash
    sudo apt update && sudo apt install unattended-upgrades -y
-
+```
    
 
    
@@ -1183,7 +1189,7 @@ sudo dpkg-reconfigure --priority=low unattended-upgrades
 ```
 
 <a name="comprobacion"></a>
-2. ### **Comprobacion**
+2. **Comprobacion**
 
    
 
@@ -1192,4 +1198,3 @@ sudo dpkg-reconfigure --priority=low unattended-upgrades
 ```bash
 systemctl status unattended-upgrades
 ```
-
