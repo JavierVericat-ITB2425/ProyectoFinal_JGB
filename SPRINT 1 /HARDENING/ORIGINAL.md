@@ -138,6 +138,7 @@ sudo ufw default allow outgoing
 
 ```bash
 sudo ufw allow 2222/tcp
+
 ```
 
 **sudo ufw allow 80/tcp y 8443/tcp**→ Son para el servicio de Nginx tanto el http como https
