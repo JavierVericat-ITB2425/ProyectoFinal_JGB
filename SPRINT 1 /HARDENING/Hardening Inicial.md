@@ -201,25 +201,29 @@ sudo nano /etc/ssh/sshd_config
 
    
 
-   
+**sudo ufw default allow outgoing →** Indicamos que los paquetes desde el servidor hacia fuera sean habilitados   
+```bash
+   **sudo ufw default allow outgoing** 
+```
 
-   
-
-   **sudo ufw default allow outgoing →** Indicamos que los paquetes desde el servidor hacia fuera sean habilitados
-
+**sudo ufw allow 2222/tcp como el puerto 22** → Son para el SSH, primero el ssh es puerto 22 pero luego lo cambiamos a puerto 2222 para seguridad
 ```bash
 sudo ufw allow 2222/tcp
+
 ```
-**sudo ufw allow 2222/tcp como el puerto 22** → Son para el SSH, primero el ssh es puerto 22 pero luego lo cambiamos a puerto 2222 para seguridad
-
-
 **sudo ufw allow 80/tcp y 8443/tcp**→ Son para el servicio de Nginx tanto el http como https
+```bash
+sudo ufw allow 80/tcp
+```
 
-  
+```bash
+sudo ufw allow 8443/tcp
+```
+
+**sudo ufw enable** Hacemos que ahora quede configurado siempre que se inicie el servidor con esta configuración
 ```bash
 sudo ufw enable
 ```
-**sudo ufw enable** Hacemos que ahora quede configurado siempre que se inicie el servidor con esta configuración
 
 <a name="regla-aws"></a>
 4. **Regla AWS**
