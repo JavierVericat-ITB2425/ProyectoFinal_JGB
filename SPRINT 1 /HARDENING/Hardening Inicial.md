@@ -142,21 +142,19 @@ sudo nano /etc/ssh/sshd_config
 
    
 
-   **Puerto** → Modificamos el puerto que viene por defecto para evitar ataques de botnets
+   **Port 2222** → Modificamos el puerto que viene por defecto para evitar ataques de botnets
 
    
 
-   **PermitRootLogin →** Prohibimos que un usuario con root o superusuario pueda acceder directamente
+   **PermitRootLogin no →** Prohibimos que un usuario con root o superusuario pueda acceder directamente
 
    
 
-   **PubkeyAuthentication →** Indicamos al servidor que puedas procesar y aceptar claves como la configurada
+   **PubkeyAuthentication yes →** Indicamos al servidor que puedas procesar y aceptar claves como la configurada
 
    
 
-   **PasswordAuthentication →** Obligamos a que el servidor solo acepte claves, y no contraseñas, lo cual lo hace que no se pueda intentar ataques de fuerza bruta 
-
-   
+   **PasswordAuthentication yes →** Obligamos a que el servidor solo acepte claves, y no contraseñas, lo cual lo hace que no se pueda intentar ataques de fuerza bruta    
 
    
 
@@ -212,17 +210,16 @@ sudo nano /etc/ssh/sshd_config
 ```bash
 sudo ufw allow 2222/tcp
 ```
-sudo ufw allow 2222/tcp como el puerto 22 → Son para el SSH, primero el ssh es puerto 22 pero luego lo cambiamos a puerto 2222 para seguridad
+**sudo ufw allow 2222/tcp como el puerto 22** → Son para el SSH, primero el ssh es puerto 22 pero luego lo cambiamos a puerto 2222 para seguridad
 
-   
 
-   **sudo ufw allow 80/tcp y 8443/tcp**→ Son para el servicio de Nginx tanto el http como https
+**sudo ufw allow 80/tcp y 8443/tcp**→ Son para el servicio de Nginx tanto el http como https
 
   
 ```bash
 sudo ufw enable
 ```
- Hacemos que ahora quede configurado siempre que se inicie el servidor con esta configuración
+**sudo ufw enable** Hacemos que ahora quede configurado siempre que se inicie el servidor con esta configuración
 
 <a name="regla-aws"></a>
 4. **Regla AWS**
@@ -891,23 +888,23 @@ sudo nano /etc/fail2ban/jail.local
    banaction \= ufw
 ```
 
-   \[sshd\] → Indicamos que esta configuración se aplica al ssh
+   **[sshd] →** Indicamos que esta configuración se aplica al ssh
 
-   enabled \= true → Indicamos que se ejecute
+   **enabled = true →** Indicamos que se ejecute
 
-   port \= 2222 → Indicamos en qué puerto debe de ejecutarse
+   **port = 2222 →** Indicamos en qué puerto debe de ejecutarse
 
-   filter \= sshd → Es un filtro para que busque errores como invalid password etc
+   **filter = sshd →** Es un filtro para que busque errores como invalid password etc
 
-   logpath \= /var/log/auth.log → Es donde se revisaran los logs
+   **logpath = /var/log/auth.log →** Es donde se revisaran los logs
 
-   maxretry \= 2 → Número máximo de intentos
+   **maxretry = 2 →** Número máximo de intentos
 
-   findtime \= 600 → Si fallo 2 veces, en menos de 10 min, se ejecuta el baneo
+   **findtime = 600 →** Si fallo 2 veces, en menos de 10 min, se ejecuta el baneo
 
-   bantime \= -1 → Indicamos que el baneo sea permanente
+   **bantime = -1 →** Indicamos que el baneo sea permanente
 
-   banaction \= ufw → Indicamos que lo haga mediante ufw en vez de iptables, cuya ventaja es que lo bloquea directamente el firewall
+   **banaction = ufw →** Indicamos que lo haga mediante ufw en vez de iptables, cuya ventaja es que lo bloquea directamente el firewall
 
    
 
@@ -972,8 +969,6 @@ sudo fail2ban-client status sshd
 ```bash
 sudo apt install unattended-upgrades -y sudo dpkg-reconfigure --priority=low
 ```
-
-  unattended-upgrades  
         
   **sudo apt install unattended-upgrades -y →** Es un paquete el cual permite descargar actualizaciones y aplicarse automáticamente sin necesidad de interacción con el usuario  
         
@@ -1053,13 +1048,9 @@ bash
 sudo ufw default allow outgoing
 
    Creamos las reglas de SSH con puerto 222, tenemos también HTTPS con 443 y tenemos también el WireGuard
-
-   Para finalizar activamos el Firewall
-
 ```bash
 sudo ufw allow 2222/tcp
 ```
-bash
 
 ```bash
 sudo ufw allow 8080/tcp
@@ -1068,11 +1059,22 @@ sudo ufw allow 8080/tcp
 ```bash
 sudo ufw allow 443/tcp
 ```
-bash
+
 
 ```bash
 sudo ufw allow 51820/udp
 ```
+
+```bash
+sudo ufw enable
+```
+
+   Revisión de las reglas
+
+```bash
+sudo ufw status verbose
+```
+   Para finalizar activamos el Firewall
 
 ```bash
 sudo ufw enable
@@ -1095,9 +1097,9 @@ sudo ufw status verbose
 
    Haremos la actualización, y procederemos a la instalación
 
-   sudo apt update && 
+   
 ```bash
-sudo apt install fail2ban -y
+sudo apt update && sudo apt install fail2ban -y
 ```
 
    
@@ -1185,9 +1187,9 @@ sudo systemctl status fail2ban
    Instalaremos el paquete inicialmente
 
    
-
+```bash
    sudo apt update && sudo apt install unattended-upgrades -y
-
+```
    
 
    
