@@ -72,11 +72,12 @@ ssh-copy-id -i ~/.ssh/id_ed25519.pub isard@192.168.18.10
 ```bash
 sudo nano /etc/ssh/sshd_config
 ```
-   Ahora hemos modificado lo siguiente
-   **Port 2222** → Modificamos el puerto que viene por defecto para evitar ataques de botnets
-   **PermitRootLogin no →** Prohibimos que un usuario con root o superusuario pueda acceder directamente
-   **PubkeyAuthentication yes →** Indicamos al servidor que puedas procesar y aceptar claves como la configurada
-   **PasswordAuthentication yes →** Obligamos a que el servidor solo acepte claves, y no contraseñas, lo cual lo hace que no se pueda intentar ataques de fuerza bruta
+   Ahora hemos modificado lo siguiente:
+
+   - **Port 2222** → Modificamos el puerto que viene por defecto para evitar ataques de botnets
+   - **PermitRootLogin no** → Prohibimos que un usuario con root o superusuario pueda acceder directamente
+   - **PubkeyAuthentication yes** → Indicamos al servidor que puedas procesar y aceptar claves como la configurada
+   - **PasswordAuthentication yes** → Obligamos a que el servidor solo acepte claves, y no contraseñas, lo cual lo hace que no se pueda intentar ataques de fuerza bruta
 #### **Comprobación**
    Validamos si la configuración se ha realizado correctamente o hay algo en el archivo incorrecto
    Y seguidamente hicimos un reinicio del servicio
@@ -86,26 +87,25 @@ sudo nano /etc/ssh/sshd_config
 <a name="31-crear-reglas"></a>
 ### **3.1 Crear reglas**
    Bloqueamos todo y solo dejaremos lo que necesitaremos
-   Ahora lo que haremos es habilitar solo lo necesario
-**sudo ufw default allow outgoing →** Indicamos que los paquetes desde el servidor hacia fuera sean habilitados
-```bash
-sudo ufw default allow outgoing
-```
-**sudo ufw allow 2222/tcp como el puerto 22** → Son para el SSH, primero el ssh es puerto 22 pero luego lo cambiamos a puerto 2222 para seguridad
-```bash
-sudo ufw allow 2222/tcp
-```
-**sudo ufw allow 80/tcp y 8443/tcp**→ Son para el servicio de Nginx tanto el http como https
-```bash
-sudo ufw allow 80/tcp
-```
-```bash
-sudo ufw allow 8443/tcp
-```
-**sudo ufw enable** Hacemos que ahora quede configurado siempre que se inicie el servidor con esta configuración
-```bash
-sudo ufw enable
-```
+   Ahora lo que haremos es habilitar solo lo necesario:
+
+   - **sudo ufw default allow outgoing** → Indicamos que los paquetes desde el servidor hacia fuera sean habilitados
+   ```bash
+   sudo ufw default allow outgoing
+   ```
+   - **sudo ufw allow 2222/tcp** → Son para el SSH, cambiamos el puerto por defecto a 2222 para mayor seguridad
+   ```bash
+   sudo ufw allow 2222/tcp
+   ```
+   - **sudo ufw allow 80/tcp y 8443/tcp** → Son para el servicio de Nginx (HTTP y HTTPS)
+   ```bash
+   sudo ufw allow 80/tcp
+   sudo ufw allow 8443/tcp
+   ```
+   - **sudo ufw enable** → Activa el Firewall con la configuración establecida
+   ```bash
+   sudo ufw enable
+   ```
 <a name="4-regla-aws"></a>
 ## **4. Regla AWS**
    1. Security Group
@@ -215,12 +215,13 @@ sudo ufw allow 8080/tcp
    Ahora deberemos de dirigirnos a donde dice Realm Settings y después a Security Defense
    En este caso en el apartado de Brute Force
    Elegimos esta última opción porque es la más segura de todas, es la que tiene tolerancia cero
-   Lo configuraremos de la siguiente manera
-   **Max login failures →** Indicamos que si el “usuario” ha fallado 3 veces, el sistema ejecuta las acciones que hemos configurado a continuación
-   **Maximum temporary lockouts →** Aquí le decimos que si el “usuario” ya ha fallado 1 vez y en este segundo intento vuelve a fallar, la cuenta queda bloqueada para siempre y el unico metodo de desbloqueo es que el administrador, lo haga manualmente
-   **Wait increment →** Después de haber fallado la 1a vez, no pueden intentarlo al momento, deberán de esperar unos 5 minutos para volver a intentar
-   **Quick login check →** Bloqueamos ataque de fuerza bruta o de diccionario, aquí le indicamos que si han intentado iniciar sesion en menos de 2 segundos son bots o ataques
-   **Failure reset time →** Es el tiempo en que quedan registrados los intentos, se quedan guardados en memoria durante X tiempo, si por ejemplo fallan 1 vez por la mañana y 2 por la tarde se bloquea la cuenta
+   Lo configuraremos de la siguiente manera:
+
+   - **Max login failures** → Indicamos que si el “usuario” ha fallado 3 veces, el sistema ejecuta las acciones que hemos configurado a continuación
+   - **Maximum temporary lockouts** → Aquí le decimos que si el “usuario” ya ha fallado 1 vez y en este segundo intento vuelve a fallar, la cuenta queda bloqueada para siempre y el unico metodo de desbloqueo es que el administrador, lo haga manualmente
+   - **Wait increment** → Después de haber fallado la 1a vez, no pueden intentarlo al momento, deberán de esperar unos 5 minutos para volver a intentar
+   - **Quick login check** → Bloqueamos ataque de fuerza bruta o de diccionario, aquí le indicamos que si han intentado iniciar sesion en menos de 2 segundos son bots o ataques
+   - **Failure reset time** → Es el tiempo en que quedan registrados los intentos, se quedan guardados en memoria durante X tiempo, si por ejemplo fallan 1 vez por la mañana y 2 por la tarde se bloquea la cuenta
 #### **Comprobación**
    SI intentamos acceder y fallamos 3 veces la contraseña
    En el panel de administración, vemos que se ha bloqueado temporalmente
@@ -318,15 +319,15 @@ sudo nano /etc/fail2ban/jail.local
    bantime = -1
    banaction = ufw
 ```
-   **[sshd] →** Indicamos que esta configuración se aplica al ssh
-   **enabled = true →** Indicamos que se ejecute
-   **port = 2222 →** Indicamos en qué puerto debe de ejecutarse
-   **filter = sshd →** Es un filtro para que busque errores como invalid password etc
-   **logpath = /var/log/auth.log →** Es donde se revisaran los logs
-   **maxretry = 2 →** Número máximo de intentos
-   **findtime = 600 →** Si fallo 2 veces, en menos de 10 min, se ejecuta el baneo
-   **bantime = -1 →** Indicamos que el baneo sea permanente
-   **banaction = ufw →** Indicamos que lo haga mediante ufw en vez de iptables, cuya ventaja es que lo bloquea directamente el firewall
+   - **[sshd]** → Indicamos que esta configuración se aplica al ssh
+   - **enabled = true** → Indicamos que se ejecute
+   - **port = 2222** → Indicamos en qué puerto debe de ejecutarse
+   - **filter = sshd** → Es un filtro para que busque errores como invalid password etc
+   - **logpath = /var/log/auth.log** → Es donde se revisaran los logs
+   - **maxretry = 2** → Número máximo de intentos
+   - **findtime = 600** → Si fallo 2 veces, en menos de 10 min, se ejecuta el baneo
+   - **bantime = -1** → Indicamos que el baneo sea permanente
+   - **banaction = ufw** → Indicamos que lo haga mediante ufw en vez de iptables, cuya ventaja es que lo bloquea directamente el firewall
 <a name="133-reiniciamos-y-comprobamos"></a>
 ### **13.3 Reiniciamos y comprobamos**
    Ahora vamos a reiniciar el servicio
@@ -350,12 +351,16 @@ sudo fail2ban-client status sshd
       Para minimizar las vulnerabilidades, deberemos de indicar que los “parches” de seguridad se hagan de manera automática
       Para ello usaremos el siguiente comando
 ```bash
-sudo apt install unattended-upgrades -y sudo dpkg-reconfigure --priority=low
+sudo apt install unattended-upgrades -y
 ```
-  **sudo apt install unattended-upgrades -y →** Es un paquete el cual permite descargar actualizaciones y aplicarse automáticamente sin necesidad de interacción con el usuario
-  **sudo dpkg-reconfigure →** Aquí le indicamos que queremos reconfigurar el programa X
-  **--priority=low →** Indicamos que nos muestre todas las opciones posibles
-  **unattended-upgrades →** Su función es la de revisar repositorios y si hay un nuevo “parche” lo descarga y se aplica, busca vulnerabilidades
+
+```bash
+sudo dpkg-reconfigure --priority=low
+```
+  - **sudo apt install unattended-upgrades -y** → Es un paquete el cual permite descargar actualizaciones y aplicarse automáticamente sin necesidad de interacción con el usuario
+  - **sudo dpkg-reconfigure** → Aquí le indicamos que queremos reconfigurar el programa X
+  - **--priority=low** → Indicamos que nos muestre todas las opciones posibles
+  - **unattended-upgrades** → Su función es la de revisar repositorios y si hay un nuevo “parche” lo descarga y se aplica, busca vulnerabilidades
   Ejecutamos el siguiente comando
 ```bash
 sudo dpkg-reconfigure --priority=low unattended-upgrades
