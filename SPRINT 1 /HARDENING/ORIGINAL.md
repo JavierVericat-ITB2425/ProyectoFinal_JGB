@@ -785,7 +785,6 @@ sudo nano /etc/fail2ban/jail.local
 
    banaction = ufw
 
-   # ubuntu@zth-node-
 ```
 
 
