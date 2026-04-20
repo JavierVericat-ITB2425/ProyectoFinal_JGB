@@ -1,6 +1,5 @@
 <a name="s1-02---acceso-ssh-seguro-hardening-inicial"></a>
 
-
 # **Índice**
 - [S1-02 - Acceso SSH Seguro (Hardening Inicial)](#s1-02---acceso-ssh-seguro-hardening-inicial)
 - [S1-01 - Acceso SSH Seguro (Hardening Inicial) - Isard](#s1-01---acceso-ssh-seguro-hardening-inicial---isard)
@@ -52,20 +51,16 @@
 
 ---
 
-
-# **S1-02 \- Acceso SSH Seguro (Hardening Inicial)**
-
-
-
+# **S1-02 - Acceso SSH Seguro (Hardening Inicial)**
 
 **N°:** GRUPO X
 
-**Integrantes:** Javier Vericat \- Bryan Aguilera \- Giuseppe Suarez
+**Integrantes:** Javier Vericat - Bryan Aguilera - Giuseppe Suarez
 
-**Profesores:** Sergi \- David Sicart
+**Profesores:** Sergi - David Sicart
 
 <a name="s1-01---acceso-ssh-seguro-hardening-inicial---isard"></a>
-# **S1-01 \- Acceso SSH Seguro (Hardening Inicial) \- Isard**
+# **S1-01 - Acceso SSH Seguro (Hardening Inicial) - Isard**
 
 <a name="gestion-de-claves"></a>
 1. ## **Gestion de claves**
@@ -79,11 +74,9 @@
 
    Crearemos las claves con este comando 
 
-   
-
-   ssh-keygen \-t ed25519 \-C "giuseppe-access"
-
-   
+```bash
+ssh-keygen -t ed25519 -C "giuseppe-access"
+```
 
    El algoritmo ed25519 es más seguro y más rápido que el predeterminado como es el RSA
 
@@ -108,15 +101,9 @@
 
    Ahora pasaremos las claves con el servidor que en este caso es del compañero 
 
-   
-
-   ssh-copy-id \-i \~/.ssh/id\_ed25519.pub isard@192.168.18.10
-
-   
-
-   
-
-   
+```bash
+ssh-copy-id -i ~/.ssh/id_ed25519.pub isard@192.168.18.10
+```
 
 <a name="comprobacin"></a>
 3. ### **Comprobación**
@@ -139,11 +126,9 @@
 
    Accedemos al archivo de configuración 
 
-   
-
-   sudo nano /etc/ssh/sshd\_config
-
-   
+```bash
+sudo nano /etc/ssh/sshd_config
+```
 
    Ahora hemos modificado lo siguiente
 
@@ -220,7 +205,11 @@
 
    
 
-   **sudo ufw allow 2222/tcp como el puerto 22 →** Son para el SSH, primero el ssh es puerto 22 pero luego lo cambiamos a puerto 2222 para seguridad
+   **
+```bash
+sudo ufw allow 2222/tcp
+```
+ como el puerto 22 →** Son para el SSH, primero el ssh es puerto 22 pero luego lo cambiamos a puerto 2222 para seguridad
 
    
 
@@ -228,7 +217,11 @@
 
    
 
-   **sudo ufw enable →** Hacemos que ahora quede configurado siempre que se inicie el servidor con esta configuración
+   **
+```bash
+sudo ufw enable
+```
+ →** Hacemos que ahora quede configurado siempre que se inicie el servidor con esta configuración
 
 <a name="regla-aws"></a>
 4. ## **Regla AWS**
@@ -242,7 +235,7 @@
         
       
 
-      # **S1-02 \- Docker \+ Keycloak \- Isard**
+      # **S1-02 - Docker \+ Keycloak - Isard**
 
 <a name="instalacin-de-docker"></a>
 1. ## **Instalación de Docker**
@@ -256,11 +249,9 @@
 
    Ejecutamos lo siguiente para instalar los paquetes
 
-   
-
-   sudo apt install docker.io docker-compose \-y
-
-   
+```bash
+sudo apt install docker.io docker-compose -y
+```
 
 <a name="permisos"></a>
 2. ### **Permisos**
@@ -269,15 +260,9 @@
 
    Para evitar usar sudo, lo que haremos es lo siguiente
 
-   
-
-   sudo usermod \-aG docker $USER
-
-   
-
-   
-
-   
+```bash
+sudo usermod -aG docker $USER
+```
 
 <a name="despliegue-de-keycloak"></a>
 2. ## **Despliegue de KeyCloak**
@@ -291,11 +276,14 @@
 
    Crearemos las carpetas
 
-   mkdir \-p \~/zth-node-cloud/keycloak
-
-   cd \~/zth-node-cloud/keycloak
-
    
+```bash
+mkdir -p ~/zth-node-cloud/keycloak
+```
+
+```bash
+cd ~/zth-node-cloud/keycloak
+```
 
 <a name="crear-y-configurar-archivo-yml"></a>
 2. ### **Crear y configurar archivo .yml**
@@ -304,15 +292,16 @@
 
    Creamos el archivo con el comando 
 
-   
-
-   sudo nano docker-compose.yml
-
-   
+```bash
+sudo nano docker-compose.yml
+```
 
    Y el contenido de este es el siguiente
 
-   version: '3.8'
+   
+
+```yaml
+version: '3.8'
 
    
 
@@ -322,25 +311,25 @@
 
        image: postgres:16
 
-       container\_name: zth-keycloak-db
+       container_name: zth-keycloak-db
 
        restart: always  \# \<-- Esto hace que el contenedor se reinicie solo si el server falla
 
        volumes:
 
-         \- zth\_db\_data:/var/lib/postgresql/data  \# \<-- PERSISTENCIA AQUÍ
+         - zth_db_data:/var/lib/postgresql/data  \# \<-- PERSISTENCIA AQUÍ
 
        environment:
 
-         POSTGRES\_DB: keycloak
+         POSTGRES_DB: keycloak
 
-         POSTGRES\_USER: keycloak
+         POSTGRES_USER: keycloak
 
-         POSTGRES\_PASSWORD: K3yl0ack\_ZTH-db
+         POSTGRES_PASSWORD: K3yl0ack_ZTH-db
 
        networks:
 
-         \- zth-network
+         - zth-network
 
    
 
@@ -348,7 +337,7 @@
 
        image: quay.io/keycloak/keycloak:24.0
 
-       container\_name: zth-keycloak-server
+       container_name: zth-keycloak-server
 
        command: start-dev
 
@@ -356,33 +345,33 @@
 
        environment:
 
-         KC\_DB: postgres
+         KC_DB: postgres
 
-         KC\_DB\_URL: jdbc:postgresql://zth-postgres:5432/keycloak
+         KC_DB_URL: jdbc:postgresql://zth-postgres:5432/keycloak
 
-         KC\_DB\_USERNAME: keycloak
+         KC_DB_USERNAME: keycloak
 
-         KC\_DB\_PASSWORD: K3yl0ack\_ZTH-db
+         KC_DB_PASSWORD: K3yl0ack_ZTH-db
 
-         KEYCLOAK\_ADMIN: admin
+         KEYCLOAK_ADMIN: admin
 
-         KEYCLOAK\_ADMIN\_PASSWORD: K3yl0ack-ZTH\_
+         KEYCLOAK_ADMIN_PASSWORD: K3yl0ack-ZTH_
 
-         KC\_HTTP\_ENABLED: "true"
+         KC_HTTP_ENABLED: "true"
 
-         KC\_PROXY: edge
+         KC_PROXY: edge
 
        ports:
 
-         \- "8080:8080"
+         - "8080:8080"
 
-       depends\_on:
+       depends_on:
 
-         \- zth-postgres
+         - zth-postgres
 
        networks:
 
-         \- zth-network
+         - zth-network
 
    
 
@@ -398,7 +387,8 @@
 
    volumes:
 
-     zth\_db\_data:  \# Docker gestionará este espacio en /var/lib/docker/volumes/
+     zth_db_data:  \# Docker gestionará este espacio en /var/lib/docker/volumes/
+```
 
    
 
@@ -415,11 +405,9 @@
 
    Ahora deberemos de crear una nueva regla para poder acceder al Keycloak
 
-    
-
-   sudo ufw allow 8080/tcp
-
-   
+```bash
+sudo ufw allow 8080/tcp
+```
 
 <a name="comprobacin"></a>
 4. ### **Comprobación**
@@ -438,7 +426,7 @@
 
    
 
-   # **S1-03 \- Configuración de Seguridad IAM \- Isard**
+   # **S1-03 - Configuración de Seguridad IAM - Isard**
 
 <a name="crear-realm"></a>
 1. ## **Crear Realm**
@@ -563,7 +551,6 @@
 
  
 
-
    Ahora en el apartado de Add Policy y marcamos las siguientes opciones
 
    
@@ -634,7 +621,6 @@
 
    Antes de realizar la comprobación. deberemos de crear un usuario  
  
-
 
    Aquí seleccionamos la opción de Configurar OTP
 
@@ -848,7 +834,7 @@
 
    
 
-   # **S1-04: Hardening Avanzado del Sistema \- Isard**
+   # **S1-04: Hardening Avanzado del Sistema - Isard**
 
 <a name="fail2ban"></a>
 1. ## **Fail2Ban**
@@ -862,15 +848,9 @@
 
    Primero de todo realizaremos la instalación
 
-   
-
-   sudo apt install fail2ban \-y
-
-   
-
-   
-
-   
+```bash
+sudo apt install fail2ban -y
+```
 
 <a name="crear-configuracin-inicial"></a>
 2. ### **Crear configuración inicial**
@@ -879,11 +859,9 @@
 
    Creamos un .local para que si hay alguna actualización, que no se nos escriba el archivo .conf
 
-   
-
-   sudo nano /etc/fail2ban/jail.local
-
-   
+```bash
+sudo nano /etc/fail2ban/jail.local
+```
 
    \[sshd\]
 
@@ -899,7 +877,7 @@
 
    findtime \= 600
 
-   bantime \= \-1
+   bantime \= -1
 
    banaction \= ufw
 
@@ -919,7 +897,7 @@
 
    findtime \= 600 → Si fallo 2 veces, en menos de 10 min, se ejecuta el baneo
 
-   bantime \= \-1 → Indicamos que el baneo sea permanente
+   bantime \= -1 → Indicamos que el baneo sea permanente
 
    banaction \= ufw → Indicamos que lo haga mediante ufw en vez de iptables, cuya ventaja es que lo bloquea directamente el firewall
 
@@ -936,20 +914,15 @@
 
    Ahora vamos a reiniciar el servicio
 
-   
-
-   sudo systemctl restart fail2ban  
-   
-
-   
+```bash
+sudo systemctl restart fail2ban
+```
 
    Ahora lo vamos a comprobar
 
-   
-
-   sudo fail2ban-client status sshd 
-
-   
+```bash
+sudo fail2ban-client status sshd
+```
 
    ### 
 
@@ -986,23 +959,26 @@
       Para minimizar las vulnerabilidades, deberemos de indicar que los “parches” de seguridad se hagan de manera automática
 
       Para ello usaremos el siguiente comando  
-        
-      sudo apt install unattended-upgrades \-y sudo dpkg-reconfigure \--priority=low  
+
+```bash
+sudo apt install unattended-upgrades -y sudo dpkg-reconfigure --priority=low
+```
+
       unattended-upgrades  
         
-      **sudo apt install unattended-upgrades \-y →** Es un paquete el cual permite descargar actualizaciones y aplicarse automáticamente sin necesidad de interacción con el usuario  
+      **sudo apt install unattended-upgrades -y →** Es un paquete el cual permite descargar actualizaciones y aplicarse automáticamente sin necesidad de interacción con el usuario  
         
       **sudo dpkg-reconfigure →** Aquí le indicamos que queremos reconfigurar el programa X  
         
-      **\--priority=low →** Indicamos que nos muestre todas las opciones posibles  
+      **--priority=low →** Indicamos que nos muestre todas las opciones posibles  
         
       **unattended-upgrades →** Su función es la de revisar repositorios y si hay un nuevo “parche” lo descarga y se aplica, busca vulnerabilidades
 
       ### **Ejecutamos el siguiente comando**
 
-      sudo dpkg-reconfigure \--priority=low unattended-upgrades
-
-
+```bash
+sudo dpkg-reconfigure --priority=low unattended-upgrades
+```
 
 <a name="comprobacion"></a>
 2. ### **Comprobacion**
@@ -1010,19 +986,23 @@
      
    Para realizar si se está ejecutando correctamente, ejecutaremos el siguiente comando
 
-   systemctl status unattended-upgrades  
-     
-   
+```bash
+systemctl status unattended-upgrades
+```
 
    3. ### **Configuración de política restrictiva**
 
         
       Ahora le indicaremos al firewall que bloquee cualquier paquete siempre y cuando no le hemos indicado lo contrario  
-        
-      sudo ufw default deny incoming  
-      sudo ufw status verbose  
-        
-      
+
+```bash
+sudo ufw default deny incoming
+```
+bash
+
+```bash
+sudo ufw status verbose
+```
 
       ### 
 
@@ -1032,7 +1012,7 @@
 # **S1-05: Hardening en el Nodo AWS**
 
 <a name="firewall---aws"></a>
-1. ## **Firewall \- AWS**
+1. ## **Firewall - AWS**
 
    
 
@@ -1058,37 +1038,43 @@
 
    Ahora realizaremos la configuración dentro de la instancia, denegamos todo
 
-   sudo ufw default deny incoming
-
-   sudo ufw default allow outgoing
-
-   
+```bash
+sudo ufw default deny incoming
+```
+bash
+sudo ufw default allow outgoing
 
    Creamos las reglas de SSH con puerto 222, tenemos también HTTPS con 443 y tenemos también el WireGuard
 
    Para finalizar activamos el Firewall
 
-   
+```bash
+sudo ufw allow 2222/tcp
+```
+bash
 
-   sudo ufw allow 2222/tcp
+```bash
+sudo ufw allow 8080/tcp
+```
 
-   sudo ufw allow 8080/tcp
+```bash
+sudo ufw allow 443/tcp
+```
+bash
 
-   sudo ufw allow 443/tcp
+```bash
+sudo ufw allow 51820/udp
+```
 
-   sudo ufw allow 51820/udp
-
-   sudo ufw enable
-
-   
-
-   
+```bash
+sudo ufw enable
+```
 
    Revisión de las reglas
 
-   sudo ufw status verbose
-
-   
+```bash
+sudo ufw status verbose
+```
 
 <a name="fail2ban"></a>
 2. ## **Fail2Ban**
@@ -1100,7 +1086,10 @@
 
    Haremos la actualización, y procederemos a la instalación
 
-   sudo apt update && sudo apt install fail2ban \-y
+   sudo apt update && 
+```bash
+sudo apt install fail2ban -y
+```
 
    
 
@@ -1113,9 +1102,9 @@
 
    Ahora el archivo de configuración, tendríamos lo siguiente
 
-   sudo nano /etc/fail2ban/jail.local
-
-   
+```bash
+sudo nano /etc/fail2ban/jail.local
+```
 
    \[sshd\]
 
@@ -1131,7 +1120,7 @@
 
    findtime \= 600
 
-   bantime \= \-1
+   bantime \= -1
 
    banaction \= ufw
 
@@ -1147,11 +1136,11 @@
 
 3. Reiniciamos el servicio y miramos el estado
 
-   sudo systemctl restart fail2ban
-
-   sudo systemctl status fail2ban
-
-
+```bash
+sudo systemctl restart fail2ban
+```
+bash
+sudo systemctl status fail2ban
 
 <a name="comprobacion"></a>
 4. ### **COmprobacion**
@@ -1186,7 +1175,7 @@
 
    
 
-   sudo apt update && sudo apt install unattended-upgrades \-y
+   sudo apt update && sudo apt install unattended-upgrades -y
 
    
 
@@ -1194,9 +1183,9 @@
 
    Ejecutamos el siguiente comando
 
-   sudo dpkg-reconfigure \--priority=low unattended-upgrades
-
-
+```bash
+sudo dpkg-reconfigure --priority=low unattended-upgrades
+```
 
 <a name="comprobacion"></a>
 2. ### **Comprobacion**
@@ -1205,4 +1194,7 @@
 
    Para realizar si se está ejecutando correctamente, ejecutaremos el siguiente comando
 
-   systemctl status unattended-upgrades
+```bash
+systemctl status unattended-upgrades
+```
+
