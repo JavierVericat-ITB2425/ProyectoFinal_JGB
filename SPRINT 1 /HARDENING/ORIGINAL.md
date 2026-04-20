@@ -249,50 +249,46 @@ sudo ufw allow 8080/tcp
    Ahora crearemos el Grupo de Auditoría
 <a name="12-usuario"></a>
 ## **12. Usuario**
-   Antes de realizar la comprobación. deberemos de crear un usuario
-   Aquí seleccionamos la opción de Configurar OTP
-   Esto lo que hará es decir al KeyCloak que este usuario la próxima vez que inicie sesión deberá de usar una aplicación de OTP para poder iniciar sesión
-   Completamos el formulario
-   Indicamos que el mail deberá de ser verificado
-   Ahora le asignamos al grupo de Administradores
-   Le asignaremos una contraseña
-   Aquí desactivamos la contraseña temporal para que no la pida cambiar y para que salga el código QR para de MFA
-   Ahora asignaremos este usuario creado al Rol de Administrador
-   Indicamos que es del rol Administrador y listo ya lo tendríamos
-   Ahora creamos el usuario Operador, lo asignamos al grupo de Trabajadores
-   Ahora asignamos una contraseña
-   Ahora indicamos el rol que en este caso es Trabajador
-   Ahora creamos el usuario de Auditor
-   Como hemos realizado antes, asignamos una contraseña
-   Una vez creado, le indicamos el rol que es en este caso de Auditoría
+
+   Antes de realizar la comprobación, deberemos de crear un usuario:
+
+   - **Configurar OTP**: Seleccionamos esta opción para que el usuario deba usar una aplicación de OTP en su próximo inicio de sesión.
+   - **Formulario**: Completamos los datos y marcamos que el email debe ser verificado.
+   - **Grupo**: Le asignamos al grupo de **Administradores**.
+   - **Contraseña**: Asignamos una contraseña y desactivamos la opción "temporal" para que muestre el código QR de MFA de inmediato.
+   - **Rol**: Asignamos el rol de **Administrador** al usuario.
+
+   **Otros usuarios creados**:
+
+   - **Operador**: Asignado al grupo de **Trabajadores** con su respectiva contraseña y rol.
+   - **Auditor**: Asignado al grupo de **Auditoría** con su respectiva contraseña y rol.
+
 #### **Comprobación**
-   #### **giuseppe-admin**     Iniciaremos sesión con el usuario de administrador
-   Ahora nos aparecerá lo siguiente
-   Vemos que nos pide instalar una aplicación de autenticación como puede ser Microsoft Authenticator
-   Google Authenticator
-   FreeOT
-   En nuestro caso lo haríamos con Google Authenticator
-   Al escanearlo, nos aparecerá que se añadió un nuevo código y que de nombre tiene zth-node-cloud. Después de poner el código puse desde el dispositivo el cual se hizo en este caso fue con el S24 Ultra de Giuseppe
-   Cuando el demos a Submit nos aparecerá lo siguiente
-   En este apartado podemos ver que tenemos el inicio de sesión, tanto la contraseña y si queremos cambiarla como MFA que en este caso es desde el dispositivo que hemos indicado, podemos ver cuando fue y a que hora
-   #### **operador-bryan**     Ahora iniciaremos sesión con permisos de trabajador
-   Nos pedirá como antes usar una aplicación de la ya mencionadas
-   Iniciamos
-   Este usuario al ser solo Trabajador tiene sólo acceso básico
-   Como puede ser usuarios y eventos
-   Puede ver los otros usuarios
-   Y como es un Operador LVL 1 puede añadir usuarios, puede resetear contraseñas o borrar, siempre y cuando tengan menos privilegios que el
-   #### **Auditor-Javi**
-   Ahora iniciamos sesión con los permisos de auditor
-   Nos pedirá el MFA
-   Configuramos
-   Una vez iniciado sesión
-   Con este usuario podemos ver los roles, pero no crear ni hacer otra operación
-   Por otro lado también podemos ver los Usuarios
-   Aunque ponga add user este usuario solo puede ver los campos que existen, porque si intenta crear aparecerá el siguiente mensaje
-   Podemos ver grupos y sus miembros
-   Como auditor, debe de ver los eventos
-   También los eventos de administradores
+
+   ##### **giuseppe-admin**
+
+   Iniciaremos sesión con el usuario de administrador:
+
+   - **Aplicación MFA**: Nos pedirá instalar una app como Microsoft Authenticator, Google Authenticator o FreeOT. En nuestro caso, usamos **Google Authenticator**.
+   - **Configuración**: Al escanear el QR, se añade la cuenta `zth-node-cloud`.
+   - **Acceso**: Tras introducir el código y darle a Submit, accedemos al panel.
+   - **Panel de Usuario**: Podemos ver los detalles del inicio de sesión, la contraseña y el estado del MFA (dispositivo, fecha y hora).
+
+   ##### **operador-bryan**
+
+   Iniciaremos sesión con permisos de trabajador:
+
+   - **MFA**: Al igual que el administrador, solicitará la configuración de la aplicación OTP.
+   - **Permisos**: Al ser un rol de Trabajador, el acceso es limitado (solo funciones básicas como usuarios y eventos).
+   - **Gestión**: Puede ver otros usuarios y, al ser Operador LVL 1, puede añadir usuarios, resetear contraseñas o borrar cuentas con menos privilegios que él.
+
+   ##### **Auditor-Javi**
+
+   Iniciaremos sesión con los permisos de auditor:
+
+   - **MFA**: Configuramos el acceso mediante la aplicación.
+   - **Roles y Usuarios**: Puede visualizar los roles y usuarios, pero no tiene permisos para crear o modificar nada (aparecerá un mensaje de error si intenta crear un usuario).
+   - **Grupos y Eventos**: Puede ver los grupos, sus miembros y, fundamentalmente, los eventos del sistema y de los administradores para su labor de auditoría.
    # **S1-04: Hardening Avanzado del Sistema - Isard**
 <a name="13-fail2ban"></a>
 ## **13. Fail2Ban**
