@@ -348,8 +348,8 @@ sudo fail2ban-client status sshd
 ## **14. Actualizaciones Automáticas de Seguridad**
 <a name="141-configurar-actualizaciones-automticas"></a>
 ### **14.1 Configurar actualizaciones automáticas**
-      Para minimizar las vulnerabilidades, deberemos de indicar que los “parches” de seguridad se hagan de manera automática
-      Para ello usaremos el siguiente comando
+  Para minimizar las vulnerabilidades, deberemos de indicar que los “parches” de seguridad se hagan de manera automática
+  Para ello usaremos el siguiente comando
 ```bash
 sudo apt install unattended-upgrades -y
 ```
