@@ -206,7 +206,7 @@ sudo nano /etc/ssh/sshd_config
 ```bash
 sudo ufw allow 2222/tcp
 ```
- como el puerto 22 →** Son para el SSH, primero el ssh es puerto 22 pero luego lo cambiamos a puerto 2222 para seguridad
+ como el puerto 22 → Son para el SSH, primero el ssh es puerto 22 pero luego lo cambiamos a puerto 2222 para seguridad
 
    
 
@@ -216,7 +216,7 @@ sudo ufw allow 2222/tcp
 ```bash
 sudo ufw enable
 ```
- →** Hacemos que ahora quede configurado siempre que se inicie el servidor con esta configuración
+ Hacemos que ahora quede configurado siempre que se inicie el servidor con esta configuración
 
 <a name="regla-aws"></a>
 4. ## **Regla AWS**
