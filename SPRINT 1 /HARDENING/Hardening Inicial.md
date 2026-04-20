@@ -1119,6 +1119,7 @@ sudo apt install fail2ban -y
 ```bash
 sudo nano /etc/fail2ban/jail.local
 ```
+```bash
 
    \[sshd\]
 
@@ -1139,11 +1140,11 @@ sudo nano /etc/fail2ban/jail.local
    banaction \= ufw
 
    ubuntu@zth-node-
-
+```
    
-
+```bash
    sudo cat /etc/fail2ban/jail.local
-
+```
    
 
    
