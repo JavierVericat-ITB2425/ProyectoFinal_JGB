@@ -1,5 +1,11 @@
 # Creación del entorno en AWS ZTH-Node-Cloud
 
+## Índice
+- [Añadimos reglas al Security Group](#añadimos-reglas-al-security-group)
+- [Creación de la instancia](#creación-de-la-instancia)
+- [Acceso al nodo de AWS mediante la terminal](#acceso-al-nodo-de-aws-mediante-la-terminal)
+- [Configuración para dejar accesible para el nodo local](#configuración-para-dejar-accesible-para-el-nodo-local)
+
 Creamos un Security Group inicial para crear la instancia:
 
 ![Security Group Inicial](images/image8.png)
