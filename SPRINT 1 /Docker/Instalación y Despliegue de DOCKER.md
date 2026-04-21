@@ -1,95 +1,36 @@
-# Guía de Instalación de Docker en Ubuntu
+# Instalación de Docker y Docker Compose
 
-Esta guía detalla los pasos necesarios para instalar Docker Engine y Docker Compose en un sistema Ubuntu.
+Guía rápida de los pasos realizados para la instalación de Docker.
 
-## 1. Preparación del Sistema
-
-Antes de instalar Docker, es necesario actualizar los paquetes existentes e instalar algunas dependencias.
-
-### Actualizar el sistema
-```bash
-sudo apt update && sudo apt upgrade -y
-```
-<img width="692" height="197" alt="image" src="https://github.com/user-attachments/assets/43633740-f0c1-4bc6-ad29-b46481a0c165" />
-
-
-### Instalar dependencias necesarias
-```bash
-sudo apt install ca-certificates curl gnupg lsb-release -y
-```
-
-## 2. Configuración del Repositorio
-
-Docker no se encuentra en los repositorios predeterminados de Ubuntu, por lo que debemos añadir el repositorio oficial.
-
-### Añadir la clave GPG oficial de Docker
-```bash
-sudo mkdir -p /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-```
-
-### Añadir el repositorio de Docker
-```bash
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] \
-  https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-```
-
-## 3. Instalación de Docker
-
-Una vez configurado el repositorio, procedemos con la instalación de Docker y sus componentes principales.
-
+### 1. Actualización del sistema e Instalación
+Primero actualizamos los repositorios e instalamos el motor de Docker y sus componentes:
 ```bash
 sudo apt update
-sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
+<img width="709" height="232" alt="image" src="https://github.com/user-attachments/assets/a60b9c5b-076d-4158-a4aa-5c293f43cbb2" />
 
-**Paquetes incluidos:**
-- `docker-ce`: Motor principal de Docker.
-- `docker-ce-cli`: Interfaz de línea de comandos.
-- `containerd.io`: Runtime de contenedores.
-- `docker-compose-plugin`: Herramienta para gestionar múltiples contenedores.
 
-## 4. Gestión de Usuarios (Opcional)
-
-Por defecto, Docker requiere permisos de administrador. Para evitar usar `sudo` en cada comando, puedes añadir tu usuario al grupo `docker`.
-
+### 2. Gestión de Usuarios
+Para poder ejecutar comandos de Docker sin usar `sudo`, añadimos nuestro usuario al grupo `docker`:
 ```bash
 sudo usermod -aG docker $USER
 ```
+*Nota: Es necesario cerrar sesión y volver a entrar para que se apliquen los cambios.*
+<img width="372" height="24" alt="image" src="https://github.com/user-attachments/assets/0da90723-45d0-4fe7-a6e8-720a0d2ada3d" />
 
-> **Nota:** Después de ejecutar este comando, es necesario cerrar sesión y volver a iniciarla (o reiniciar el sistema) para aplicar los cambios.
 
-## 5. Verificación de la Instalación
-
-Comprueba que Docker está correctamente instalado y funcionando.
-
-### Verificar versión
+### 3. Verificación de la instalación
+Comprobamos que Docker se ha instalado correctamente viendo su versión:
 ```bash
 docker --version
 ```
+<img width="305" height="39" alt="image" src="https://github.com/user-attachments/assets/ed0c3039-b930-4b6d-9513-19f34b28abd6" />
 
-### Ejecutar contenedor de prueba
+
+### 4. Docker Compose
+Creamos o editamos el archivo de configuración para los contenedores:
 ```bash
-sudo docker run hello-world
+sudo nano docker-compose.yml
 ```
-
-Si todo funciona correctamente, Docker descargará y ejecutará una imagen de prueba mostrando un mensaje de éxito.
-
-## 6. Configuración Básica del Servicio
-
-### Comprobar estado del servicio
-```bash
-sudo systemctl status docker
-```
-
-### Habilitar Docker al inicio del sistema
-```bash
-sudo systemctl enable docker
-```
-
-### Ver información detallada del sistema Docker
-```bash
-docker info
-```
+<img width="579" height="139" alt="image" src="https://github.com/user-attachments/assets/03e4864f-cc05-467f-87c9-e10dd2df12d0" />
