@@ -10,6 +10,8 @@ Antes de instalar Docker, es necesario actualizar los paquetes existentes e inst
 ```bash
 sudo apt update && sudo apt upgrade -y
 ```
+<img width="692" height="197" alt="image" src="https://github.com/user-attachments/assets/43633740-f0c1-4bc6-ad29-b46481a0c165" />
+
 
 ### Instalar dependencias necesarias
 ```bash
