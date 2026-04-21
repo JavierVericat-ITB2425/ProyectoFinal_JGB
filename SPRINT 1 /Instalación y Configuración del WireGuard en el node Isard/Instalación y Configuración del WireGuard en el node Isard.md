@@ -53,33 +53,4 @@ PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -t nat -D POSTROUTING -
 
 ![Configuración del servidor](images/image2.png)
 
-## 4. Configuración del Peer (Nodo B)
 
-Para permitir que otro dispositivo se conecte, debemos añadirlo como "Peer".
-
-- **AllowedIPs:** `10.8.0.2/32`. Especifica qué dirección IP interna tiene permitido comunicarse a través del túnel.
-- **PersistentKeepalive:** `25`. Envía un paquete cada 25 segundos para mantener el túnel abierto a través de firewalls o NAT.
-
-```ini
-[Peer]
-PublicKey = <LLAVE_PUBLICA_DEL_NODO_B>
-AllowedIPs = 10.8.0.2/32
-PersistentKeepalive = 25
-```
-
-![Configuración del Peer](images/image4.png)
-
-## 5. Gestión del Servicio
-
-Una vez configurado, podemos levantar la interfaz y habilitarla para que inicie con el sistema:
-
-```bash
-# Levantar la interfaz wg0
-sudo wg-quick up wg0
-
-# Comprobar el estado
-sudo wg show
-
-# Habilitar al inicio del sistema
-sudo systemctl enable wg-quick@wg0
-```
