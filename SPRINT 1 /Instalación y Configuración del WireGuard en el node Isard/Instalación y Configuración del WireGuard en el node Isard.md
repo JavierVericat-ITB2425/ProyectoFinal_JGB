@@ -20,7 +20,7 @@ sudo apt update
 sudo apt install wireguard -y
 ```
 
-![Instalación de WireGuard](images/image1.png)
+![Instalación de WireGuard](images/image2.png)
 
 ## 2. Generación de Llaves
 
@@ -31,7 +31,7 @@ WireGuard utiliza criptografía de llave pública. Es necesario generar una llav
 wg genkey | tee privatekey | wg pubkey > publickey
 ```
 
-![Generación de llaves](images/image2.png)
+![Generación de llaves](images/image3.png)
 
 ## 3. Configuración del Servidor (wg0.conf)
 
@@ -51,7 +51,7 @@ PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -t nat -A POSTROUTING -o 
 PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
 ```
 
-![Configuración del servidor](images/image3.png)
+![Configuración del servidor](images/image1.png)
 
 ## 4. Configuración del Peer (Nodo B)
 
