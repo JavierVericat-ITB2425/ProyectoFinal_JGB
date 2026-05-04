@@ -7,29 +7,24 @@
 **Profesores:** Sergi - David Sicart
 
 # **Índice**
-- [Configuración de Event Listeners en Keycloak para Auditoría](#configuracin-de-event-listeners-en-keycloak-para-auditoría)
-  - [1. Configuración de Keycloak](#1-configuracin-de-keycloak)
-    - [1.1 Activación de Event Listeners](#11-activacin-de-event-listeners)
-    - [1.2 Persistencia de Eventos de Usuario y Administración](#12-persistencia-de-eventos-de-usuario-y-administracin)
-  - [2. Configuración de Loki](#2-configuracin-de-loki)
-    - [2.1 Optimización del Dashboard - OverView](#21-optimizacin-del-dashboard---overview)
+- [1. Configuración de Keycloak](#1-configuración-de-keycloak)
+  - [1.1 Activación de Event Listeners](#11-activación-de-event-listeners)
+  - [1.2 Persistencia de Eventos de Usuario y Administración](#12-persistencia-de-eventos-de-usuario-y-administración)
+- [2. Configuración de Loki](#2-configuración-de-loki)
+  - [2.1 Optimización del Dashboard - OverView](#21-optimización-del-dashboard---overview)
 
 ---
 
-<a name="configuracin-de-event-listeners-en-keycloak-para-auditoría"></a>
 # **Configuración de Event Listeners en Keycloak para Auditoría**
 
-<a name="1-configuracin-de-keycloak"></a>
 ## **1. Configuración de Keycloak**
 
-<a name="11-activacin-de-event-listeners"></a>
 ### **1.1 Activación de Event Listeners**
 
    Desde el Keycloak nos dirigiremos al apartado de **Events**, y seguidamente al apartado de **Event Config**.
 
    ![Configuración de Event Listeners](img-keycloak/img-001.png)
 
-<a name="12-persistencia-de-eventos-de-usuario-y-administracin"></a>
 ### **1.2 Persistencia de Eventos de Usuario y Administración**
 
    Para garantizar una trazabilidad completa, se han configurado los niveles de persistencia en el mismo panel de **Event Config**.
@@ -53,10 +48,8 @@
 
 ---
 
-<a name="2-configuracin-de-loki"></a>
 ## **2. Configuración de Loki**
 
-<a name="21-optimizacin-del-dashboard---overview"></a>
 ### **2.1 Optimización del Dashboard - OverView**
 
    Para visualizar correctamente las alertas, es necesario editar el dashboard específico llamado **Alertas de Intrusión**.
