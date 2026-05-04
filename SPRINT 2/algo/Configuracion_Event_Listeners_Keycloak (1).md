@@ -1,6 +1,6 @@
 # **Configuración de Event Listeners en Keycloak para Auditoría**
 
-![Portada](img_event_listeners/img-000.png)
+![Portada](img-keycloak/img-000.png)
 
 **N°:** GRUPO 8  
 **Integrantes:** Javier Vericat - Bryan Aguilera - Giuseppe Suarez  
@@ -27,7 +27,7 @@
 
    Desde el Keycloak nos dirigiremos al apartado de **Events**, y seguidamente al apartado de **Event Config**.
 
-   ![Configuración de Event Listeners](img_event_listeners/img-001.png)
+   ![Configuración de Event Listeners](img-keycloak/img-001.png)
 
 <a name="12-persistencia-de-eventos-de-usuario-y-administracin"></a>
 ### **1.2 Persistencia de Eventos de Usuario y Administración**
@@ -38,10 +38,10 @@
    - **jboss-logging**: Es el componente principal que permite que **Loki** recolecte estos logs para su posterior análisis.
    - **mail**: Este listener se mantiene como opcional.
 
-   ![Configuración de Eventos de Usuario](img_event_listeners/img-002.png)
+   ![Configuración de Eventos de Usuario](img-keycloak/img-002.png)
    *Configuración de la persistencia para eventos de usuario.*
 
-   ![Configuración de Eventos de Administración](img_event_listeners/img-003.png)
+   ![Configuración de Eventos de Administración](img-keycloak/img-003.png)
    *Configuración de la persistencia para eventos de administración.*
 
 #### **Comprobación**
@@ -49,7 +49,7 @@
    - **Configuración de Usuario**: Podemos verificar que los oyentes ya están activos en el panel correspondiente.
    - **Apartado de Administración**: Se ha validado que los eventos de administración también están siendo registrados correctamente.
 
-   ![Listado de Eventos en Keycloak](img_event_listeners/img-004.png)
+   ![Listado de Eventos en Keycloak](img-keycloak/img-004.png)
 
 ---
 
@@ -69,7 +69,7 @@ sum(count_over_time({job=~".+"} |= "Failed" [1h])) or vector(0)
 sum(count_over_time({job=~".+"} |= "LOGIN_ERROR" [1h])) or vector(0)
 ```
 
-   ![Edición de Dashboard en Grafana](img_event_listeners/img-005.png)
+   ![Edición de Dashboard en Grafana](img-keycloak/img-005.png)
 
    **Detalles de la configuración:**
    - **or vector(0)**: Se utiliza para asegurar que el panel muestre información incluso cuando no hay actividad (evitando que el gráfico desaparezca).
@@ -84,4 +84,4 @@ sum(count_over_time({job=~".+"} |= "LOGIN_ERROR" [1h])) or vector(0)
    - **Visualización**: El Panel de OverView ahora muestra correctamente los logs históricos desde el inicio del servicio de Keycloak.
    - **Validación**: Los datos confirman que el sistema está procesando correctamente la información, validando la integración total del sistema de auditoría.
 
-   ![Panel OverView Final](img_event_listeners/img-006.png)
+   ![Panel OverView Final](img-keycloak/img-006.png)
