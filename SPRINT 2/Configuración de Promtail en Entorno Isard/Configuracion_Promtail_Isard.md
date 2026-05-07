@@ -111,7 +111,7 @@ promtail:
    Ejecutamos los contenedores para iniciar los servicios:
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
    ![Despliegue de contenedores](imagenes/img-005.png)
@@ -133,7 +133,7 @@ docker-compose up -d
    Para generar actividad, realizamos un intento de conexión SSH desde un cliente hacia el servidor y fallamos la contraseña a propósito:
 
 ```bash
-ssh user@server -p 2222
+ssh isard@192.168.18.10 -p 2222 -o PubkeyAuthentication=no
 ```
 
    ![Simulación de ataque SSH](imagenes/img-008.png)
