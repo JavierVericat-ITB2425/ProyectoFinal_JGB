@@ -224,6 +224,7 @@ ssh isard@192.168.18.10 -p 2222 -o PubkeyAuthentication=no
 
 
    En estos logs también podemos ver desde donde se hace, es decir la IP de origen, vemos que el puerto del origen es 2222 que es el configurado, etc.
+  ![Detalle de los logs de SSH](imagenes/log.png)
 
 
    Si inspeccionamos uno de los logs podemos ver más a fondo y concreto lo que nos dice.
