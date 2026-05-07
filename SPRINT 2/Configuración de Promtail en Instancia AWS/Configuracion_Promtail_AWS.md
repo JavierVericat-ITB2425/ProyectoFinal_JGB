@@ -46,6 +46,7 @@ sudo apt update && sudo apt install unzip -y
 unzip promtail-linux-amd64.zip
 sudo mv promtail-linux-amd64 /usr/local/bin/promtail
 ```
+   ![Descomprimir archivo](imagenes/img-002.png)
 
 ---
 
