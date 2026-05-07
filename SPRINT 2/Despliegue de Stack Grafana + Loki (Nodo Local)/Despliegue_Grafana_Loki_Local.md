@@ -155,7 +155,7 @@ networks:
    Ahora ejecutamos los dockers para encender los servicios:
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
    ![Acceso a Grafana](imagenes/img-007.png)
 
@@ -178,24 +178,26 @@ sudo ufw allow 3000/tcp
 
 
    Pondremos las credenciales y podremos acceder.
+   ![Búsqueda de Loki en Grafana](imagenes/img-009.png)
 
-   ![Panel de inicio de Grafana](imagenes/img-008.png)
 
 ### **2.5 Configuración de Loki Web**
 
    Ahora procederemos a configurar el **Loki** en el Grafana. Nos dirigiremos al apartado de **Connections** y después a **Add Data Source** y buscamos **Loki**.
-
-   ![Búsqueda de Loki en Grafana](imagenes/img-009.png)
-
-   Ahora damos clic aquí:
-
    ![Selección de Loki](imagenes/img-010.png)
+   ![Configuración de URL de Loki](imagenes/img-011.png)
+
+
+   Ahora damos clic:
+
+   ![Validación de conexión exitosa](imagenes/img-012.png)
 
    Ahora lo que hacemos es indicar como URL la siguiente:
 
    `http://loki:3100`
 
-   ![Configuración de URL de Loki](imagenes/img-011.png)
+  ![Configuración de Explore](imagenes/img-013.png)
+
 
    Ahora lo que haremos es darle a **Save & Test** y aparecerá el mensaje de que la validación es correcta.
 
