@@ -1,6 +1,6 @@
 # **Configuración de Promtail en Entorno Isard**
 
-![Portada](imagenes/img-000.png)
+![Portada](imagenes/Portada.png)
 
 **N°:** GRUPO 8  
 **Integrantes:** Javier Vericat - Bryan Aguilera - Giuseppe Suarez  
