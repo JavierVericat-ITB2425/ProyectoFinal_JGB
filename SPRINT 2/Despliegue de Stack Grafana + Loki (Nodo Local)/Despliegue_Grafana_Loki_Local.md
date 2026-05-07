@@ -25,12 +25,14 @@
 ```bash
 mkdir -p ~/zth-node-cloud/monitoring
 ```
+   ![Creación de loki-config.yml](imagenes/img-001.png)
 
    Accedemos al directorio:
 
 ```bash
 cd ~/zth-node-cloud/monitoring
 ```
+   ![Configuración de Loki](imagenes/img-002.png)
 
 ---
 
@@ -45,8 +47,7 @@ cd ~/zth-node-cloud/monitoring
 ```bash
 sudo nano loki-config.yml
 ```
-
-   ![Creación de loki-config.yml](imagenes/img-001.png)
+   ![Creación de docker-compose.yml](imagenes/img-003.png)
 
    Y contendría lo siguiente:
 
@@ -86,16 +87,12 @@ compactor:
   working_directory: /loki/compactor
 ```
 
-   ![Configuración de Loki](imagenes/img-002.png)
 
    Ahora crearemos el archivo para los contenedores:
 
 ```bash
 sudo nano docker-compose.yml
 ```
-
-   ![Creación de docker-compose.yml](imagenes/img-003.png)
-
    Y este archivo contendrá lo siguiente:
 
 ```yaml
