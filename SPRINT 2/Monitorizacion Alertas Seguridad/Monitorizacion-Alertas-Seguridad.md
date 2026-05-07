@@ -1,6 +1,15 @@
 
 # Monitorización Avanzada y Gestión de Alertas de Seguridad
 
+## Informacion general
+
+![Portada](./imagenes/imagen-001.png)
+
+- Grupo: 8
+- Integrantes: Javier Vericat, Bryan Aguilera y Giuseppe Suarez
+- Profesores: Sergi y David Sicart
+- Objetivo: implementar monitorizacion avanzada y gestion de alertas de seguridad con Grafana, Prometheus y Loki.
+
 ## Indice
 
 - [Informacion general](#informacion-general)
@@ -19,15 +28,6 @@
 - [7.5 Conexion VPN desconocida](#75-conexion-vpn-desconocida)
 - [8. Auditoria de seguridad y validacion MFA](#8-auditoria-de-seguridad-y-validacion-mfa)
 - [Resultado](#resultado)
-
-## Informacion general
-
-![Portada](./imagenes/imagen-001.png)
-
-- Grupo: 8
-- Integrantes: Javier Vericat, Bryan Aguilera y Giuseppe Suarez
-- Profesores: Sergi y David Sicart
-- Objetivo: implementar monitorizacion avanzada y gestion de alertas de seguridad con Grafana, Prometheus y Loki.
 
 ## 1. Preparativos
 
