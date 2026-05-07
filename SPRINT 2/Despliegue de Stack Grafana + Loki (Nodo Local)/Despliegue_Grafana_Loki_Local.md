@@ -205,28 +205,26 @@ sudo ufw allow 3000/tcp
 ### **2.6 Comprobaciones de LOGS**
 
    Para comprobar si funciona o no, nos vamos al apartado de **Explore**. En **Select Label** seleccionamos la opción de `job` y el **Select Value** la opción de `auth`. Para finalizar, le damos clic donde dice **Live**.
+  ![Validación de conexión exitosa](imagenes/explore.png)
 
-   ![Configuración de Explore](imagenes/img-013.png)
 
    Esto debería de quedar tal que así:
+   ![Logs de error en tiempo real](imagenes/img-016.png)
 
-   ![Visualización de logs en vivo](imagenes/img-014.png)
 
    Ahora lo que hacemos es un SSH desde nuestro cliente hacia el servidor y fallamos la contraseña a propósito:
 
 ```bash
-ssh user@server -p 2222
+ssh isard@192.168.18.10 -p 2222 -o PubkeyAuthentication=no
 ```
+   ![Detalle de los logs de SSH](imagenes/img-017.png)
 
-   ![Intento de SSH fallido](imagenes/img-015.png)
 
    Así generamos logs y podemos ver cómo aparecen al instante los logs:
 
-   ![Logs de error en tiempo real](imagenes/img-016.png)
 
    En estos logs también podemos ver desde donde se hace, es decir la IP de origen, vemos que el puerto del origen es 2222 que es el configurado, etc.
 
-   ![Detalle de los logs de SSH](imagenes/img-017.png)
 
    Si inspeccionamos uno de los logs podemos ver más a fondo y concreto lo que nos dice.
 
