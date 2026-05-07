@@ -3,7 +3,7 @@
 
 ## Informacion general
 
-![Portada](./imagenes/imagen-001.png)
+![Portada](./imagenes/Portada.png)
 
 - Grupo: 8
 - Integrantes: Javier Vericat, Bryan Aguilera y Giuseppe Suarez
