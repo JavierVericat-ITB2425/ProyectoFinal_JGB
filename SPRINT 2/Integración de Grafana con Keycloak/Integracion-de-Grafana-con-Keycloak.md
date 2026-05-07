@@ -1,5 +1,10 @@
 # Integracion de Grafana con Keycloak mediante OIDC
+![Portada](./imagenes/imagen-001.png)
 
+- Grupo: 8
+- Integrantes: Javier Vericat, Bryan Aguilera y Giuseppe Suarez
+- Profesores: Sergi y David Sicart
+- Objetivo: integrar Grafana con Keycloak mediante OIDC para centralizar el inicio de sesion.
 ## Indice
 
 - [Informacion general](#informacion-general)
@@ -9,15 +14,6 @@
 - [2. Configurar Docker Compose](#2-configurar-docker-compose)
 - [3. Comprobacion](#3-comprobacion)
 - [Resultado](#resultado)
-
-## Informacion general
-
-![Portada](./imagenes/imagen-001.png)
-
-- Grupo: 8
-- Integrantes: Javier Vericat, Bryan Aguilera y Giuseppe Suarez
-- Profesores: Sergi y David Sicart
-- Objetivo: integrar Grafana con Keycloak mediante OIDC para centralizar el inicio de sesion.
 
 ## 1. Configuracion en Keycloak
 
