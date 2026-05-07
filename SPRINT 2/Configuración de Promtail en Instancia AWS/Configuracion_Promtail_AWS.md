@@ -118,8 +118,6 @@ scrape_configs:
 ```bash
 sudo nano /etc/systemd/system/promtail.service
 ```
-   ![Detalle de red segura](imagenes/Activacion.png)
-
    El contenido del servicio es:
 
 ```ini
