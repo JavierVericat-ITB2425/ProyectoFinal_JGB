@@ -86,13 +86,15 @@ limits_config:
 compactor:
   working_directory: /loki/compactor
 ```
-
+   ![Configuración de servicios en Docker Compose](imagenes/img-004.png)
 
    Ahora crearemos el archivo para los contenedores:
 
 ```bash
 sudo nano docker-compose.yml
 ```
+   ![Ejecución de Docker Compose](imagenes/img-005.png)
+
    Y este archivo contendrá lo siguiente:
 
 ```yaml
@@ -146,8 +148,7 @@ networks:
   monitoring-net:
     driver: bridge
 ```
-
-   ![Configuración de servicios en Docker Compose](imagenes/img-004.png)
+   ![Configuración de Firewall](imagenes/img-006.png)
 
 ### **2.2 Ejecución**
 
@@ -156,8 +157,8 @@ networks:
 ```bash
 docker-compose up -d
 ```
+   ![Acceso a Grafana](imagenes/img-007.png)
 
-   ![Ejecución de Docker Compose](imagenes/img-005.png)
 
 ### **2.3 Firewall**
 
@@ -166,8 +167,8 @@ docker-compose up -d
 ```bash
 sudo ufw allow 3000/tcp
 ```
+   ![Panel de inicio de Grafana](imagenes/img-008.png)
 
-   ![Configuración de Firewall](imagenes/img-006.png)
 
 ### **2.4 Comprobación de acceso**
 
@@ -175,7 +176,6 @@ sudo ufw allow 3000/tcp
 
    `http://192.168.18.10:3000`
 
-   ![Acceso a Grafana](imagenes/img-007.png)
 
    Pondremos las credenciales y podremos acceder.
 
