@@ -12,7 +12,7 @@
 
 ## Informacion general
 
-![Portada](./imagenes-integracion-grafana-keycloak/imagen-001.png)
+![Portada](./imagenes/imagen-001.png)
 
 - Grupo: 8
 - Integrantes: Javier Vericat, Bryan Aguilera y Giuseppe Suarez
@@ -25,11 +25,11 @@
 
 Primero, desde Keycloak se crea un cliente nuevo para Grafana.
 
-![Creacion del cliente](./imagenes-integracion-grafana-keycloak/imagen-002.png)
+![Creacion del cliente](./imagenes/imagen-002.png)
 
 Despues se configura con los parametros necesarios para permitir la autenticacion mediante OIDC.
 
-![Configuracion inicial del cliente](./imagenes-integracion-grafana-keycloak/imagen-003.png)
+![Configuracion inicial del cliente](./imagenes/imagen-003.png)
 
 Puntos importantes de esta configuracion:
 
@@ -39,7 +39,7 @@ Puntos importantes de esta configuracion:
 
 La siguiente configuracion define el flujo de autenticacion completo entre ambos servicios.
 
-![Configuracion del flujo OIDC](./imagenes-integracion-grafana-keycloak/imagen-004.png)
+![Configuracion del flujo OIDC](./imagenes/imagen-004.png)
 
 Flujo esperado:
 
@@ -51,31 +51,31 @@ Flujo esperado:
 
 Cliente generado correctamente:
 
-![Cliente creado](./imagenes-integracion-grafana-keycloak/imagen-005.png)
+![Cliente creado](./imagenes/imagen-005.png)
 
 ### 1.2 Rol del cliente
 
 Una vez creado el cliente, hay que indicar el rol que va a tener, por ejemplo administrador o trabajador. Esta configuracion se realiza desde `Client Scopes`.
 
-![Client Scopes](./imagenes-integracion-grafana-keycloak/imagen-006.png)
+![Client Scopes](./imagenes/imagen-006.png)
 
 Despues se selecciona la opcion `Configure a new mapper`.
 
-![Nuevo mapper](./imagenes-integracion-grafana-keycloak/imagen-007.png)
+![Nuevo mapper](./imagenes/imagen-007.png)
 
 A continuacion se rellena la configuracion del mapper:
 
-![Configuracion del mapper](./imagenes-integracion-grafana-keycloak/imagen-008.png)
+![Configuracion del mapper](./imagenes/imagen-008.png)
 
 Con estos datos conseguimos que la informacion del rol viaje correctamente dentro del token.
 
-![Datos del mapper](./imagenes-integracion-grafana-keycloak/imagen-009.png)
+![Datos del mapper](./imagenes/imagen-009.png)
 
 ## 2. Configurar Docker Compose
 
 Antes de modificar Grafana, hay que obtener el `client secret` desde la pestana `Credentials` de Keycloak.
 
-![Client secret](./imagenes-integracion-grafana-keycloak/imagen-010.png)
+![Client secret](./imagenes/imagen-010.png)
 
 Una vez copiado, se edita el archivo `docker-compose.yml`.
 
@@ -175,30 +175,31 @@ networks:
 
 Ejemplo del resultado en el fichero:
 
-![Docker Compose configurado](./imagenes-integracion-grafana-keycloak/imagen-011.png)
+![Docker Compose configurado](./imagenes/imagen-011.png)
 
 ## 3. Comprobacion
 
 Al entrar en la pagina de Grafana aparece la opcion para iniciar sesion con Keycloak.
 
-![Login con Keycloak en Grafana](./imagenes-integracion-grafana-keycloak/imagen-012.png)
+![Login con Keycloak en Grafana](./imagenes/imagen-012.png)
 
 Al pulsar en `Sign in with Keycloak`, se muestra el formulario de autenticacion.
 
-![Formulario de acceso](./imagenes-integracion-grafana-keycloak/imagen-013.png)
+![Formulario de acceso](./imagenes/imagen-013.png)
 
 Se introducen las credenciales del usuario.
 
-![Credenciales de usuario](./imagenes-integracion-grafana-keycloak/imagen-014.png)
+![Credenciales de usuario](./imagenes/imagen-014.png)
 
 Despues se solicita el codigo MFA.
 
-![Codigo MFA](./imagenes-integracion-grafana-keycloak/imagen-015.png)
+![Codigo MFA](./imagenes/imagen-015.png)
 
 Cuando la autenticacion finaliza correctamente, se accede a Grafana sin necesidad de usuarios locales.
 
-![Acceso correcto a Grafana](./imagenes-integracion-grafana-keycloak/imagen-016.png)
+![Acceso correcto a Grafana](./imagenes/imagen-016.png)
 
 ## Resultado
 
 La integracion OIDC entre Grafana y Keycloak queda completada con exito. Gracias a esta configuracion, la autenticacion se centraliza en Keycloak y ya no es necesario gestionar usuarios locales directamente desde Grafana.
+
