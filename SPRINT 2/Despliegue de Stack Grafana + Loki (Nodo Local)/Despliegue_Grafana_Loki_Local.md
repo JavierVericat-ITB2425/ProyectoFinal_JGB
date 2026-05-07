@@ -176,10 +176,8 @@ sudo ufw allow 3000/tcp
 
    `http://192.168.18.10:3000`
 
-
    Pondremos las credenciales y podremos acceder.
    ![Búsqueda de Loki en Grafana](imagenes/img-009.png)
-
 
 ### **2.5 Configuración de Loki Web**
 
@@ -219,9 +217,7 @@ ssh isard@192.168.18.10 -p 2222 -o PubkeyAuthentication=no
 ```
    ![Detalle de los logs de SSH](imagenes/img-017.png)
 
-
    Así generamos logs y podemos ver cómo aparecen al instante los logs:
-
 
    En estos logs también podemos ver desde donde se hace, es decir la IP de origen, vemos que el puerto del origen es 2222 que es el configurado, etc.
   ![Detalle de los logs de SSH](imagenes/log.png)
