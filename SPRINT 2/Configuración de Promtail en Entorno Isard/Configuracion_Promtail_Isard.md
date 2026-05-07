@@ -1,6 +1,6 @@
 # **Configuración de Promtail en Entorno Isard**
 
-![Portada](./Imagenes-Promtail/img-000.png)
+![Portada](imagenes/img-000.png)
 
 **N°:** GRUPO 8  
 **Integrantes:** Javier Vericat - Bryan Aguilera - Giuseppe Suarez  
@@ -28,7 +28,7 @@
 sudo nano promtail-config.yml
 ```
 
-   ![Comando de configuración](./Imagenes-Promtail/img-001.png)
+   ![Comando de configuración](imagenes/img-001.png)
 
    El contenido del archivo será el siguiente:
 
@@ -69,7 +69,7 @@ scrape_configs:
           __path__: /var/log/nginx/*.log
 ```
 
-   ![Configuración de Promtail](./Imagenes-Promtail/img-002.png)
+   ![Configuración de Promtail](imagenes/img-002.png)
 
    **Detalles de la configuración:**
    - **Etiquetas (Labels)**: Se han definido etiquetas específicas (`job` y `host`) para cada fuente de logs.
@@ -83,7 +83,7 @@ scrape_configs:
 sudo nano docker-compose.yml
 ```
 
-   ![Edición de Docker Compose](./Imagenes-Promtail/img-003.png)
+   ![Edición de Docker Compose](imagenes/img-003.png)
 
    Añadiremos el servicio de **Promtail**:
 
@@ -100,7 +100,7 @@ promtail:
     - monitoring-net
 ```
 
-   ![Configuración del servicio Promtail](./Imagenes-Promtail/img-004.png)
+   ![Configuración del servicio Promtail](imagenes/img-004.png)
 
 ---
 
@@ -114,11 +114,11 @@ promtail:
 docker-compose up -d
 ```
 
-   ![Despliegue de contenedores](./Imagenes-Promtail/img-005.png)
+   ![Despliegue de contenedores](imagenes/img-005.png)
 
    Verificamos que el contenedor de Promtail esté corriendo correctamente.
 
-   ![Estado de los contenedores](./Imagenes-Promtail/img-006.png)
+   ![Estado de los contenedores](imagenes/img-006.png)
 
 ### **2.2 Pruebas de inyección de logs en tiempo real**
 
@@ -128,7 +128,7 @@ docker-compose up -d
    2. En **Select Value**, seleccionamos la opción `auth`.
    3. Hacemos clic en el botón **Live** para ver los logs en tiempo real.
 
-   ![Configuración de Explore en Grafana](./Imagenes-Promtail/img-007.png)
+   ![Configuración de Explore en Grafana](imagenes/img-007.png)
 
    Para generar actividad, realizamos un intento de conexión SSH desde un cliente hacia el servidor y fallamos la contraseña a propósito:
 
@@ -136,11 +136,11 @@ docker-compose up -d
 ssh user@server -p 2222
 ```
 
-   ![Simulación de ataque SSH](./Imagenes-Promtail/img-008.png)
+   ![Simulación de ataque SSH](imagenes/img-008.png)
 
    Al instante, podemos observar cómo aparecen los logs de error en el panel de Grafana:
 
-   ![Visualización de logs en tiempo real](./Imagenes-Promtail/img-009.png)
+   ![Visualización de logs en tiempo real](imagenes/img-009.png)
 
    **Análisis del evento:**
    Si inspeccionamos uno de los logs, podemos ver de forma detallada la información del evento:
@@ -149,4 +149,4 @@ ssh user@server -p 2222
    - **Puerto**: El puerto configurado (2222).
    - **Motivo**: El motivo del fallo de autenticación.
 
-   ![Detalle del log de seguridad](./Imagenes-Promtail/img-010.png)
+   ![Detalle del log de seguridad](imagenes/img-010.png)
