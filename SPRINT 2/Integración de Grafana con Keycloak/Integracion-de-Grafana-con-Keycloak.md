@@ -4,7 +4,7 @@
 - Grupo: 8
 - Integrantes: Javier Vericat, Bryan Aguilera y Giuseppe Suarez
 - Profesores: Sergi y David Sicart
-- Objetivo: integrar Grafana con Keycloak mediante OIDC para centralizar el inicio de sesion.
+
 ## Indice
 
 - [Informacion general](#informacion-general)
