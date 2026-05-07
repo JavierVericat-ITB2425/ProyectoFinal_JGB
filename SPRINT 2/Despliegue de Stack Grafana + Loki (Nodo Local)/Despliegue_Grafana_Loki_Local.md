@@ -201,8 +201,7 @@ sudo ufw allow 3000/tcp
 
    Ahora lo que haremos es darle a **Save & Test** y aparecerá el mensaje de que la validación es correcta.
 
-   ![Validación de conexión exitosa](imagenes/img-012.png)
-
+   ![Validación de conexión exitosa](imagenes/Save&Test.png)
 ### **2.6 Comprobaciones de LOGS**
 
    Para comprobar si funciona o no, nos vamos al apartado de **Explore**. En **Select Label** seleccionamos la opción de `job` y el **Select Value** la opción de `auth`. Para finalizar, le damos clic donde dice **Live**.
