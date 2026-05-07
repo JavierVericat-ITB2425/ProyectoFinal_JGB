@@ -158,13 +158,15 @@ sudo systemctl start promtail
    Para validar la conexión, enviamos un log de prueba desde la instancia de AWS:
 
 ```bash
-sudo logger "PROBANDO GRAFANA: CONEXIÓN OK"
+sudo journalctl -u promtail -f"
 ```
-
    ![Comando de prueba logger](imagenes/img-008.png)
 
    Verificamos en el panel de **Grafana** que los logs se reciben correctamente:
 
+```bash
+sudo logger "PROBANDO GRAFANA: CONEXIÓN OK"
+```
    ![Logs en Grafana](imagenes/img-009.png)
 
    Y confirmamos el estado del servicio:
