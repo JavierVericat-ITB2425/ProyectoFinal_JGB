@@ -1,4 +1,4 @@
-````markdown
+
 # ZeroTrustHub — Despliegue Web con Nginx + Docker + HTTPS
 
 ## Descripción
@@ -858,5 +858,4 @@ Redirección HTTP→HTTPS: operativa
 Puerto local testing 8090: operativo
 ```
 
----
-````
+
