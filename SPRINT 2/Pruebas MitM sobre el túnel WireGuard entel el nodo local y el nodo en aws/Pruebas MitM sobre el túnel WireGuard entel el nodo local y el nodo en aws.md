@@ -56,9 +56,8 @@ udp.port == 51820
 
 Al inspeccionar un paquete capturado del túnel, el contenido no es interpretable en claro porque todo el tráfico va cifrado.
 
-```text
 Wireshark: inspeccionar un paquete UDP de WireGuard (no se observa payload en claro)
-```
+
 
 ![Contenido no legible (tráfico cifrado)](images/image4.png)
 
