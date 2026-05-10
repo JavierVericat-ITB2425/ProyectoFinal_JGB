@@ -1,98 +1,56 @@
-Documentación técnica de administrador — Zero Trust Hub
+# Documentación técnica de administrador — Zero Trust Hub
 
 ![](images/image1.png)
 
-### Proyecto de Integración de Sistemas de Seguridad Híbridos
+## Proyecto de Integración de Sistemas de Seguridad Híbridos
 
-Grupo: 8
-
-Integrantes: Bryan Aguilera - Javier Vericat -
-Giuseppe Suarez
-
-Fecha: Mayo 2026
+- Grupo: 8
+- Integrantes: Bryan Aguilera, Javier Vericat, Giuseppe Suarez
+- Fecha: Mayo 2026
 
 ---
 
-Índice
+## Índice
+<details open>
+<summary>Ver/ocultar índice</summary>
 
-1. Descripción general del sistema        3
-
-2. Arquitectura técnica        3
-
-3. Estructura documental del proyecto        4
-
-4. Dependencias principales        5
-
-5. Instalación inicial        5
-
-5.1 Nodo cloud en AWS        5
-
-5.2 Nodo local en Isard        5
-
-5.3 WireGuard        6
-
-5.4 Despliegue de servicios        6
-
-5.5 Gestión de Secretos y Credenciales        6
-
-6. Configuración de servicios        7
-
-6.1 SSH        7
-
-6.2 WireGuard        7
-
-6.3 Keycloak        7
-
-6.4 NGINX        8
-
-6.5 Monitorización        8
-
-6.6 Seguridad de Acceso (OAuth2 Proxy)        9
-
-7. Comandos de administración habituales        9
-
-SSH        9
-
-WireGuard        9
-
-Docker        9
-
-NGINX        10
-
-Fail2ban        10
-
-Monitorización        10
-
-Comandos de Diagnóstico Avanzado:        10
-
-8. Tabla de puertos y servicios recomendados        11
-
-9. Tabla de servicios y mantenimiento        11
-
-10. Incidencias comunes y resolución        12
-
-10.1 Pérdida de acceso SSH        12
-
-10.2 WireGuard no conecta        13
-
-10.3 Servicios internos visibles desde la red        13
-
-10.4 Dashboards sin datos o alertas incompletas        13
-
-10.5 Reconfiguración de AWS tras pérdida del nodo        13
-
-11. Mantenimiento periódico        14
-
-12. Recomendaciones de administración y mejora        14
-
-13. Procedimiento básico de recuperación        16
-
-13.1 Procedimientos de Backup y Exportación        16
-
-14. Conclusión        17
+- [1. Descripción general del sistema](#1-descripcion-general-del-sistema)
+- [2. Arquitectura técnica](#2-arquitectura-tecnica)
+- [3. Estructura documental del proyecto](#3-estructura-documental-del-proyecto)
+- [4. Dependencias principales](#4-dependencias-principales)
+- [5. Instalación inicial](#5-instalacion-inicial)
+  - [5.1 Nodo cloud en AWS](#51-nodo-cloud-en-aws)
+  - [5.2 Nodo local en Isard](#52-nodo-local-en-isard)
+  - [5.3 WireGuard](#53-wireguard)
+  - [5.4 Despliegue de servicios](#54-despliegue-de-servicios)
+  - [5.5 Gestión de Secretos y Credenciales](#55-gestion-de-secretos-y-credenciales)
+- [6. Configuración de servicios](#6-configuracion-de-servicios)
+  - [6.1 SSH](#61-ssh)
+  - [6.2 WireGuard](#62-wireguard)
+  - [6.3 Keycloak](#63-keycloak)
+  - [6.4 NGINX](#64-nginx)
+  - [6.5 Monitorización](#65-monitorizacion)
+  - [6.6 Seguridad de Acceso (OAuth2 Proxy)](#66-seguridad-de-acceso-oauth2-proxy)
+- [7. Comandos de administración habituales](#7-comandos-de-administracion-habituales)
+- [8. Tabla de puertos y servicios recomendados](#8-tabla-de-puertos-y-servicios-recomendados)
+- [9. Tabla de servicios y mantenimiento](#9-tabla-de-servicios-y-mantenimiento)
+- [10. Incidencias comunes y resolución](#10-incidencias-comunes-y-resolucion)
+  - [10.1 Pérdida de acceso SSH](#101-perdida-de-acceso-ssh)
+  - [10.2 WireGuard no conecta](#102-wireguard-no-conecta)
+  - [10.3 Servicios internos visibles desde la red](#103-servicios-internos-visibles-desde-la-red)
+  - [10.4 Dashboards sin datos o alertas incompletas](#104-dashboards-sin-datos-o-alertas-incompletas)
+  - [10.5 Reconfiguración de AWS tras pérdida del nodo](#105-reconfiguracion-de-aws-tras-perdida-del-nodo)
+- [11. Mantenimiento periódico](#11-mantenimiento-periodico)
+- [12. Recomendaciones de administración y mejora](#12-recomendaciones-de-administracion-y-mejora)
+- [13. Procedimiento básico de recuperación](#13-procedimiento-basico-de-recuperacion)
+  - [13.1 Procedimientos de Backup y Exportación](#131-procedimientos-de-backup-y-exportacion)
+- [14. Conclusión](#14-conclusion)
+- [Ejecución (capturas)](#ejecucion-capturas)
+</details>
 
 ---
 
+<a id="1-descripcion-general-del-sistema"></a>
 # 1. Descripción general del sistema
 
 Zero Trust Hub es una infraestructura híbrida compuesta por un nodo local desplegado en Isard y un nodo cloud desplegado en AWS
@@ -105,6 +63,7 @@ Esta estructura se corresponde con la organización del repositorio por sprints 
 
 ---
 
+<a id="2-arquitectura-tecnica"></a>
 # 2. Arquitectura técnica
 
 La arquitectura del proyecto se compone de dos nodos principales:
@@ -126,6 +85,7 @@ Todo ello está reflejado en los directorios y documentos presentes en Sprint 1 
 
 ![](images/image2.png)
 
+<a id="3-estructura-documental-del-proyecto"></a>
 # 3. Estructura documental del proyecto
 
 El repositorio se organiza en:
@@ -134,6 +94,7 @@ El repositorio se organiza en:
 
 - SPRINT 2, con documentación sobre integración de servicios, NGINX, Grafana, Loki, Promtail, Keycloak, pruebas de seguridad y validaciones finales
 
+<a id="4-dependencias-principales"></a>
 # 4. Dependencias principales
 
 Para el funcionamiento del sistema se requieren:
@@ -154,14 +115,17 @@ Para el funcionamiento del sistema se requieren:
 
 ---
 
+<a id="5-instalacion-inicial"></a>
 # 5. Instalación inicial
 
+<a id="51-nodo-cloud-en-aws"></a>
 ## 5.1 Nodo cloud en AWS
 
 El despliegue del nodo cloud parte de la creación de una instancia Ubuntu en AWS, su configuración de red, su acceso SSH seguro y la posterior instalación de WireGuard y del resto de componentes necesarios
 
 La existencia de documentación específica sobre la creación de la instancia y la configuración de WireGuard en AWS aparece en Sprint 1
 
+<a id="52-nodo-local-en-isard"></a>
 ## 5.2 Nodo local en Isard
 
 El nodo local se aprovisiona en Isard y se prepara para alojar la infraestructura base
@@ -170,18 +134,21 @@ Esto incluye hardening inicial, despliegue de Docker, WireGuard y servicios int
 
 Esa parte también está reflejada en Sprint 1
 
+<a id="53-wireguard"></a>
 ## 5.3 WireGuard
 
 WireGuard se configura en ambos nodos mediante claves públicas y privadas, peers y direcciones internas del túnel
 
 La instalación y configuración en AWS e Isard están documentadas en Sprint 1
 
+<a id="54-despliegue-de-servicios"></a>
 ## 5.4 Despliegue de servicios
 
 Los servicios principales se levantan mediante contenedores y configuración específica por servicio
 
 Sprint 1 documenta Docker y Sprint 2 documenta la integración de NGINX, Grafana, Loki, Promtail y Keycloak
 
+<a id="55-gestion-de-secretos-y-credenciales"></a>
 ## 5.5 Gestión de Secretos y Credenciales
 
 Para mantener la integridad del modelo Zero Trust, las credenciales y llaves no están integradas en el código base, sino que se gestionan de forma aislada:
@@ -198,8 +165,10 @@ Certificados SSL/TLS: Gestionados por NGINX, almacenados en /etc/letsencrypt/ o
 
 ---
 
+<a id="6-configuracion-de-servicios"></a>
 # 6. Configuración de servicios
 
+<a id="61-ssh"></a>
 ## 6.1 SSH
 
 - Ruta crítica: /etc/ssh/sshd_config
@@ -214,6 +183,7 @@ Certificados SSL/TLS: Gestionados por NGINX, almacenados en /etc/letsencrypt/ o
 
 - Revisión periódica del servicio tras reinicios: sudo systemctl status ssh
 
+<a id="62-wireguard"></a>
 ## 6.2 WireGuard
 
 - Ruta crítica: /etc/wireguard/wg0.conf
@@ -226,6 +196,7 @@ Certificados SSL/TLS: Gestionados por NGINX, almacenados en /etc/letsencrypt/ o
 
 - Estado del servicio: systemctl status wg-quick@wg0
 
+<a id="63-keycloak"></a>
 ## 6.3 Keycloak
 
 - Rutas críticas: ~/zth-node-cloud/keycloak/docker-compose.yml
@@ -240,6 +211,7 @@ Certificados SSL/TLS: Gestionados por NGINX, almacenados en /etc/letsencrypt/ o
 
 ---
 
+<a id="64-nginx"></a>
 ## 6.4 NGINX
 
 - Rutas críticas: ~/zth-node-cloud/nginx/nginx.conf
@@ -256,6 +228,7 @@ Certificados SSL/TLS: Gestionados por NGINX, almacenados en /etc/letsencrypt/ o
 
 - Página principal: ~/zth-node-cloud/nginx/zerotrusthub.html
 
+<a id="65-monitorizacion"></a>
 ## 6.5 Monitorización
 
 Para la gestión de la observabilidad, los archivos de configuración se encuentran centralizados en el nodo local
@@ -284,6 +257,7 @@ Grafana: Visualización centralizada, dashboards y sistema de alertas
 
 ---
 
+<a id="66-seguridad-de-acceso-oauth2-proxy"></a>
 ## 6.6 Seguridad de Acceso (OAuth2 Proxy)
 
 Para proteger los servicios internos que no disponen de autenticación nativa o para centralizar el acceso, se utiliza OAuth2 Proxy vinculado al Realm de Keycloak
@@ -304,6 +278,7 @@ Nota de administración: Si un usuario no puede acceder a los dashboards a pesar
 
 ---
 
+<a id="7-comandos-de-administracion-habituales"></a>
 # 7. Comandos de administración habituales
 
 ### SSH
@@ -382,6 +357,7 @@ Probar conectividad interna del túnel: ping 10.8.0.1 (desde local) o ping 10.8
 
 Limpieza de emergencia (Disco lleno): docker system prune -f (Borra datos temporales de Docker para liberar espacio)
 
+<a id="8-tabla-de-puertos-y-servicios-recomendados"></a>
 # 8. Tabla de puertos y servicios recomendados
 
 Puerto
@@ -484,6 +460,7 @@ Uso puntual
 
 Revisar necesidad
 
+<a id="9-tabla-de-servicios-y-mantenimiento"></a>
 # 9. Tabla de servicios y mantenimiento
 
 Servicio
@@ -572,8 +549,10 @@ fail2ban-client status
 
 revisar jails y baneos
 
+<a id="10-incidencias-comunes-y-resolucion"></a>
 # 10. Incidencias comunes y resolución
 
+<a id="101-perdida-de-acceso-ssh"></a>
 ## 10.1 Pérdida de acceso SSH
 
 Revisar:
@@ -588,6 +567,7 @@ Revisar:
 
 - si ssh.service está habilitado al arranque
 
+<a id="102-wireguard-no-conecta"></a>
 ## 10.2 WireGuard no conecta
 
 Revisar:
@@ -602,6 +582,7 @@ Revisar:
 
 - Puerto UDP permitido
 
+<a id="103-servicios-internos-visibles-desde-la-red"></a>
 ## 10.3 Servicios internos visibles desde la red
 
 Revisar:
@@ -616,6 +597,7 @@ Revisar:
 
 ---
 
+<a id="104-dashboards-sin-datos-o-alertas-incompletas"></a>
 ## 10.4 Dashboards sin datos o alertas incompletas
 
 Revisar:
@@ -630,6 +612,7 @@ Revisar:
 
 - Conectividad entre nodos
 
+<a id="105-reconfiguracion-de-aws-tras-perdida-del-nodo"></a>
 ## 10.5 Reconfiguración de AWS tras pérdida del nodo
 
 La pérdida de una instancia cloud obliga a:
@@ -645,6 +628,7 @@ La pérdida de una instancia cloud obliga a:
 - Revisar IP pública y Security Group
 Esta necesidad encaja con la existencia de documentación de AWS y WireGuard en Sprint 1
 
+<a id="11-mantenimiento-periodico"></a>
 # 11. Mantenimiento periódico
 
 Se recomienda revisar de forma periódica:
@@ -665,6 +649,7 @@ Se recomienda revisar de forma periódica:
 
 - Cambios de IP pública que afecten al peer de WireGuard
 
+<a id="12-recomendaciones-de-administracion-y-mejora"></a>
 # 12. Recomendaciones de administración y mejora
 
 Para garantizar el correcto funcionamiento y la seguridad del sistema, se recomienda mantener una revisión periódica de todos los componentes principales de la infraestructura
@@ -695,6 +680,7 @@ Esto permite que otro administrador pueda retomar el sistema, entender su estado
 
 ---
 
+<a id="13-procedimiento-basico-de-recuperacion"></a>
 # 13. Procedimiento básico de recuperación
 
 En caso de pérdida del nodo cloud o necesidad de rehacer parte de la infraestructura:
@@ -714,6 +700,7 @@ En caso de pérdida del nodo cloud o necesidad de rehacer parte de la infraestru
 - Comprobar dashboards, logs y alertas
 El repositorio incluye documentación relacionada con AWS, WireGuard, Docker y hardening que sirve de apoyo para esta recuperación
 
+<a id="131-procedimientos-de-backup-y-exportacion"></a>
 ## 13.1 Procedimientos de Backup y Exportación
 
 Configuraciones: Copiar toda la carpeta ~/zth-node-cloud/ a un almacenamiento externo o repositorio privado
@@ -729,6 +716,7 @@ Secretos: Guardar en lugar seguro los archivos .env de cada carpeta, ya que con
 
 ---
 
+<a id="14-conclusion"></a>
 # 14. Conclusión
 
 La documentación técnica de administrador debe permitir comprender la arquitectura, desplegar el sistema desde cero, mantener los servicios y resolver incidencias habituales
@@ -736,6 +724,7 @@ La documentación técnica de administrador debe permitir comprender la arquitec
 Gracias a la estructura del repositorio, con 206 commits y documentación organizada en Sprint 1 y Sprint 2, el proyecto dispone de una base suficientemente completa para soportar tareas de administración, operación y recuperación de la infraestructura
 
 
+<a id="ejecucion-capturas"></a>
 ## Ejecución (capturas)
 
 Primero los pasos/mandos (copiables) y, a continuación, la captura de la ejecución.
