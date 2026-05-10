@@ -1,6 +1,6 @@
 # Hardening Inicial y Despliegue de Infraestructura Segura
 
-![Imagen 1](./imagenes/imagen-001.png)
+![Imagen 1](./imagenes/object_remover-1778437568000.jpeg)
 
 #### N°: GRUPO 8
 
