@@ -1,118 +1,16 @@
-# Hardening Inicial y Despliegue de
+# Hardening Inicial y Despliegue de Infraestructura Segura
 
 ## Indice
 
-- [Hardening Inicial y Despliegue de](#hardening-inicial-y-despliegue-de)
+- [Informacion general](#informacion-general)
+- [S1-01 - Acceso SSH Seguro (Hardening Inicial) - Isard](#s1-01---acceso-ssh-seguro-hardening-inicial---isard)
+- [S1-02 - Docker + Keycloak - Isard](#s1-02---docker--keycloak---isard)
+- [S1-03 - Configuracion de Seguridad IAM - Isard](#s1-03---configuracion-de-seguridad-iam---isard)
+- [S1-04 - Hardening Avanzado del Sistema - Isard](#s1-04---hardening-avanzado-del-sistema---isard)
+- [S1-05 - Hardening en el Nodo AWS](#s1-05---hardening-en-el-nodo-aws)
+- [Recomendaciones Adicionales](#recomendaciones-adicionales)
 
-- [Infraestructura Segura](#infraestructura-segura)
-
-- [N°: GRUPO 8](#n-grupo-8)
-
-- [Integrantes: Javier Vericat - Bryan Aguilera - Giuseppe Suarez](#integrantes-javier-vericat-bryan-aguilera-giuseppe-suarez)
-
-- [Profesores: Sergi - David Sicart](#profesores-sergi-david-sicart)
-
-- [S1-01 - Acceso SSH Seguro (Hardening Inicial) - Isard](#s1-01-acceso-ssh-seguro-hardening-inicial-isard)
-
-- [1. ​ Gestion de claves](#1-gestion-de-claves)
-
-- [a. ​ Generar claves](#a-generar-claves)
-
-- [b. ​ Pasar claves](#b-pasar-claves)
-
-- [c. ​ Comprobación](#c-comprobación)
-
-- [2. ​ Handering de SSH](#2-handering-de-ssh)
-
-- [a. ​ Cambiar puerto y archivo de configuración](#a-cambiar-puerto-y-archivo-de-configuración)
-
-- [b. ​ Comprobacion](#b-comprobacion)
-
-- [3. ​ Firewall](#3-firewall)
-
-- [a. ​ Crear reglas](#a-crear-reglas)
-
-- [4. ​ Regla AWS](#4-regla-aws)
-
-- [S1-02 - Docker + Keycloak - Isard](#s1-02-docker-keycloak-isard)
-
-- [1. ​ Instalación de Docker](#1-instalación-de-docker)
-
-- [a. ​ Instalar paquetes](#a-instalar-paquetes)
-
-- [b. ​ Permisos](#b-permisos)
-
-- [2. ​ Despliegue de KeyCloak](#2-despliegue-de-keycloak)
-
-- [a. ​ Creación de directorios](#a-creación-de-directorios)
-
-- [b. ​ Crear y configurar archivo .yml](#b-crear-y-configurar-archivo-yml)
-
-- [c. ​ Firewall Regla](#c-firewall-regla)
-
-- [d. ​ Comprobación](#d-comprobación)
-
-- [S1-03 - Configuración de Seguridad IAM - Isard](#s1-03-configuración-de-seguridad-iam-isard)
-
-- [1. ​ Crear Realm](#1-crear-realm)
-
-- [a. ​ Configurar Realm](#a-configurar-realm)
-
-- [2.​ Autenticación multifactor](#2-autenticación-multifactor)
-
-- [a. ​ Configuración de Autenticación](#a-configuración-de-autenticación)
-
-- [b. ​ Políticas de ataques](#b-políticas-de-ataques)
-
-- [d. ​ Políticas de Contraseñas](#d-políticas-de-contraseñas)
-
-- [e. ​ Roles y Grupos](#e-roles-y-grupos)
-
-- [f. ​ Usuario](#f-usuario)
-
-- [g. ​ Comprobacion](#g-comprobacion)
-
-- [S1-04: Hardening Avanzado del Sistema - Isard](#s1-04-hardening-avanzado-del-sistema-isard)
-
-- [1. ​ Fail2Ban](#1-fail2ban)
-
-- [a. ​ Instalación del Fail2Ban](#a-instalación-del-fail2ban)
-
-- [b. ​ Crear configuración inicial](#b-crear-configuración-inicial)
-
-- [c. ​ Reiniciamos y comprobamos ​](#c-reiniciamos-y-comprobamos)
-
-- [d. ​ COMPROBACION](#d-comprobacion)
-
-- [2. ​ Actualizaciones Automáticas de Seguridad](#2-actualizaciones-automáticas-de-seguridad)
-
-- [a. ​ Configurar actualizaciones automáticas](#a-configurar-actualizaciones-automáticas)
-
-- [Ejecutamos el siguiente comando](#ejecutamos-el-siguiente-comando)
-
-- [c. ​ Configuración de política restrictiva](#c-configuración-de-política-restrictiva)
-
-- [S1-05: Hardening en el Nodo AWS](#s1-05-hardening-en-el-nodo-aws)
-
-- [1. ​ Firewall - AWS](#1-firewall-aws)
-
-- [a. ​ Reglas](#a-reglas)
-
-- [Ahora indicamos el puerto de HTTPS para la web](#ahora-indicamos-el-puerto-de-https-para-la-web)
-
-- [Todo lo que no se encuentra aqui sera denegado con DROP](#todo-lo-que-no-se-encuentra-aqui-sera-denegado-con-drop)
-
-- [b. ​ Dentro de la Instancia](#b-dentro-de-la-instancia)
-
-- [2. ​ Fail2Ban](#2-fail2ban)
-
-- [b. ​ Configuración](#b-configuración)
-
-- [d.​COmprobacion](#dcomprobacion)
-
-- [3. ​ Actualizaciones Automáticas de Seguridad en AWS](#3-actualizaciones-automáticas-de-seguridad-en-aws)
-
-## Infraestructura Segura
+## Informacion general
 
 ![Imagen 1](./imagenes/imagen-001.png)
 
@@ -122,129 +20,11 @@
 
 #### Profesores: Sergi - David Sicart
 
-S1-01 - Acceso SSH Seguro (Hardening Inicial) - Isard............................................................4
-
-1. Gestion de claves.................................................................................................................4
-
-a. Generar claves...............................................................................................................4
-
-b. Pasar claves...................................................................................................................5
-
-c. Comprobación................................................................................................................ 5
-
-2. Handering de SSH............................................................................................................... 6
-
-a. Cambiar puerto y archivo de configuración....................................................................6
-
-b. Comprobacion................................................................................................................7
-
-3. Firewall.................................................................................................................................8
-
-a. Crear reglas....................................................................................................................8
-
-4. Regla AWS...........................................................................................................................9
-
-S1-02 - Docker + Keycloak - Isard............................................................................................ 10
-
-1. Instalación de Docker.........................................................................................................10
-
-a. Instalar paquetes..........................................................................................................10
-
-b. Permisos...................................................................................................................... 10
-
-2. Despliegue de KeyCloak.................................................................................................... 11
-
-a. Creación de directorios.................................................................................................11
-
-b. Crear y configurar archivo .yml.................................................................................... 12
-
-c. Firewall Regla...............................................................................................................14
-
-d. Comprobación..............................................................................................................14
-
-S1-03 - Configuración de Seguridad IAM - Isard.....................................................................16
-
-1. Crear Realm.......................................................................................................................16
-
-a. Configurar Realm......................................................................................................... 16
-
-2. Autenticación multifactor....................................................................................................18
-
-a. Configuración de Autenticación................................................................................... 18
-
-b. Políticas de ataques.....................................................................................................19
-
-c. Comprobación.............................................................................................................. 21
-
-d. Políticas de Contraseñas............................................................................................. 22
-
-e. Roles y Grupos.............................................................................................................24
-
-f. Usuario..........................................................................................................................28
-
-g. Comprobacion..............................................................................................................34
-
-giuseppe-admin​
-
-​
-
-Iniciaremos sesión con el usuario de administrador.................................................. 34
-
-operador-bryan​
-
-​
-
-Ahora iniciaremos sesión con permisos de trabajador...............................................38
-
-Auditor-Javi................................................................................................................ 42
-
-S1-04: Hardening Avanzado del Sistema - Isard.....................................................................48
-
-1. Fail2Ban.............................................................................................................................48
-
-a. Instalación del Fail2Ban............................................................................................... 48
-
-b. Crear configuración inicial............................................................................................48
-
-c. Reiniciamos y comprobamos....................................................................................... 50
-
-d. COMPROBACION....................................................................................................... 51
-
-2. Actualizaciones Automáticas de Seguridad.......................................................................53
-
-a. Configurar actualizaciones automáticas...................................................................... 53
-
-Ejecutamos el siguiente comando....................................................................................54
-
-b. Comprobacion..............................................................................................................54
-
-c. Configuración de política restrictiva..............................................................................54
-
-S1-05: Hardening en el Nodo AWS...........................................................................................56
-
-1. Firewall - AWS....................................................................................................................56
-
-a. Reglas.......................................................................................................................... 56
-
-b. Dentro de la Instancia.................................................................................................. 57
-
-2. Fail2Ban.............................................................................................................................59
-
-b. Configuración............................................................................................................... 59
-
-d. COmprobacion............................................................................................................. 60
-
-3. Actualizaciones Automáticas de Seguridad en AWS.........................................................62
-
-a. Configurar actualizaciones automáticas...................................................................... 62
-
-b. Comprobacion..............................................................................................................63
-
 ## S1-01 - Acceso SSH Seguro (Hardening Inicial) - Isard
 
-### 1. ​ Gestion de claves
+### 1. Gestion de claves
 
-#### a. ​ Generar claves
+#### a. Generar claves
 
 Crearemos las claves con este comando
 
@@ -256,7 +36,7 @@ El algoritmo ed25519 es más seguro y más rápido que el predeterminado como es
 
 ![Imagen 2](./imagenes/imagen-002.png)
 
-#### b. ​ Pasar claves
+#### b. Pasar claves
 
 Ahora pasaremos las claves con el servidor que en este caso es del compañero
 
@@ -266,15 +46,15 @@ ssh-copy-id -i ~/.ssh/id_ed25519.pub isard@192.168.18.10
 
 ![Imagen 3](./imagenes/imagen-003.png)
 
-#### c. ​ Comprobación
+#### c. Comprobación
 
 Podemos hacer ssh y no nos pide la contraseña
 
 ![Imagen 4](./imagenes/imagen-004.png)
 
-### 2. ​ Handering de SSH
+### 2. Handering de SSH
 
-#### a. ​ Cambiar puerto y archivo de configuración
+#### a. Cambiar puerto y archivo de configuración
 
 Accedemos al archivo de configuración
 
@@ -286,15 +66,15 @@ Ahora hemos modificado lo siguiente
 
 ![Imagen 5](./imagenes/imagen-005.png)
 
-Puerto →  Modificamos el puerto que viene por defecto para evitar ataques de botnets
+Puerto → Modificamos el puerto que viene por defecto para evitar ataques de botnets
 
-PermitRootLogin  → Prohibimos que un usuario con root o superusuario pueda acceder directamente
+PermitRootLogin → Prohibimos que un usuario con root o superusuario pueda acceder directamente
 
-PubkeyAuthentication  → Indicamos al servidor que puedas procesar y aceptar claves como la configurada
+PubkeyAuthentication → Indicamos al servidor que puedas procesar y aceptar claves como la configurada
 
-PasswordAuthentication  → Obligamos a que el servidor solo acepte claves, y no contraseñas, lo cual lo hace que no se pueda intentar ataques de fuerza bruta
+PasswordAuthentication → Obligamos a que el servidor solo acepte claves, y no contraseñas, lo cual lo hace que no se pueda intentar ataques de fuerza bruta
 
-#### b. ​ Comprobacion
+#### b. Comprobacion
 
 Validamos si la configuración se ha realizado correctamente o hay algo en el archivo incorrecto
 
@@ -306,9 +86,9 @@ Para finalizar miramos el servicio
 
 ![Imagen 7](./imagenes/imagen-007.png)
 
-### 3. ​ Firewall
+### 3. Firewall
 
-#### a. ​ Crear reglas
+#### a. Crear reglas
 
 Bloqueamos todo y solo dejaremos lo que necesitaremos
 
@@ -323,40 +103,40 @@ Ahora lo que haremos es habilitar solo lo necesario
 ```bash
 sudo ufw default allow outgoing
 ```
-  →  Indicamos que los paquetes desde el servidor hacia fuera sean habilitados
+→ Indicamos que los paquetes desde el servidor hacia fuera sean habilitados
 
 ```bash
 sudo ufw allow 2222/tcp
 ```
- como el puerto 22  →  Son para el SSH, primero el ssh es puerto
+ como el puerto 22 → Son para el SSH, primero el ssh es puerto
 
 22 pero luego lo cambiamos a puerto 2222 para seguridad
 
 ```bash
 sudo ufw allow 80/tcp
 ```
- y 8443/tcp  →  Son para el servicio de Nginx tanto el http como https
+ y 8443/tcp → Son para el servicio de Nginx tanto el http como https
 
 ```bash
 sudo ufw enable
 ```
-  →  Hacemos que ahora quede configurado siempre que se inicie el servidor con esta configuración
+→ Hacemos que ahora quede configurado siempre que se inicie el servidor con esta configuración
 
-### 4. ​ Regla AWS
+### 4. Regla AWS
 
-a. ​ Security Group
+a. Security Group
 
 Ahora desde AWS, deberemos de crear una regla de entrada indicando el protocolo TCP
 
-y que sea por el puerto 2222 ​
+y que sea por el puerto 2222 
 
 ![Imagen 11](./imagenes/imagen-011.png)
 
 ## S1-02 - Docker + Keycloak - Isard
 
-### 1. ​ Instalación de Docker
+### 1. Instalación de Docker
 
-#### a. ​ Instalar paquetes
+#### a. Instalar paquetes
 
 Ejecutamos lo siguiente para instalar los paquetes
 
@@ -366,7 +146,7 @@ sudo apt install docker.io docker-compose -y
 
 ![Imagen 12](./imagenes/imagen-012.png)
 
-#### b. ​ Permisos
+#### b. Permisos
 
 Para evitar usar sudo, lo que haremos es lo siguiente
 
@@ -376,9 +156,9 @@ sudo usermod -aG docker $USER
 
 ![Imagen 13](./imagenes/imagen-013.png)
 
-### 2. ​ Despliegue de KeyCloak
+### 2. Despliegue de KeyCloak
 
-#### a. ​ Creación de directorios
+#### a. Creación de directorios
 
 Crearemos las carpetas
 
@@ -392,7 +172,7 @@ cd ~/zth-node-cloud/keycloak
 
 ![Imagen 14](./imagenes/imagen-014.png)
 
-#### b. ​ Crear y configurar archivo .yml
+#### b. Crear y configurar archivo .yml
 
 Creamos el archivo con el comando
 
@@ -400,67 +180,57 @@ Creamos el archivo con el comando
 sudo nano docker-compose.yml
 ```
 
-Y el contenido de este es el siguiente version: '3.8'
+Y el contenido de este es el siguiente:
+
+```yaml
+version: '3.8'
 
 services:
+ zth-postgres:
+ image: postgres:16
+ container_name: zth-keycloak-db
+ restart: always
+ volumes:
+ - zth_db_data:/var/lib/postgresql/data
+ environment:
+ POSTGRES_DB: keycloak
+ POSTGRES_USER: keycloak
+ POSTGRES_PASSWORD: K3yl0ack_ZTH-db
+ networks:
+ - zth-network
 
-zth-postgres:
+ zth-keycloak:
+ image: quay.io/keycloak/keycloak:24.0
+ container_name: zth-keycloak-server
+ command: start-dev
+ restart: always
+ environment:
+ KC_DB: postgres
+ KC_DB_URL: jdbc:postgresql://zth-postgres:5432/keycloak
+ KC_DB_USERNAME: keycloak
+ KC_DB_PASSWORD: K3yl0ack_ZTH-db
+ KEYCLOAK_ADMIN: admin
+ KEYCLOAK_ADMIN_PASSWORD: K3yl0ack-ZTH_
+ KC_HTTP_ENABLED: "true"
+ KC_PROXY: edge
+ ports:
+ - "8080:8080"
+ depends_on:
+ - zth-postgres
+ networks:
+ - zth-network
 
-image: postgres:16
+networks:
+ zth-network:
+ driver: bridge
 
-container_name: zth-keycloak-db restart: always  # <-- Esto hace que el contenedor se reinicie solo si el server falla volumes:
-
-- zth_db_data:/var/lib/postgresql/data  # <-- PERSISTENCIA AQUÍ
-
-environment:
-
-POSTGRES_DB: keycloak
-
-POSTGRES_USER: keycloak
-
-POSTGRES_PASSWORD: K3yl0ack_ZTH-db networks:
-
-- zth-network zth-keycloak:
-
-image: quay.io/keycloak/keycloak:24.0
-
-container_name: zth-keycloak-server command: start-dev restart: always  # <-- Persistencia de disponibilidad environment:
-
-KC_DB: postgres
-
-KC_DB_URL: jdbc:postgresql://zth-postgres:5432/keycloak
-
-KC_DB_USERNAME: keycloak
-
-KC_DB_PASSWORD: K3yl0ack_ZTH-db
-
-KEYCLOAK_ADMIN: admin
-
-KEYCLOAK_ADMIN_PASSWORD: K3yl0ack-ZTH_
-
-KC_HTTP_ENABLED: "true"
-
-KC_PROXY: edge ports:
-
-- "8080:8080"
-
-depends_on:
-
-- zth-postgres networks:
-
-- zth-network networks:
-
-zth-network:
-
-driver: bridge
-
-# Definición de los volúmenes persistentes volumes:
-
-zth_db_data:  # Docker gestionará este espacio en /var/lib/docker/volumes/
+volumes:
+ zth_db_data:
+```
 
 ![Imagen 15](./imagenes/imagen-015.png)
 
-#### c. ​ Firewall Regla
+#### c. Firewall Regla
 
 Ahora deberemos de crear una nueva regla para poder acceder al Keycloak
 
@@ -470,7 +240,7 @@ sudo ufw allow 8080/tcp
 
 ![Imagen 16](./imagenes/imagen-016.png)
 
-#### d. ​ Comprobación
+#### d. Comprobación
 
 Ahora accederemos mediante la IP del servidor :8080 y nos pide las credenciales
 
@@ -482,9 +252,9 @@ Después de poner las credenciales, accedemos correctamente
 
 ## S1-03 - Configuración de Seguridad IAM - Isard
 
-### 1. ​ Crear Realm
+### 1. Crear Realm
 
-#### a. ​ Configurar Realm
+#### a. Configurar Realm
 
 Ejecutamos lo siguiente para instalar los paquetes
 
@@ -500,9 +270,9 @@ Ya hemos creado el Realm Correctamente
 
 ![Imagen 21](./imagenes/imagen-021.png)
 
-### 2.​ Autenticación multifactor
+### 2. Autenticación multifactor
 
-#### a. ​ Configuración de Autenticación
+#### a. Configuración de Autenticación
 
 Desde nuestro Realm, nos vamos al apartado de configure y nos dirigimos donde nos dice Authentication
 
@@ -518,7 +288,7 @@ Esto lo que hará es que todo usuario nuevo deberá de tener una app para autent
 
 ![Imagen 24](./imagenes/imagen-024.png)
 
-#### b. ​ Políticas de ataques
+#### b. Políticas de ataques
 
 Ahora deberemos de dirigirnos a donde dice Realm Settings y después a Security
 
@@ -536,19 +306,19 @@ Lo configuraremos de la siguiente manera
 
 ![Imagen 27](./imagenes/imagen-027.png)
 
-Max login failures  →  Indicamos que si el “usuario” ha fallado 3 veces, el sistema ejecuta las acciones que hemos configurado a continuación
+Max login failures → Indicamos que si el “usuario” ha fallado 3 veces, el sistema ejecuta las acciones que hemos configurado a continuación
 
-Maximum temporary lockouts  →  Aquí le decimos que si el “usuario” ya ha fallado 1 vez y en este segundo intento vuelve a fallar, la cuenta queda bloqueada para siempre y el unico metodo de desbloqueo es que el administrador, lo haga manualmente
+Maximum temporary lockouts → Aquí le decimos que si el “usuario” ya ha fallado 1 vez y en este segundo intento vuelve a fallar, la cuenta queda bloqueada para siempre y el unico metodo de desbloqueo es que el administrador, lo haga manualmente
 
-Wait increment  →  Después de haber fallado la 1a vez, no pueden intentarlo al momento, deberán de esperar unos 5 minutos para volver a intentar
+Wait increment → Después de haber fallado la 1a vez, no pueden intentarlo al momento, deberán de esperar unos 5 minutos para volver a intentar
 
-Quick login check  →  Bloqueamos ataque de fuerza bruta o de diccionario, aquí le indicamos que si han intentado iniciar sesion en menos de 2 segundos son bots o ataques
+Quick login check → Bloqueamos ataque de fuerza bruta o de diccionario, aquí le indicamos que si han intentado iniciar sesion en menos de 2 segundos son bots o ataques
 
-Failure reset time  →  Es el tiempo en que quedan registrados los intentos, se quedan guardados en memoria durante X tiempo, si por ejemplo fallan 1 vez por la mañana y 2
+Failure reset time → Es el tiempo en que quedan registrados los intentos, se quedan guardados en memoria durante X tiempo, si por ejemplo fallan 1 vez por la mañana y 2
 
 por la tarde se bloquea la cuenta
 
-#### c. ​ Comprobación
+#### c. Comprobación
 
 SI intentamos acceder y fallamos 3 veces la contraseña
 
@@ -556,7 +326,7 @@ En el panel de administración, vemos que se ha bloqueado temporalmente
 
 ![Imagen 28](./imagenes/imagen-028.png)
 
-#### d. ​ Políticas de Contraseñas
+#### d. Políticas de Contraseñas
 
 Nos vamos al apartado de Authentication y nos vamos al apartado de Polices
 
@@ -564,17 +334,17 @@ Nos vamos al apartado de Authentication y nos vamos al apartado de Polices
 
 Ahora en el apartado de Add Policy y marcamos las siguientes opciones
 
-1.​ Digit → Obligamos a poner dígito como mínimo
+1. Digit → Obligamos a poner dígito como mínimo
 
-2.​ Not Username →  Evitamos que la contraseña pongan el nombre del usuario
+2. Not Username → Evitamos que la contraseña pongan el nombre del usuario
 
-3.​ Lowercase Characters →  Obligatorio poner mayúscula como mínimo
+3. Lowercase Characters → Obligatorio poner mayúscula como mínimo
 
-4.​ Uppercase Characters  →  Obligatorio poner mayúscula como mínimo
+4. Uppercase Characters → Obligatorio poner mayúscula como mínimo
 
-5.​ Special Characters  → Obligatorio poner un carácter especial
+5. Special Characters → Obligatorio poner un carácter especial
 
-6.​ Minimum Length  → Un mínimo de longitud obligatoria
+6. Minimum Length → Un mínimo de longitud obligatoria
 
 ![Imagen 30](./imagenes/imagen-030.png)
 
@@ -584,7 +354,7 @@ Ahora lo configuramos de la siguiente manera
 
 Obligamos a que las contraseñas tengan como mínimo 10 caracteres
 
-#### e. ​ Roles y Grupos
+#### e. Roles y Grupos
 
 Ahora crearemos los roles estos se hacen desde Realm Roles
 
@@ -606,7 +376,7 @@ Ahora crearemos también un grupo que sea Administradores
 
 ![Imagen 36](./imagenes/imagen-036.png)
 
-Le asignamos un nombre ​
+Le asignamos un nombre 
 
 ![Imagen 37](./imagenes/imagen-037.png)
 
@@ -618,9 +388,9 @@ Ahora crearemos el Grupo de Auditoría
 
 ![Imagen 39](./imagenes/imagen-039.png)
 
-#### f. ​ Usuario
+#### f. Usuario
 
-Antes de realizar la comprobación. deberemos de crear un usuario ​
+Antes de realizar la comprobación. deberemos de crear un usuario 
 
 ![Imagen 40](./imagenes/imagen-040.png)
 
@@ -680,9 +450,7 @@ Una vez creado, le indicamos el rol que es en este caso de Auditoría
 
 ![Imagen 53](./imagenes/imagen-053.png)
 
-#### g. ​ Comprobacion giuseppe-admin ​
-
-​
+#### g. Comprobacion giuseppe-admin 
 
 Iniciaremos sesión con el usuario de administrador
 
@@ -714,9 +482,7 @@ En este apartado podemos ver que tenemos el inicio de sesión, tanto la contrase
 
 ![Imagen 58](./imagenes/imagen-058.png)
 
-operador-bryan ​
-
-​
+operador-bryan 
 
 Ahora iniciaremos sesión con permisos de trabajador
 
@@ -726,7 +492,7 @@ Nos pedirá como antes usar una aplicación de la ya mencionadas
 
 ![Imagen 60](./imagenes/imagen-060.png)
 
-Iniciamos ​
+Iniciamos 
 
 ![Imagen 61](./imagenes/imagen-061.png)
 
@@ -750,7 +516,7 @@ Ahora iniciamos sesión con los permisos de auditor
 
 ![Imagen 65](./imagenes/imagen-065.png)
 
-Nos pedirá el MFA ​
+Nos pedirá el MFA 
 
 ![Imagen 66](./imagenes/imagen-066.png)
 
@@ -758,7 +524,7 @@ Configuramos
 
 ![Imagen 67](./imagenes/imagen-067.png)
 
-Una vez iniciado sesión ​
+Una vez iniciado sesión 
 
 Con este usuario podemos ver los roles, pero no crear ni hacer otra operación
 
@@ -788,9 +554,9 @@ También los eventos de administradores
 
 ## S1-04: Hardening Avanzado del Sistema - Isard
 
-### 1. ​ Fail2Ban
+### 1. Fail2Ban
 
-#### a. ​ Instalación del Fail2Ban
+#### a. Instalación del Fail2Ban
 
 Primero de todo realizaremos la instalación
 
@@ -800,7 +566,7 @@ sudo apt install fail2ban -y
 
 ![Imagen 75](./imagenes/imagen-075.png)
 
-#### b. ​ Crear configuración inicial
+#### b. Crear configuración inicial
 
 Creamos un .local para que si hay alguna actualización, que no se nos escriba el archivo
 
@@ -810,30 +576,40 @@ Creamos un .local para que si hay alguna actualización, que no se nos escriba e
 sudo nano /etc/fail2ban/jail.local
 ```
 
+```ini
 [sshd]
-
-enabled = true port = 2222
-
-filter = sshd logpath = /var/log/auth.log maxretry = 2
-
+enabled = true
+port = 2222
+filter = sshd
+logpath = /var/log/auth.log
+maxretry = 2
 findtime = 600
-
 bantime = -1
-
 banaction = ufw
+```
 
-[sshd]  →  Indicamos que esta configuración se aplica al ssh enabled = true  →  Indicamos que se ejecute port = 2222  →  Indicamos en qué puerto debe de ejecutarse filter = sshd  →  Es un filtro para que busque errores como invalid password etc logpath = /var/log/auth.log  →  Es donde se revisaran los logs maxretry = 2  →  Número máximo de intentos findtime = 600  →  Si fallo 2 veces, en menos de 10 min, se ejecuta el baneo bantime = -1  →  Indicamos que el baneo sea permanente banaction = ufw  →  Indicamos que lo haga mediante ufw en vez de iptables, cuya ventaja es que lo bloquea directamente el firewall
+```ini
+[sshd]
+enabled = true
+port = 2222
+filter = sshd
+logpath = /var/log/auth.log
+maxretry = 2
+findtime = 600
+bantime = -1
+banaction = ufw
+``` → Indicamos que lo haga mediante ufw en vez de iptables, cuya ventaja es que lo bloquea directamente el firewall
 
 ![Imagen 76](./imagenes/imagen-076.png)
 
-#### c. ​ Reiniciamos y comprobamos ​
+#### c. Reiniciamos y comprobamos 
 
 Ahora vamos a reiniciar el servicio
 
 ```bash
 sudo systemctl restart fail2ban
 ```
- ​
+ 
 
 ![Imagen 77](./imagenes/imagen-077.png)
 
@@ -845,9 +621,7 @@ sudo fail2ban-client status sshd
 
 ![Imagen 78](./imagenes/imagen-078.png)
 
-​
-
-#### d. ​ COMPROBACION
+#### d. COMPROBACION
 
 Si desde cliente intentó acceder y fallo las contraseñas, nos sale este mensaje
 
@@ -859,23 +633,23 @@ bloqueada
 
 ![Imagen 80](./imagenes/imagen-080.png)
 
-#### ​
+#### 
 
 Corroboramos que la IP del cliente es la baneada
 
 ![Imagen 81](./imagenes/imagen-081.png)
 
-Para desbanear haremos esto ​
+Para desbanear haremos esto 
 
 ![Imagen 82](./imagenes/imagen-082.png)
 
 Como podemos ver, tenemos la IP baneada, haremos un unban y la IP que queremos desbloquear y después de hacer eso, vemos que ya no tenemos la IP baneada
 
-### 2. ​ Actualizaciones Automáticas de Seguridad
+### 2. Actualizaciones Automáticas de Seguridad
 
-#### a. ​ Configurar actualizaciones automáticas
+#### a. Configurar actualizaciones automáticas
 
-Para minimizar las vulnerabilidades, deberemos de indicar que los “parches” de seguridad se hagan de manera automática ​
+Para minimizar las vulnerabilidades, deberemos de indicar que los “parches” de seguridad se hagan de manera automática 
 
 Para ello usaremos el siguiente comando
 
@@ -887,9 +661,9 @@ sudo apt install unattended-upgrades -y
 ```bash
 sudo apt install unattended-upgrades -y
 ```
-  →  Es un paquete el cual permite descargar actualizaciones y aplicarse automáticamente sin necesidad de interacción con el usuario sudo dpkg-reconfigure  → Aquí le indicamos que queremos reconfigurar el programa X
+→ Es un paquete el cual permite descargar actualizaciones y aplicarse automáticamente sin necesidad de interacción con el usuario sudo dpkg-reconfigure → Aquí le indicamos que queremos reconfigurar el programa X
 
---priority=low  → Indicamos que nos muestre todas las opciones posibles unattended-upgrades  → Su función es la de revisar repositorios y si hay un nuevo
+--priority=low → Indicamos que nos muestre todas las opciones posibles unattended-upgrades → Su función es la de revisar repositorios y si hay un nuevo
 
 “parche” lo descarga y se aplica, busca vulnerabilidades
 
@@ -901,9 +675,9 @@ sudo dpkg-reconfigure --priority=low unattended-upgrades
 
 ![Imagen 83](./imagenes/imagen-083.png)
 
-#### b. ​ Comprobacion
+#### b. Comprobacion
 
-Para realizar si se está ejecutando correctamente, ejecutaremos el siguiente comando ​
+Para realizar si se está ejecutando correctamente, ejecutaremos el siguiente comando 
 
 ```bash
 systemctl status unattended-upgrades
@@ -911,9 +685,7 @@ systemctl status unattended-upgrades
 
 ![Imagen 84](./imagenes/imagen-084.png)
 
-#### c. ​ Configuración de política restrictiva
-
-​
+#### c. Configuración de política restrictiva
 
 Ahora le indicaremos al firewall que bloquee cualquier paquete siempre y cuando no le hemos indicado lo contrario
 
@@ -931,9 +703,9 @@ http://192.168.18.10:8080/realms/zth-node-cloud/account
 
 ## S1-05: Hardening en el Nodo AWS
 
-### 1. ​ Firewall - AWS
+### 1. Firewall - AWS
 
-#### a. ​ Reglas
+#### a. Reglas
 
 En AWS creamos reglas para el ssh por el puerto 2222
 
@@ -945,7 +717,7 @@ En AWS creamos reglas para el ssh por el puerto 2222
 
 #### Todo lo que no se encuentra aqui sera denegado con DROP
 
-#### b. ​ Dentro de la Instancia
+#### b. Dentro de la Instancia
 
 Ahora realizaremos la configuración dentro de la instancia, denegamos todo
 
@@ -987,7 +759,7 @@ sudo ufw status verbose
 
 ![Imagen 90](./imagenes/imagen-090.png)
 
-### 2. ​ Fail2Ban a. ​ Instalación del Fail2Ban
+### 2. Fail2Ban a. Instalación del Fail2Ban
 
 Haremos la actualización, y procederemos a la instalación
 
@@ -1001,7 +773,7 @@ sudo apt install fail2ban -y
 
 ![Imagen 91](./imagenes/imagen-091.png)
 
-#### b. ​ Configuración
+#### b. Configuración
 
 Ahora el archivo de configuración, tendríamos lo siguiente
 
@@ -1009,23 +781,23 @@ Ahora el archivo de configuración, tendríamos lo siguiente
 sudo nano /etc/fail2ban/jail.local
 ```
 
+```ini
 [sshd]
-
-enabled = true port = 2222
-
-filter = sshd logpath = /var/log/auth.log maxretry = 3
-
+enabled = true
+port = 2222
+filter = sshd
+logpath = /var/log/auth.log
+maxretry = 2
 findtime = 600
-
 bantime = -1
-
-banaction = ufw ubuntu@zth-node-
+banaction = ufw
+``` ubuntu@zth-node-
 
 sudo cat /etc/fail2ban/jail.local
 
 ![Imagen 92](./imagenes/imagen-092.png)
 
-c. ​ Reiniciamos el servicio y miramos el estado
+c. Reiniciamos el servicio y miramos el estado
 
 ```bash
 sudo systemctl restart fail2ban
@@ -1037,7 +809,7 @@ sudo systemctl status fail2ban
 
 ![Imagen 93](./imagenes/imagen-093.png)
 
-#### d.​COmprobacion
+#### d.COmprobacion
 
 Desde la máquina host fallamos 3 veces la contraseña a propósito
 
@@ -1051,9 +823,9 @@ Ahora desde el servidor de AWS podemos ver el baneo
 
 ![Imagen 96](./imagenes/imagen-096.png)
 
-### 3. ​ Actualizaciones Automáticas de Seguridad en AWS
+### 3. Actualizaciones Automáticas de Seguridad en AWS
 
-#### a. ​ Configurar actualizaciones automáticas
+#### a. Configurar actualizaciones automáticas
 
 Como hemos realizado antes en ISARD, configuraremos para que se hagan las actualizaciones automáticas
 
@@ -1072,9 +844,9 @@ sudo dpkg-reconfigure --priority=low unattended-upgrades
 
 ![Imagen 98](./imagenes/imagen-098.png)
 
-#### b. ​ Comprobacion
+#### b. Comprobacion
 
-Para realizar si se está ejecutando correctamente, ejecutaremos el siguiente comando ​
+Para realizar si se está ejecutando correctamente, ejecutaremos el siguiente comando 
 
 ```bash
 systemctl status unattended-upgrades
