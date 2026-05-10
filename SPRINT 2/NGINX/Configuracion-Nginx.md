@@ -1,14 +1,15 @@
-
 # ZeroTrustHub — Despliegue Web con Nginx + Docker + HTTPS
 
 ## Descripción
 
-Este módulo implementa el frontend público de ZeroTrustHub utilizando Nginx como servidor web y reverse proxy ligero, desplegado dentro de un contenedor Docker.
+Este módulo implementa el frontend público de ZeroTrustHub utilizando Nginx como 
+servidor web y reverse proxy ligero, desplegado dentro de un contenedor Docker.
 
-La infraestructura sirve una landing page estática orientada a servicios de ciberseguridad y arquitectura Zero Trust, incluyendo:
+La infraestructura sirve una landing page estática orientada a servicios de 
+ciberseguridad y arquitectura Zero Trust, incluyendo:
 
 - HTTPS habilitado mediante certificados TLS
-- Redirección automática HTTP → HTTPS
+- Redirección automática HTTP → HTTPS (puerto 80 → 8443)
 - Hosting estático optimizado
 - Exposición controlada de puertos
 - Aislamiento mediante red Docker dedicada
@@ -24,6 +25,8 @@ El despliegue se encuentra contenido en:
 
 # Estructura del proyecto
 
+![Estructura del proyecto](images/cap1.png)
+
 ```bash
 nginx/
 ├── certs/
@@ -38,30 +41,13 @@ nginx/
 
 ---
 
-# Objetivo del despliegue
-
-El objetivo principal de esta configuración es:
-
-- Publicar la web corporativa de ZeroTrustHub
-- Forzar tráfico cifrado mediante TLS
-- Mantener una arquitectura sencilla y reproducible
-- Separar frontend del resto de servicios internos
-- Facilitar integración futura con:
-  - Keycloak
-  - OAuth2 Proxy
-  - Grafana
-  - APIs internas
-  - Reverse proxy avanzado
-
----
-
 # Docker Compose
 
 ## Archivo
 
-```yaml
-version: "3.8"
+![Docker Compose](images/cap2.png)
 
+```yaml
 services:
   nginx:
     image: nginx:1.24
@@ -70,13 +56,13 @@ services:
 
     ports:
       - "80:80"
-      - "443:443"
-      - "127.0.0.1:8090:8090"
+      - "8443:8443"
 
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - ./zerotrusthub.html:/usr/share/nginx/html/zth/zerotrusthub.html:ro
       - ./certs:/etc/nginx/certs:ro
+      - /dev/null:/etc/nginx/conf.d/default.conf:ro
 
     networks:
       - zth-network
@@ -96,15 +82,9 @@ networks:
 image: nginx:1.24
 ```
 
-Se utiliza una imagen oficial estable de Nginx basada en Debian.
-
-Ventajas:
-
-- Ligera
-- Muy estable
-- Fácil de mantener
-- Compatible con TLS moderno
-- Bajo consumo de recursos
+Se utiliza una imagen oficial estable de Nginx basada en Debian. Es ligera, 
+muy estable, fácil de mantener, compatible con TLS moderno y con bajo consumo 
+de recursos.
 
 ---
 
@@ -114,9 +94,7 @@ Ventajas:
 container_name: nginx-proxy
 ```
 
-Permite identificar el servicio fácilmente desde Docker.
-
-Ejemplo:
+Permite identificar el servicio fácilmente desde Docker:
 
 ```bash
 docker ps
@@ -132,56 +110,33 @@ docker exec -it nginx-proxy bash
 restart: unless-stopped
 ```
 
-Garantiza persistencia del servicio tras:
-
-- Reinicio del host
-- Caída del contenedor
-- Reinicio de Docker
+Garantiza persistencia del servicio tras reinicios del host, caídas del 
+contenedor o reinicios de Docker.
 
 ---
 
 # Exposición de puertos
 
-## HTTP
+## HTTP — Puerto 80
 
 ```yaml
 - "80:80"
 ```
 
-Permite recibir tráfico HTTP externo.
-
-Este tráfico es automáticamente redirigido a HTTPS.
-
----
-
-## HTTPS
-
-```yaml
-- "443:443"
-```
-
-Puerto principal de producción.
-
-Todo el contenido público se sirve mediante TLS.
+Recibe tráfico HTTP externo. Este tráfico es automáticamente redirigido 
+a HTTPS en el puerto 8443.
 
 ---
 
-## Puerto interno de testing
+## HTTPS — Puerto 8443
 
 ```yaml
-- "127.0.0.1:8090:8090"
+- "8443:8443"
 ```
 
-Se expone únicamente en localhost.
-
-Objetivo:
-
-- Testing local
-- Debugging
-- Validación sin TLS
-- Verificación rápida del frontend
-
-No es accesible externamente.
+Puerto principal de producción. Todo el contenido público se sirve 
+mediante TLS en este puerto. Se usa 8443 en lugar del 443 estándar para 
+evitar conflictos con otros servicios que puedan estar corriendo en el host.
 
 ---
 
@@ -193,15 +148,21 @@ No es accesible externamente.
 - ./nginx.conf:/etc/nginx/nginx.conf:ro
 ```
 
-Monta la configuración personalizada dentro del contenedor.
+Monta la configuración personalizada dentro del contenedor en modo 
+read-only, evitando modificaciones accidentales desde dentro del contenedor.
 
-Modo:
+---
 
-```bash
-ro = read-only
+## Deshabilitar configuración por defecto
+
+```yaml
+- /dev/null:/etc/nginx/conf.d/default.conf:ro
 ```
 
-Esto evita modificaciones accidentales desde el contenedor.
+Nginx por defecto carga un archivo `default.conf` que puede interferir 
+con la configuración personalizada. Montando `/dev/null` en su lugar, 
+ese archivo queda vacío y solo se aplica el `nginx.conf` que nosotros 
+controlamos.
 
 ---
 
@@ -211,20 +172,8 @@ Esto evita modificaciones accidentales desde el contenedor.
 - ./zerotrusthub.html:/usr/share/nginx/html/zth/zerotrusthub.html:ro
 ```
 
-Monta el frontend estático principal.
-
-La web completa está implementada en un único archivo HTML autosuficiente:
-
-- HTML
-- CSS
-- JavaScript
-
-Ventajas:
-
-- Simplicidad
-- Portabilidad
-- Carga extremadamente rápida
-- Sin dependencias externas complejas
+Monta el frontend estático principal. La web completa está implementada 
+en un único archivo HTML autosuficiente con HTML, CSS y JavaScript.
 
 ---
 
@@ -234,31 +183,56 @@ Ventajas:
 - ./certs:/etc/nginx/certs:ro
 ```
 
-Monta certificados SSL/TLS dentro del contenedor.
+Monta los certificados SSL/TLS dentro del contenedor en modo read-only.
 
 ---
 
 # Configuración Nginx
 
-## Archivo principal
+## Archivo completo
+
+![Configuración Nginx](images/cap3.png)
 
 ```nginx
-events {
-    worker_connections 1024;
+events { worker_connections 1024; }
+
+http {
+  include /etc/nginx/mime.types;
+  sendfile on;
+  gzip on;
+  gzip_types text/plain text/css application/javascript;
+
+  server {
+    listen 80;
+    server_name _;
+    return 301 https://$host:8443$request_uri;
+  }
+
+  server {
+    listen 8443 ssl;
+    server_name _;
+    ssl_certificate     /etc/nginx/certs/cert.pem;
+    ssl_certificate_key /etc/nginx/certs/key.pem;
+    ssl_protocols       TLSv1.2 TLSv1.3;
+    root /usr/share/nginx/html/zth;
+    index zerotrusthub.html;
+
+    location / {
+      try_files $uri $uri/ /zerotrusthub.html;
+    }
+  }
 }
 ```
 
-Define el número máximo de conexiones concurrentes.
-
 ---
 
-# Bloque HTTP
+## Bloque events
 
 ```nginx
-http {
+events { worker_connections 1024; }
 ```
 
-Aquí se configura toda la lógica web.
+Define el número máximo de conexiones concurrentes que Nginx puede manejar.
 
 ---
 
@@ -268,119 +242,51 @@ Aquí se configura toda la lógica web.
 include /etc/nginx/mime.types;
 ```
 
-Permite servir correctamente:
-
-- HTML
-- CSS
-- JS
-- JSON
-- fuentes
-- imágenes
+Permite servir correctamente HTML, CSS, JS, JSON, fuentes e imágenes con 
+el Content-Type correcto en cada respuesta.
 
 ---
 
-## Optimización TCP
+## Optimización y compresión
 
 ```nginx
 sendfile on;
-tcp_nopush on;
-tcp_nodelay on;
-```
-
-Mejoras de rendimiento para transferencia de archivos.
-
----
-
-## Compresión GZIP
-
-```nginx
 gzip on;
-gzip_types text/plain text/css application/javascript application/json;
+gzip_types text/plain text/css application/javascript;
 ```
 
-Reduce tamaño de respuesta para:
-
-- CSS
-- JavaScript
-- JSON
-- texto plano
-
-Beneficios:
-
-- Menor ancho de banda
-- Mejor tiempo de carga
-- Menor latencia
-
----
-
-# Cabeceras de seguridad
-
-## Protección clickjacking
-
-```nginx
-add_header X-Frame-Options "SAMEORIGIN";
-```
-
-Evita que la web sea embebida desde dominios externos.
-
----
-
-## Protección MIME sniffing
-
-```nginx
-add_header X-Content-Type-Options "nosniff";
-```
-
-Impide interpretación incorrecta de contenido por navegadores.
+`sendfile` mejora el rendimiento en transferencia de archivos. `gzip` 
+comprime las respuestas para reducir el ancho de banda consumido y mejorar 
+los tiempos de carga.
 
 ---
 
 # Redirección HTTP → HTTPS
 
-## Configuración
-
 ```nginx
 server {
-    listen 80;
-    server_name _;
-
-    location / {
-        return 301 https://$host$request_uri;
-    }
+  listen 80;
+  server_name _;
+  return 301 https://$host:8443$request_uri;
 }
 ```
 
-Todo acceso HTTP es redirigido permanentemente hacia HTTPS.
-
-Beneficios:
-
-- Seguridad
-- SEO
-- Consistencia
-- Evita tráfico no cifrado
+Todo acceso que llegue por el puerto 80 es redirigido permanentemente 
+hacia HTTPS en el puerto 8443. El código 301 indica redirección permanente.
 
 ---
 
 # Servidor HTTPS principal
 
-## Listener TLS
-
-```nginx
-listen 443 ssl;
-```
-
-Habilita HTTPS.
-
----
-
 ## Certificados
 
 ```nginx
-ssl_certificate /etc/nginx/certs/cert.pem;
+ssl_certificate     /etc/nginx/certs/cert.pem;
 ssl_certificate_key /etc/nginx/certs/key.pem;
 ```
 
-Certificado y clave privada montados desde Docker.
+Certificado y clave privada montados desde la carpeta `certs/` del host 
+a través del volumen Docker.
 
 ---
 
@@ -390,77 +296,29 @@ Certificado y clave privada montados desde Docker.
 ssl_protocols TLSv1.2 TLSv1.3;
 ```
 
-Se deshabilitan versiones inseguras:
-
-- SSLv2
-- SSLv3
-- TLS 1.0
-- TLS 1.1
+Se deshabilitan versiones inseguras — SSLv2, SSLv3, TLS 1.0 y TLS 1.1 — 
+aceptando únicamente protocolos modernos y seguros.
 
 ---
 
-## Root web
-
-```nginx
-root /usr/share/nginx/html/zth;
-```
-
-Directorio donde se sirve la web.
-
----
-
-## Archivo principal
-
-```nginx
-index zerotrusthub.html;
-```
-
-Landing principal de ZeroTrustHub.
-
----
-
-## Routing SPA-like
+## Routing
 
 ```nginx
 location / {
-    try_files $uri $uri/ /zerotrusthub.html;
+  try_files $uri $uri/ /zerotrusthub.html;
 }
 ```
 
-Permite fallback automático al HTML principal.
-
-Útil para:
-
-- navegación interna
-- anchors
-- futuras SPAs
-- rutas amigables
-
----
-
-# Servidor local de testing
-
-## Puerto 8090
-
-```nginx
-server {
-    listen 8090;
-}
-```
-
-Servidor HTTP local sin TLS.
-
-Objetivos:
-
-- pruebas rápidas
-- validación visual
-- troubleshooting
+Cualquier ruta que no encuentre un archivo concreto cae de vuelta al 
+`zerotrusthub.html`, lo que es útil para navegación interna y anchors.
 
 ---
 
 # Certificados TLS
 
 ## Estructura
+
+![Certificados TLS](images/cap4.png)
 
 ```bash
 certs/
@@ -470,246 +328,40 @@ certs/
 └── selfsigned.key
 ```
 
----
-
-## cert.pem / key.pem
-
-Certificados actualmente utilizados por Nginx.
-
----
-
-## selfsigned.*
-
-Certificados autofirmados utilizados inicialmente para pruebas locales.
-
----
-
-# Frontend ZeroTrustHub
-
-## Arquitectura
-
-La web se encuentra implementada en un único archivo:
-
-```bash
-zerotrusthub.html
-```
-
-Contiene:
-
-- HTML5
-- CSS3 avanzado
-- JavaScript Vanilla
-
-Sin frameworks externos.
-
----
-
-# Características del frontend
-
-## Diseño
-
-La interfaz implementa una estética:
-
-- Cybersecurity
-- Zero Trust
-- Terminal-style
-- Futurista
-- Minimalista
-
----
-
-## Responsive Design
-
-Incluye soporte responsive mediante media queries para:
-
-- escritorio
-- tablets
-- móviles
-
----
-
-## Animaciones
-
-Se implementan:
-
-- reveal on scroll
-- glow effects
-- terminal simulation
-- ticker animado
-- métricas dinámicas
-- logs simulados
-- dashboards visuales
-
-Todo usando únicamente CSS + JavaScript nativo.
-
----
-
-# Secciones implementadas
-
-## Hero Section
-
-Presentación principal de servicios:
-
-- Zero Trust
-- VPN
-- IAM
-- observabilidad
-- hardening
-
----
-
-## Servicios
-
-Describe:
-
-- WireGuard
-- Keycloak
-- MFA
-- Grafana
-- Prometheus
-- Loki
-- Pentesting
-
----
-
-## Dashboard de estado
-
-Simulación visual de:
-
-- servicios activos
-- túneles WireGuard
-- métricas uptime
-- logs de amenazas
-
----
-
-## Proceso de despliegue
-
-Pipeline operacional:
-
-1. Auditoría
-2. Diseño Zero Trust
-3. Despliegue
-4. Vigilancia continua
-
----
-
-## Stack tecnológico
-
-Visualización de tecnologías utilizadas:
-
-- WireGuard
-- Keycloak
-- Docker
-- Nginx
-- Grafana
-- Prometheus
-- Loki
-- AWS
-- Kali Linux
-
----
-
-## Terminal simulada
-
-Simulación dinámica de comandos reales:
-
-```bash
-docker compose up -d
-sudo wg show
-docker ps
-```
-
-Genera sensación de infraestructura viva.
-
----
-
-## Pentesting
-
-Representación visual de pruebas de intrusión:
-
-- MitM
-- bruteforce
-- bypass MFA
-- scans
-- acceso externo
-- validaciones
-
----
-
-## Pricing
-
-Planes simulados:
-
-- Starter
-- Professional
-- Enterprise
-
----
-
-## Contacto
-
-Formulario simple orientado a captación de leads.
-
----
-
-# Seguridad aplicada
-
-## HTTPS obligatorio
-
-Todo tráfico externo cifrado.
-
----
-
-## TLS moderno
-
-Solo TLS 1.2 y 1.3.
-
----
-
-## Headers de seguridad
-
-Protecciones básicas habilitadas.
-
----
-
-## Contenedor aislado
-
-Servicio separado mediante Docker network.
-
----
-
-## Montajes read-only
-
-Reduce superficie de ataque.
-
----
-
-# Red Docker
-
-## Configuración
-
-```yaml
-networks:
-  zth-network:
-    driver: bridge
-```
-
-Permite futura integración con:
-
-- Keycloak
-- OAuth2 Proxy
-- APIs privadas
-- monitoring stack
+`cert.pem` y `key.pem` son los certificados actualmente en uso por Nginx. 
+`selfsigned.crt` y `selfsigned.key` son los certificados autofirmados 
+utilizados inicialmente durante las pruebas locales.
 
 ---
 
 # Comandos útiles
 
-## Levantar servicio
+## Levantar el servicio
+
+![Docker compose up](images/cap5.png)
 
 ```bash
 docker compose up -d
+```
+
+---
+
+## Ver estado del contenedor
+
+![Docker ps](images/cap6.png)
+
+```bash
+docker ps
+```
+
+---
+
+## Validar configuración Nginx
+
+![Nginx test](images/cap7.png)
+
+```bash
+docker exec -it nginx-proxy nginx -t
 ```
 
 ---
@@ -722,18 +374,10 @@ docker logs nginx-proxy
 
 ---
 
-## Reiniciar
+## Reiniciar el contenedor
 
 ```bash
 docker restart nginx-proxy
-```
-
----
-
-## Validar configuración Nginx
-
-```bash
-docker exec -it nginx-proxy nginx -t
 ```
 
 ---
@@ -746,7 +390,7 @@ docker exec -it nginx-proxy bash
 
 ---
 
-## Parar servicios
+## Parar los servicios
 
 ```bash
 docker compose down
@@ -760,13 +404,13 @@ docker compose down
 Cliente
    │
    ▼
-Puerto 80
+Puerto 80 (HTTP)
    │
    ▼
-Redirección HTTPS
+Redirección 301 → HTTPS:8443
    │
    ▼
-Puerto 443
+Puerto 8443 (HTTPS + TLS 1.2/1.3)
    │
    ▼
 Nginx
@@ -777,24 +421,24 @@ zerotrusthub.html
 
 ---
 
-# Resultado final
+# Verificación del despliegue
 
-La infraestructura consigue:
+![Web funcionando en HTTPS](images/cap8.png)
 
-- Hosting web seguro
-- HTTPS funcional
-- Despliegue reproducible
-- Frontend moderno
-- Base preparada para Zero Trust real
-- Integración futura con IAM y observabilidad
 
-Todo ello utilizando únicamente:
+---
 
-- Docker
-- Nginx
-- HTML/CSS/JS nativo
+# Estado actual
 
-sin necesidad de frameworks pesados ni dependencias innecesarias.
+```text
+Nginx:                    operativo
+HTTPS (puerto 8443):      operativo
+Docker:                   operativo
+Frontend:                 operativo
+TLS 1.2/1.3:              operativo
+Redirección HTTP→HTTPS:   operativa
+default.conf desactivado: operativo
+```
 
 ---
 
@@ -802,60 +446,30 @@ sin necesidad de frameworks pesados ni dependencias innecesarias.
 
 ## Certificados Let's Encrypt
 
-Sustituir certificados manuales por renovación automática.
+Sustituir los certificados actuales por renovación automática con Certbot.
+
+---
+
+## Puerto 443 estándar
+
+Migrar de 8443 al puerto 443 estándar una vez se resuelvan posibles 
+conflictos con otros servicios del host.
 
 ---
 
 ## Reverse Proxy avanzado
 
-Integración completa con:
-
-- Keycloak
-- OAuth2 Proxy
-- APIs internas
+Integración completa con Keycloak, OAuth2 Proxy y APIs internas.
 
 ---
 
-## CSP Headers
+## Headers de seguridad adicionales
 
-Añadir:
-
-```nginx
-Content-Security-Policy
-```
+Añadir cabeceras como `Content-Security-Policy`, `X-Frame-Options`, 
+`X-Content-Type-Options` y `HSTS` para endurecer la seguridad del servidor.
 
 ---
 
-## Rate Limiting
+## Rate Limiting y Fail2Ban
 
-Protección contra bruteforce y scraping.
-
----
-
-## Fail2Ban
-
-Mitigación automática de ataques.
-
----
-
-## HSTS
-
-Forzar HTTPS permanente.
-
----
-
-# Estado actual
-
-Estado del despliegue:
-
-```text
-Nginx: operativo
-HTTPS: operativo
-Docker: operativo
-Frontend: operativo
-TLS: operativo
-Redirección HTTP→HTTPS: operativa
-Puerto local testing 8090: operativo
-```
-
-
+Protección contra bruteforce, scraping y ataques automatizados.
