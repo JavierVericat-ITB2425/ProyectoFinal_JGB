@@ -1,5 +1,7 @@
 # Hardening Inicial y Despliegue de Infraestructura Segura
 
+![Imagen 1](./imagenes/imagen-001.png)
+
 ## Indice
 
 - [Informacion general](#informacion-general)
@@ -10,9 +12,6 @@
 - [S1-05 - Hardening en el Nodo AWS](#s1-05---hardening-en-el-nodo-aws)
 - [Recomendaciones Adicionales](#recomendaciones-adicionales)
 
-## Informacion general
-
-![Imagen 1](./imagenes/imagen-001.png)
 
 #### N°: GRUPO 8
 
