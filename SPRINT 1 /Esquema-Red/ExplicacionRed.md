@@ -1,6 +1,5 @@
-![Esquema de Red](esquema%20red.png)
-
 # Explicación del esquema de red
+![Esquema de Red](esquema%20red.png)
 ## El lado de AWS
 
 La máquina de AWS tiene una IP pública, la **52.87.11.36**. Eso significa que en 
