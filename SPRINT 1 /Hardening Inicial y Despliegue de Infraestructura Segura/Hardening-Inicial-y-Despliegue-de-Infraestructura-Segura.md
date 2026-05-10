@@ -743,7 +743,10 @@ sudo ufw allow 2222/tcp
 sudo ufw allow 8080/tcp
 ```
 
-sudo ufw allow 443/tcp sudo ufw allow 51820/udp
+```bash
+sudo ufw allow 443/tcp
+sudo ufw allow 51820/udp
+```
 
 ```bash
 sudo ufw enable
@@ -764,11 +767,7 @@ sudo ufw status verbose
 Haremos la actualización, y procederemos a la instalación
 
 ```bash
-sudo apt update && 
-```bash
-sudo apt install fail2ban -y
-```
-
+sudo apt update && sudo apt install fail2ban -y
 ```
 
 ![Imagen 91](./imagenes/imagen-091.png)
@@ -809,7 +808,7 @@ sudo systemctl status fail2ban
 
 ![Imagen 93](./imagenes/imagen-093.png)
 
-#### d.COmprobacion
+#### d. Comprobación
 
 Desde la máquina host fallamos 3 veces la contraseña a propósito
 
@@ -829,9 +828,10 @@ Ahora desde el servidor de AWS podemos ver el baneo
 
 Como hemos realizado antes en ISARD, configuraremos para que se hagan las actualizaciones automáticas
 
-Instalaremos el paquete inicialmente sudo apt update && 
+Instalaremos el paquete inicialmente:
+
 ```bash
-sudo apt install unattended-upgrades -y
+sudo apt update && sudo apt install unattended-upgrades -y
 ```
 
 ![Imagen 97](./imagenes/imagen-097.png)
