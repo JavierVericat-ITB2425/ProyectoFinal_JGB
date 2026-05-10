@@ -1,3 +1,5 @@
+![Esquema de Red](esquema%20red.png)
+
 # Explicación del esquema de red
 ## El lado de AWS
 
