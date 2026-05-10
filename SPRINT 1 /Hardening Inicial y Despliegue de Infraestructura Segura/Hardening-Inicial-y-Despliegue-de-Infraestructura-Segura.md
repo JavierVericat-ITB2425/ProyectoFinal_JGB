@@ -290,69 +290,54 @@ Esto lo que hará es que todo usuario nuevo deberá de tener una app para autent
 
 #### b. Políticas de ataques
 
-Ahora deberemos de dirigirnos a donde dice Realm Settings y después a Security
-
-Defense
+Ahora deberemos de dirigirnos a donde dice Realm Settings y después a Security Defense:
 
 ![Imagen 25](./imagenes/imagen-025.png)
 
-En este caso en el apartado de Brute Force
-
-Elegimos esta última opción porque es la más segura de todas, es la que tiene tolerancia cero
+En este caso en el apartado de **Brute Force**. Elegimos esta última opción porque es la más segura de todas, es la que tiene tolerancia cero:
 
 ![Imagen 26](./imagenes/imagen-026.png)
 
-Lo configuraremos de la siguiente manera
+Lo configuraremos de la siguiente manera:
 
 ![Imagen 27](./imagenes/imagen-027.png)
 
-Max login failures → Indicamos que si el “usuario” ha fallado 3 veces, el sistema ejecuta las acciones que hemos configurado a continuación
-
-Maximum temporary lockouts → Aquí le decimos que si el “usuario” ya ha fallado 1 vez y en este segundo intento vuelve a fallar, la cuenta queda bloqueada para siempre y el unico metodo de desbloqueo es que el administrador, lo haga manualmente
-
-Wait increment → Después de haber fallado la 1a vez, no pueden intentarlo al momento, deberán de esperar unos 5 minutos para volver a intentar
-
-Quick login check → Bloqueamos ataque de fuerza bruta o de diccionario, aquí le indicamos que si han intentado iniciar sesion en menos de 2 segundos son bots o ataques
-
-Failure reset time → Es el tiempo en que quedan registrados los intentos, se quedan guardados en memoria durante X tiempo, si por ejemplo fallan 1 vez por la mañana y 2
-
-por la tarde se bloquea la cuenta
+- **Max login failures** → Indicamos que si el “usuario” ha fallado 3 veces, el sistema ejecuta las acciones que hemos configurado a continuación.
+- **Maximum temporary lockouts** → Aquí le decimos que si el “usuario” ya ha fallado 1 vez y en este segundo intento vuelve a fallar, la cuenta queda bloqueada para siempre y el único método de desbloqueo es que el administrador lo haga manualmente.
+- **Wait increment** → Después de haber fallado la 1a vez, no pueden intentarlo al momento; deberán de esperar unos 5 minutos para volver a intentar.
+- **Quick login check** → Bloqueamos ataques de fuerza bruta o de diccionario; aquí le indicamos que si han intentado iniciar sesión en menos de 2 segundos son bots o ataques.
+- **Failure reset time** → Es el tiempo en que quedan registrados los intentos, se quedan guardados en memoria durante X tiempo. Si por ejemplo fallan 1 vez por la mañana y 2 por la tarde, se bloquea la cuenta.
 
 #### c. Comprobación
 
-SI intentamos acceder y fallamos 3 veces la contraseña
+Si intentamos acceder y fallamos 3 veces la contraseña:
 
-En el panel de administración, vemos que se ha bloqueado temporalmente
+En el panel de administración vemos que se ha bloqueado temporalmente:
 
 ![Imagen 28](./imagenes/imagen-028.png)
 
 #### d. Políticas de Contraseñas
 
-Nos vamos al apartado de Authentication y nos vamos al apartado de Polices
+Nos vamos al apartado de Authentication y nos vamos al apartado de **Policies**:
 
 ![Imagen 29](./imagenes/imagen-029.png)
 
-Ahora en el apartado de Add Policy y marcamos las siguientes opciones
+Ahora en el apartado de **Add Policy** y marcamos las siguientes opciones:
 
-1. Digit → Obligamos a poner dígito como mínimo
-
-2. Not Username → Evitamos que la contraseña pongan el nombre del usuario
-
-3. Lowercase Characters → Obligatorio poner mayúscula como mínimo
-
-4. Uppercase Characters → Obligatorio poner mayúscula como mínimo
-
-5. Special Characters → Obligatorio poner un carácter especial
-
-6. Minimum Length → Un mínimo de longitud obligatoria
+1. **Digit** → Obligamos a poner dígito como mínimo.
+2. **Not Username** → Evitamos que la contraseña sea igual al nombre del usuario.
+3. **Lowercase Characters** → Obligatorio poner minúscula como mínimo.
+4. **Uppercase Characters** → Obligatorio poner mayúscula como mínimo.
+5. **Special Characters** → Obligatorio poner un carácter especial.
+6. **Minimum Length** → Un mínimo de longitud obligatoria.
 
 ![Imagen 30](./imagenes/imagen-030.png)
 
-Ahora lo configuramos de la siguiente manera
+Ahora lo configuramos de la siguiente manera:
 
 ![Imagen 31](./imagenes/imagen-031.png)
 
-Obligamos a que las contraseñas tengan como mínimo 10 caracteres
+Obligamos a que las contraseñas tengan como mínimo 10 caracteres.
 
 #### e. Roles y Grupos
 
@@ -390,13 +375,11 @@ Ahora crearemos el Grupo de Auditoría
 
 #### f. Usuario
 
-Antes de realizar la comprobación. deberemos de crear un usuario 
+Antes de realizar la comprobación, deberemos de crear un usuario:
 
 ![Imagen 40](./imagenes/imagen-040.png)
 
-Aquí seleccionamos la opción de Configurar OTP
-
-Esto lo que hará es decir al KeyCloak que este usuario la próxima vez que inicie sesión deberá de usar una aplicación de OTP para poder iniciar sesión
+Aquí seleccionamos la opción de **Configurar OTP**. Esto lo que hará es decir al Keycloak que este usuario la próxima vez que inicie sesión deberá de usar una aplicación de OTP para poder iniciar sesión.
 
 ![Imagen 41](./imagenes/imagen-041.png)
 
@@ -568,14 +551,14 @@ sudo apt install fail2ban -y
 
 #### b. Crear configuración inicial
 
-Creamos un .local para que si hay alguna actualización, que no se nos escriba el archivo
-
-.conf
+Creamos un archivo `.local` para que si hay alguna actualización no se sobrescriba el archivo `.conf`:
 
 ```bash
 sudo nano /etc/fail2ban/jail.local
 ```
 
+Configuración utilizada:
+
 ```ini
 [sshd]
 enabled = true
@@ -588,17 +571,7 @@ bantime = -1
 banaction = ufw
 ```
 
-```ini
-[sshd]
-enabled = true
-port = 2222
-filter = sshd
-logpath = /var/log/auth.log
-maxretry = 2
-findtime = 600
-bantime = -1
-banaction = ufw
-``` → Indicamos que lo haga mediante ufw en vez de iptables, cuya ventaja es que lo bloquea directamente el firewall
+→ Indicamos que lo haga mediante **UFW** en vez de iptables, cuya ventaja es que lo bloquea directamente el firewall.
 
 ![Imagen 76](./imagenes/imagen-076.png)
 
@@ -651,21 +624,21 @@ Como podemos ver, tenemos la IP baneada, haremos un unban y la IP que queremos d
 
 Para minimizar las vulnerabilidades, deberemos de indicar que los “parches” de seguridad se hagan de manera automática 
 
-Para ello usaremos el siguiente comando
+Para ello usaremos el siguiente comando:
+
+```bash
+sudo apt install unattended-upgrades -y
+sudo dpkg-reconfigure --priority=low unattended-upgrades
+```
 
 ```bash
 sudo apt install unattended-upgrades -y
 ```
- sudo dpkg-reconfigure --priority=low unattended-upgrades
+→ Es un paquete el cual permite descargar actualizaciones y aplicarse automáticamente sin necesidad de interacción con el usuario.
 
-```bash
-sudo apt install unattended-upgrades -y
-```
-→ Es un paquete el cual permite descargar actualizaciones y aplicarse automáticamente sin necesidad de interacción con el usuario sudo dpkg-reconfigure → Aquí le indicamos que queremos reconfigurar el programa X
-
---priority=low → Indicamos que nos muestre todas las opciones posibles unattended-upgrades → Su función es la de revisar repositorios y si hay un nuevo
-
-“parche” lo descarga y se aplica, busca vulnerabilidades
+- `sudo dpkg-reconfigure`: Aquí le indicamos que queremos reconfigurar el programa.
+- `--priority=low`: Indicamos que nos muestre todas las opciones posibles.
+- `unattended-upgrades`: Su función es la de revisar repositorios y si hay un nuevo "parche" lo descarga y se aplica, buscando vulnerabilidades.
 
 #### Ejecutamos el siguiente comando
 
@@ -707,15 +680,11 @@ http://192.168.18.10:8080/realms/zth-node-cloud/account
 
 #### a. Reglas
 
-En AWS creamos reglas para el ssh por el puerto 2222
+En AWS creamos reglas para el SSH por el puerto 2222. También indicamos el puerto de HTTPS (443) para la web. Todo lo que no se encuentra aquí será denegado por defecto (DROP).
 
 ![Imagen 86](./imagenes/imagen-086.png)
 
-#### Ahora indicamos el puerto de HTTPS para la web
-
 ![Imagen 87](./imagenes/imagen-087.png)
-
-#### Todo lo que no se encuentra aqui sera denegado con DROP
 
 #### b. Dentro de la Instancia
 
@@ -762,9 +731,11 @@ sudo ufw status verbose
 
 ![Imagen 90](./imagenes/imagen-090.png)
 
-### 2. Fail2Ban a. Instalación del Fail2Ban
+### 2. Fail2Ban
 
-Haremos la actualización, y procederemos a la instalación
+#### a. Instalación del Fail2Ban
+
+Haremos la actualización y procederemos a la instalación:
 
 ```bash
 sudo apt update && sudo apt install fail2ban -y
@@ -790,9 +761,13 @@ maxretry = 2
 findtime = 600
 bantime = -1
 banaction = ufw
-``` ubuntu@zth-node-
+```
 
+Para verificar la configuración podemos usar:
+
+```bash
 sudo cat /etc/fail2ban/jail.local
+```
 
 ![Imagen 92](./imagenes/imagen-092.png)
 
