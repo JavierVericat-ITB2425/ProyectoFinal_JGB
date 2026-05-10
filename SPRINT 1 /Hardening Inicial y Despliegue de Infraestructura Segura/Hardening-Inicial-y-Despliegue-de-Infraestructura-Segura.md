@@ -2,6 +2,12 @@
 
 ![Imagen 1](./imagenes/imagen-001.png)
 
+#### N°: GRUPO 8
+
+#### Integrantes: Javier Vericat - Bryan Aguilera - Giuseppe Suarez
+
+#### Profesores: Sergi - David Sicart
+
 ## Indice
 
 - [Informacion general](#informacion-general)
@@ -11,13 +17,6 @@
 - [S1-04 - Hardening Avanzado del Sistema - Isard](#s1-04---hardening-avanzado-del-sistema---isard)
 - [S1-05 - Hardening en el Nodo AWS](#s1-05---hardening-en-el-nodo-aws)
 - [Recomendaciones Adicionales](#recomendaciones-adicionales)
-
-
-#### N°: GRUPO 8
-
-#### Integrantes: Javier Vericat - Bryan Aguilera - Giuseppe Suarez
-
-#### Profesores: Sergi - David Sicart
 
 ## S1-01 - Acceso SSH Seguro (Hardening Inicial) - Isard
 
