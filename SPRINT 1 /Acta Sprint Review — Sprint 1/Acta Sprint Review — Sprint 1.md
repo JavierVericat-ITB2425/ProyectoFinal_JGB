@@ -47,5 +47,6 @@ Se ha dejado preparada la base del proyecto: repositorio, nodos, acceso remoto s
 * Mantener la documentación técnica actualizada en GitHub.
 
 **Evidencias:**  
-Se añadirá una captura del estado final de ProofHub, junto con los commits del sprint y la documentación técnica subida al repositorio.
+
+![Profhub](images/Captura de pantalla de 2026-05-11 19-45-20.png)
 
