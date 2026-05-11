@@ -7,7 +7,7 @@ Acta de cierre/review general del proyecto.
 
 Fecha: 5/11/2026
 Participantes: Bryan Aguilera, Javier Vericat, Giuseppe Suarez
-Sprint: Review general del proyecto final
+Sprint: Review general del proyecto finalActa Sprint Review — Proyecto Final Zero Trust Hub
 
 
 ## 2) Objetivo del sprint / cierre del proyecto
@@ -98,5 +98,7 @@ El proyecto se completa satisfactoriamente con una infraestructura híbrida func
 Conclusión:
 Solución coherente con Zero Trust, con conectividad segura, autenticación reforzada,
 servicios protegidos, monitorización operativa y validaciones de seguridad.
+**Evidencias:**  
 
-![da](https://github.com/JavierVericat-ITB2425/ProyectoFinal_JGB/blob/d9218f974370f077c5280c88d1c9eda7e3ab8847/SPRINT%202/Acta%20Sprint%20Review%20%E2%80%94%20Proyecto%20Final%20Zero%20Trust%20Hub/images/Captura%20de%20pantalla%20de%202026-05-11%2019-51-46.png)
+![Profhub](https://github.com/JavierVericat-ITB2425/ProyectoFinal_JGB/blob/f3e63f69758781801340a9838a71eb9d3d88ec55/SPRINT%201%20/Acta%20Sprint%20Review%20%E2%80%94%20Sprint%201/images/Captura%20de%20pantalla%20de%202026-05-11%2019-45-20.png)
+
