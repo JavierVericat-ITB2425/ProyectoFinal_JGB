@@ -21,7 +21,7 @@ El despliegue se encuentra contenido en:
 ~/zth-node-cloud/nginx
 ```
 
----
+
 
 # Estructura del proyecto
 
@@ -39,7 +39,7 @@ nginx/
 └── zerotrusthub.html
 ```
 
----
+
 
 # Docker Compose
 
@@ -72,7 +72,7 @@ networks:
     driver: bridge
 ```
 
----
+
 
 # Explicación de la configuración
 
@@ -86,7 +86,7 @@ Se utiliza una imagen oficial estable de Nginx basada en Debian. Es ligera,
 muy estable, fácil de mantener, compatible con TLS moderno y con bajo consumo 
 de recursos.
 
----
+
 
 ## Nombre del contenedor
 
@@ -102,7 +102,7 @@ docker logs nginx-proxy
 docker exec -it nginx-proxy bash
 ```
 
----
+
 
 ## Reinicio automático
 
@@ -113,7 +113,7 @@ restart: unless-stopped
 Garantiza persistencia del servicio tras reinicios del host, caídas del 
 contenedor o reinicios de Docker.
 
----
+
 
 # Exposición de puertos
 
@@ -126,7 +126,7 @@ contenedor o reinicios de Docker.
 Recibe tráfico HTTP externo. Este tráfico es automáticamente redirigido 
 a HTTPS en el puerto 8443.
 
----
+
 
 ## HTTPS — Puerto 8443
 
@@ -138,7 +138,7 @@ Puerto principal de producción. Todo el contenido público se sirve
 mediante TLS en este puerto. Se usa 8443 en lugar del 443 estándar para 
 evitar conflictos con otros servicios que puedan estar corriendo en el host.
 
----
+
 
 # Volúmenes montados
 
@@ -151,7 +151,7 @@ evitar conflictos con otros servicios que puedan estar corriendo en el host.
 Monta la configuración personalizada dentro del contenedor en modo 
 read-only, evitando modificaciones accidentales desde dentro del contenedor.
 
----
+
 
 ## Deshabilitar configuración por defecto
 
@@ -164,7 +164,7 @@ con la configuración personalizada. Montando `/dev/null` en su lugar,
 ese archivo queda vacío y solo se aplica el `nginx.conf` que nosotros 
 controlamos.
 
----
+
 
 ## HTML principal
 
@@ -175,7 +175,7 @@ controlamos.
 Monta el frontend estático principal. La web completa está implementada 
 en un único archivo HTML autosuficiente con HTML, CSS y JavaScript.
 
----
+
 
 ## Certificados TLS
 
@@ -185,7 +185,7 @@ en un único archivo HTML autosuficiente con HTML, CSS y JavaScript.
 
 Monta los certificados SSL/TLS dentro del contenedor en modo read-only.
 
----
+
 
 # Configuración Nginx
 
@@ -224,7 +224,7 @@ http {
 }
 ```
 
----
+
 
 ## Bloque events
 
@@ -234,7 +234,7 @@ events { worker_connections 1024; }
 
 Define el número máximo de conexiones concurrentes que Nginx puede manejar.
 
----
+
 
 ## MIME Types
 
@@ -245,7 +245,7 @@ include /etc/nginx/mime.types;
 Permite servir correctamente HTML, CSS, JS, JSON, fuentes e imágenes con 
 el Content-Type correcto en cada respuesta.
 
----
+
 
 ## Optimización y compresión
 
@@ -259,7 +259,7 @@ gzip_types text/plain text/css application/javascript;
 comprime las respuestas para reducir el ancho de banda consumido y mejorar 
 los tiempos de carga.
 
----
+
 
 # Redirección HTTP → HTTPS
 
@@ -274,7 +274,7 @@ server {
 Todo acceso que llegue por el puerto 80 es redirigido permanentemente 
 hacia HTTPS en el puerto 8443. El código 301 indica redirección permanente.
 
----
+
 
 # Servidor HTTPS principal
 
@@ -288,7 +288,7 @@ ssl_certificate_key /etc/nginx/certs/key.pem;
 Certificado y clave privada montados desde la carpeta `certs/` del host 
 a través del volumen Docker.
 
----
+
 
 ## Protocolos TLS
 
@@ -299,7 +299,7 @@ ssl_protocols TLSv1.2 TLSv1.3;
 Se deshabilitan versiones inseguras — SSLv2, SSLv3, TLS 1.0 y TLS 1.1 — 
 aceptando únicamente protocolos modernos y seguros.
 
----
+
 
 ## Routing
 
@@ -312,7 +312,7 @@ location / {
 Cualquier ruta que no encuentre un archivo concreto cae de vuelta al 
 `zerotrusthub.html`, lo que es útil para navegación interna y anchors.
 
----
+
 
 # Certificados TLS
 
@@ -332,7 +332,7 @@ certs/
 `selfsigned.crt` y `selfsigned.key` son los certificados autofirmados 
 utilizados inicialmente durante las pruebas locales.
 
----
+
 
 # Comandos útiles
 
@@ -344,7 +344,7 @@ utilizados inicialmente durante las pruebas locales.
 docker compose up -d
 ```
 
----
+
 
 ## Ver estado del contenedor
 
@@ -354,7 +354,7 @@ docker compose up -d
 docker ps
 ```
 
----
+
 
 ## Validar configuración Nginx
 
@@ -364,7 +364,7 @@ docker ps
 docker exec -it nginx-proxy nginx -t
 ```
 
----
+
 
 ## Ver logs
 
@@ -372,7 +372,7 @@ docker exec -it nginx-proxy nginx -t
 docker logs nginx-proxy
 ```
 
----
+
 
 ## Reiniciar el contenedor
 
@@ -380,7 +380,7 @@ docker logs nginx-proxy
 docker restart nginx-proxy
 ```
 
----
+
 
 ## Acceder al contenedor
 
@@ -388,7 +388,7 @@ docker restart nginx-proxy
 docker exec -it nginx-proxy bash
 ```
 
----
+
 
 ## Parar los servicios
 
@@ -396,7 +396,7 @@ docker exec -it nginx-proxy bash
 docker compose down
 ```
 
----
+
 
 # Flujo de tráfico
 
@@ -419,14 +419,14 @@ Nginx
 zerotrusthub.html
 ```
 
----
+
 
 # Verificación del despliegue
 
 ![Web funcionando en HTTPS](images/cap8.png)
 
 
----
+
 
 # Estado actual
 
@@ -440,7 +440,7 @@ Redirección HTTP→HTTPS:   operativa
 default.conf desactivado: operativo
 ```
 
----
+
 
 # Próximas mejoras previstas
 
@@ -448,27 +448,27 @@ default.conf desactivado: operativo
 
 Sustituir los certificados actuales por renovación automática con Certbot.
 
----
+
 
 ## Puerto 443 estándar
 
 Migrar de 8443 al puerto 443 estándar una vez se resuelvan posibles 
 conflictos con otros servicios del host.
 
----
+
 
 ## Reverse Proxy avanzado
 
 Integración completa con Keycloak, OAuth2 Proxy y APIs internas.
 
----
+
 
 ## Headers de seguridad adicionales
 
 Añadir cabeceras como `Content-Security-Policy`, `X-Frame-Options`, 
 `X-Content-Type-Options` y `HSTS` para endurecer la seguridad del servidor.
 
----
+
 
 ## Rate Limiting y Fail2Ban
 
