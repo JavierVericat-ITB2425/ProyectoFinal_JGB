@@ -6,7 +6,9 @@ Acta de cierre/review general del proyecto.
 
 
 Fecha: 5/11/2026
+
 Participantes: Bryan Aguilera, Javier Vericat, Giuseppe Suarez
+
 Sprint: Review general del proyecto finalActa Sprint Review — Proyecto Final Zero Trust Hub
 
 
