@@ -357,196 +357,38 @@ Probar conectividad interna del túnel: ping 10.8.0.1 (desde local) o ping 10.8
 Limpieza de emergencia (Disco lleno): docker system prune -f (Borra datos temporales de Docker para liberar espacio)
 
 <a id="8-tabla-de-puertos-y-servicios-recomendados"></a>
-# 8. Tabla de puertos y servicios recomendados
+# Documentación técnica de administrador — Zero Trust Hub
 
-Puerto
+## 8. Tabla de puertos y servicios recomendados
 
-Protocolo
+| Puerto | Protocolo | Servicio | Uso recomendado | Exposición recomendada |
+| :--- | :--- | :--- | :--- | :--- |
+| 2222 | TCP | SSH | Administración remota | Restringido a IPs autorizadas |
+| 51820 | UDP | WireGuard | VPN entre nodos | Solo peer autorizado |
+| 80 | TCP | NGINX | Redirección o acceso web | Solo si es necesario |
+| 443 | TCP | NGINX HTTPS | Acceso web seguro | Permitido si el servicio se publica |
+| 8080 | TCP | Keycloak | Servicio interno | No exponer directamente |
+| 3000 | TCP | Grafana | Panel interno | No exponer directamente |
+| 3100 | TCP | Loki | Logs internos | No exponer directamente |
+| 9090 | TCP | Prometheus | Métricas internas | No exponer directamente |
+| 8090 | TCP | Servicio interno/proxy adicional | Uso puntual | Revisar necesidad |
 
-Servicio
-
-Uso recomendado
-
-Exposición recomendada
-
-2222
-
-TCP
-
-SSH
-
-Administración remota
-
-Restringido a IPs autorizadas
-
-51820
-
-UDP
-
-WireGuard
-
-VPN entre nodos
-
-Solo peer autorizado
-
-80
-
-TCP
-
-NGINX
-
-Redirección o acceso web
-
-Solo si es necesario
-
-443
-
-TCP
-
-NGINX HTTPS
-
-Acceso web seguro
-
-Permitido si el servicio se publica
-
-8080
-
-TCP
-
-Keycloak
-
-Servicio interno
-
-No exponer directamente
-
-3000
-
-TCP
-
-Grafana
-
-Panel interno
-
-No exponer directamente
-
-3100
-
-TCP
-
-Loki
-
-Logs internos
-
-No exponer directamente
-
-9090
-
-TCP
-
-Prometheus
-
-Métricas internas
-
-No exponer directamente
-
-8090
-
-TCP
-
-Servicio interno/proxy adicional
-
-Uso puntual
-
-Revisar necesidad
-
+---
 <a id="9-tabla-de-servicios-y-mantenimiento"></a>
-# 9. Tabla de servicios y mantenimiento
+## 9. Tabla de servicios y mantenimiento
 
-Servicio
+| Servicio | Función | Comprobación básica | Acción de mantenimiento |
+| :--- | :--- | :--- | :--- |
+| SSH | Acceso remoto | `systemctl status ssh` | revisar puerto, claves y arranque |
+| WireGuard | Túnel entre nodos | `sudo wg` | revisar peer, endpoint e IP pública |
+| NGINX | Proxy inverso | `nginx -t` | revisar rutas y exposición |
+| Keycloak | Identidad y acceso | logs / acceso web | revisar usuarios, eventos y MFA |
+| Grafana | Dashboards y alertas | acceso web / logs | revisar datasource y paneles |
+| Loki | Almacenamiento de logs | logs de contenedor | revisar ingestión desde Promtail |
+| Prometheus | Métricas | targets / logs | revisar exporters y scrape |
+| Promtail | Envío de logs | logs de servicio | revisar rutas de logs |
+| Fail2ban | Protección SSH | `fail2ban-client status` | revisar jails y baneos |
 
-Función
-
-Comprobación básica
-
-Acción de mantenimiento
-
-SSH
-
-Acceso remoto
-
-```bash
-systemctl status ssh
-
-```
-
-revisar puerto, claves y arranque
-
-WireGuard
-
-Túnel entre nodos
-
-```bash
-sudo wg
-
-```
-
-revisar peer, endpoint e IP pública
-
-NGINX
-
-Proxy inverso
-
-nginx -t
-
-revisar rutas y exposición
-
-Keycloak
-
-Identidad y acceso
-
-logs / acceso web
-
-revisar usuarios, eventos y MFA
-
-Grafana
-
-Dashboards y alertas
-
-acceso web / logs
-
-revisar datasource y paneles
-
-Loki
-
-Almacenamiento de logs
-
-logs de contenedor
-
-revisar ingestión desde Promtail
-
-Prometheus
-
-Métricas
-
-targets / logs
-
-revisar exporters y scrape
-
-Promtail
-
-Envío de logs
-
-logs de servicio
-
-revisar rutas de logs
-
-Fail2ban
-
-Protección SSH
-
-fail2ban-client status
-
-revisar jails y baneos
 
 <a id="10-incidencias-comunes-y-resolucion"></a>
 # 10. Incidencias comunes y resolución
