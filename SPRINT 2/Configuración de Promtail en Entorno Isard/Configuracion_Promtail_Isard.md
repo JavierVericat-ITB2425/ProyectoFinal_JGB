@@ -2,10 +2,6 @@
 
 ![Portada](imagenes/Portada.png)
 
-**N°:** GRUPO 8  
-**Integrantes:** Javier Vericat - Bryan Aguilera - Giuseppe Suarez  
-**Profesores:** Sergi - David Sicart
-
 # **Índice**
 - [1. Despliegue del Agente de Logs (Promtail)](#1-despliegue-del-agente-de-logs-promtail)
   - [1.1 Crear configuración de Promtail](#11-crear-configuración-de-promtail)
@@ -118,7 +114,7 @@ docker compose up -d
 
    Verificamos que el contenedor de Promtail esté corriendo correctamente.
 
-   ![Estado de los contenedores](imagenes/img-006.png)
+   ![Estado de los contenedores](imagenes/Log.png)
 
 ### **2.2 Pruebas de inyección de logs en tiempo real**
 
