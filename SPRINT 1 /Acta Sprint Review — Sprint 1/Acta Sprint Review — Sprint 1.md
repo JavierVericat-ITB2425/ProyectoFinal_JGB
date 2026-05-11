@@ -11,7 +11,7 @@ Configurar el entorno de trabajo del proyecto, desplegar y validar la conectivid
 
 * Se creó el repositorio GitHub con la estructura inicial del proyecto.  
 * Se configuró ProofHub para la gestión del Sprint 1\.  
-* Se aprovisionó el nodo local en Isard.  
+* Se aprovisionó el nodo Captura de pantalla de 2026-05-11 19-45-20.pnglocal en Isard.  
 * Se creó y configuró una instancia AWS EC2 para el entorno cloud.  
 * Se configuró el acceso SSH mediante clave en los nodos.  
 * Se aplicó hardening básico en el sistema.  
@@ -48,5 +48,5 @@ Se ha dejado preparada la base del proyecto: repositorio, nodos, acceso remoto s
 
 **Evidencias:**  
 
-![Profhub](images/Captura de pantalla de 2026-05-11 19-45-20.png)
+![Profhub](https://github.com/JavierVericat-ITB2425/ProyectoFinal_JGB/blob/f3e63f69758781801340a9838a71eb9d3d88ec55/SPRINT%201%20/Acta%20Sprint%20Review%20%E2%80%94%20Sprint%201/images/Captura%20de%20pantalla%20de%202026-05-11%2019-45-20.png)
 
