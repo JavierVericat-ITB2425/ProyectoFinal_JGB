@@ -10,19 +10,21 @@ Proyecto de Integración de Sistemas de Seguridad Híbridos
 
 ## Índice
 
-- 1. Introducción
-- 2. Objetivo de la solución
-- 3. Qué incluye la solución
-- 4. Cómo accede el usuario
-- 5. Inicio de sesión
-- 6. Qué puede hacer el usuario
-- 7. Comportamientos de seguridad esperados
-- 8. Recomendaciones de uso para el cliente
-- 9. Resolución básica de problemas
-- 10. Mantenimiento básico para cliente
-- 11. Soporte
-- 12. Conclusión
-- Anexo: Glosario de conceptos clave
+1. [Introducción](#1-introducción)
+2. [Objetivo de la solución](#2-objetivo-de-la-solución)
+3. [Qué incluye la solución](#3-qué-incluye-la-solución)
+4. [Cómo accede el usuario](#4-cómo-accede-el-usuario)
+5. [Inicio de sesión](#5-inicio-de-sesión)
+6. [Qué puede hacer el usuario](#6-qué-puede-hacer-el-usuario)
+7. [Comportamientos de seguridad esperados](#7-comportamientos-de-seguridad-esperados)
+8. [Recomendaciones de uso para el cliente](#8-recomendaciones-de-uso-para-el-cliente)
+9. [Resolución básica de problemas](#9-resolución-básica-de-problemas)
+10. [Mantenimiento básico para cliente](#10-mantenimiento-básico-para-cliente)
+11. [Soporte](#11-soporte)
+12. [Conclusión](#12-conclusión)
+13. [Anexo: Glosario de conceptos clave](#anexo-glosario-de-conceptos-clave)
+
+---
 
 ## 1. Introducción
 
