@@ -116,6 +116,10 @@ docker compose up -d
 
    ![Estado de los contenedores](imagenes/Log.png)
 
+  Esto debería de quedar tal que así
+
+  ![Estado de los contenedores](imagenes/LOGsss.png)
+
 ### **2.2 Pruebas de inyección de logs en tiempo real**
 
    Para comprobar el flujo de logs, nos dirigimos al apartado de **Explore** en Grafana:
