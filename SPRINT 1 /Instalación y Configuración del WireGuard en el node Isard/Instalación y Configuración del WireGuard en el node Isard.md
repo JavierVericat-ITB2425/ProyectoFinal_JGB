@@ -49,6 +49,12 @@ Address = 10.8.0.1/24
 ListenPort = 51820
 PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
+
+[Peer]
+PublicKey = 1RR5wGRRVP75uxtv8AUCihM5WRcMX22viqUbOSHE2mc=
+AllowedIPs = 10.8.0.2/32
+Endpoint = 34.231.236.201:51820
+PersistentKeepalive = 25
 ```
 
 ![Configuración del servidor](images/image2.png)
