@@ -727,6 +727,3 @@ Gracias a la estructura del repositorio, con 206 commits y documentación organi
 <a id="ejecucion-capturas"></a>
 ## Ejecución (capturas)
 
-Primero los pasos/mandos (copiables) y, a continuación, la captura de la ejecución.
-
-![](images/image1.png)
