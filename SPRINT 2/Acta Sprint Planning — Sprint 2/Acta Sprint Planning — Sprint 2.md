@@ -4,33 +4,33 @@
 
 Acta de planificación del Sprint 2 (integración, monitorización, pentesting y cierre del proyecto).
 
-```text
+
 Fecha: 20/04/2026
 Integrantes: Bryan Aguilera, Javier Vericat, Giuseppe Suarez
 Sprint: Sprint 2 — Integración, monitorización, pentesting y cierre del proyecto
-```
 
-Sin captura disponible en esta ruta.
+
+
 
 ## 2) Objetivo del sprint
 
 Completar la integración de servicios con Keycloak, desplegar y validar la monitorización, ejecutar las pruebas de intrusión, cerrar la documentación final y preparar la presentación/demostración para la defensa.
 
-```text
+
 Objetivo:
 - Integración Keycloak (SSO/OIDC)
 - Monitorización (Grafana/Loki/Prometheus)
 - Pentesting (pruebas del proyecto)
 - Cierre documentación y demo final
-```
 
-Sin captura disponible en esta ruta.
+
+
 
 ## 3) Tareas planificadas
 
 Se listan las tareas previstas para completar el sprint.
 
-```text
+
 Integración y autenticación:
 - Integrar Grafana con Keycloak mediante OIDC.
 - Configurar auth_request en Nginx para proteger los servicios internos.
@@ -65,15 +65,15 @@ Documentación y cierre:
 - Ensayar la demostración práctica.
 - Revisión cruzada del conocimiento entre los miembros del equipo.
 - Actualizar ProofHub y mantener evidencias del trabajo realizado.
-```
 
-Sin captura disponible en esta ruta.
+
+
 
 ## 4) Reparto de trabajo
 
 Se define el reparto de tareas por integrante.
 
-```text
+
 Bryan Aguilera:
 - Coordinación general del sprint
 - Integración autenticación con Keycloak
@@ -93,50 +93,50 @@ Giuseppe Suarez:
 - Configuraciones de acceso seguro
 - Parte del pentesting
 - Apoyo en documentación final y validación de resultados
-```
 
-Sin captura disponible en esta ruta.
+
+
 
 ## 5) Riesgos detectados
 
 Riesgos que pueden afectar a la ejecución del sprint.
 
-```text
+
 - Errores de integración entre Keycloak, Nginx y Grafana.
 - Alertas que no disparan por mala recolección de logs/métricas.
 - Pruebas de intrusión que requieran ajustes previos de red/configuración.
 - Retrasos de documentación final si no se redacta en paralelo.
 - Fallos en la demo práctica si no se ensaya en condiciones realistas.
 - Partes del proyecto no suficientemente dominadas por todos los miembros.
-```
 
-Sin captura disponible en esta ruta.
+
+
 
 ## 6) Resultado esperado del sprint
 
 Dejar el proyecto funcional, monitorizado, validado mediante pruebas de intrusión, documentado y preparado para la defensa final.
 
-```text
+
 Resultado esperado:
 - Proyecto funcional
 - Monitorización operativa
 - Pentesting ejecutado y reportado
 - Documentación completa
 - Material y demo listos para la defensa
-```
 
-Sin captura disponible en esta ruta.
+
+
 
 ## 7) Evidencias previstas
 
 Evidencias que se espera recopilar durante el sprint.
 
-```text
+
 - ProofHub con tareas asignadas y completadas.
 - Commits y documentación continua en GitHub.
 - Capturas de dashboards, alertas y pruebas de pentesting.
 - Slides y material de apoyo para la defensa.
-```
 
-Sin captura disponible en esta ruta.
+
+
 
