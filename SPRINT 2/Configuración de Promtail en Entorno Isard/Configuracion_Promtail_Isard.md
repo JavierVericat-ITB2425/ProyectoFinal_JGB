@@ -120,6 +120,13 @@ docker compose up -d
 
   ![Estado de los contenedores](imagenes/LOGsss.png)
 
+Ahora lo que hacemos es un ssh desde nuestro cliente hacia el servidor y fallamos la contraseña aposta
+
+Así generamos logs y podemos ver estos como aparecen al instante los logs
+
+  ![Estado de los contenedores](imagenes/prueba.png)
+
+
 ### **2.2 Pruebas de inyección de logs en tiempo real**
 
    Para comprobar el flujo de logs, nos dirigimos al apartado de **Explore** en Grafana:
