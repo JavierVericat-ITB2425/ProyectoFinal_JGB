@@ -6,7 +6,9 @@ Acta de planificación del Sprint 2 (integración, monitorización, pentesting y
 
 
 Fecha: 20/04/2026
+
 Integrantes: Bryan Aguilera, Javier Vericat, Giuseppe Suarez
+
 Sprint: Sprint 2 — Integración, monitorización, pentesting y cierre del proyecto
 
 
