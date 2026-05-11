@@ -3,20 +3,16 @@
 ## 1) Crear la VM de Kali en Isard
 
 Se selecciona la imagen de Kali y se asigna un nombre a la máquina.
-
-```text
 Paso en interfaz gráfica (Isard): seleccionar imagen de Kali y definir nombre de la VM
-```
+
 
 ![Selección de imagen y nombre de la VM](images/image2.png)
 
 ## 2) Asignar parámetros de hardware
 
 Se configuran los recursos de la VM (CPU/RAM/disco) según las necesidades de las prácticas.
-
-```text
 Paso en interfaz gráfica (Isard): configurar CPU, RAM y disco de la VM
-```
+
 
 ![Parámetros de hardware de la VM](images/image4.png)
 
