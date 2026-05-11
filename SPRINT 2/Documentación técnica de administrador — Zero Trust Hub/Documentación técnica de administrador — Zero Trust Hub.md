@@ -45,7 +45,6 @@
 - [13. Procedimiento básico de recuperación](#13-procedimiento-basico-de-recuperacion)
   - [13.1 Procedimientos de Backup y Exportación](#131-procedimientos-de-backup-y-exportacion)
 - [14. Conclusión](#14-conclusion)
-- [Ejecución (capturas)](#ejecucion-capturas)
 </details>
 
 ---
@@ -724,6 +723,4 @@ La documentación técnica de administrador debe permitir comprender la arquitec
 Gracias a la estructura del repositorio, con 206 commits y documentación organizada en Sprint 1 y Sprint 2, el proyecto dispone de una base suficientemente completa para soportar tareas de administración, operación y recuperación de la infraestructura
 
 
-<a id="ejecucion-capturas"></a>
-## Ejecución (capturas)
 
