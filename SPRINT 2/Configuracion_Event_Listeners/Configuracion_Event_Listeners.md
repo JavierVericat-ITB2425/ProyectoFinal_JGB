@@ -2,9 +2,7 @@
 
 ![Portada](Imagenes/img-000.png)
 
-**N°:** GRUPO 8  
-**Integrantes:** Javier Vericat - Bryan Aguilera - Giuseppe Suarez  
-**Profesores:** Sergi - David Sicart
+
 
 # **Índice**
 - [1. Configuración de Keycloak](#1-configuración-de-keycloak)
