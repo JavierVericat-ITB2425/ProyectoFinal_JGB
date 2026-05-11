@@ -128,8 +128,6 @@ Durante el cierre del proyecto se completaron las siguientes tareas finalizadas 
 - Realizar revisión cruzada del conocimiento.
 - Realizar el Sprint Review del Sprint 2.
 
-Según el tablero, el total de tareas finalizadas es 34, pero en las capturas facilitadas solo se visualizan 32 de ellas, por lo que quedarían 2 tareas no visibles en la imagen.
-
 ## 8) Resultado final y valoración
 
 El proyecto se completa satisfactoriamente con una infraestructura híbrida funcional, conectividad segura (WireGuard), acceso endurecido (SSH), identidad centralizada (Keycloak), proxy inverso (Nginx) y monitorización operativa (Grafana/Loki/Prometheus), validando controles de seguridad mediante pruebas prácticas y dejando documentación y evidencias recopiladas.
