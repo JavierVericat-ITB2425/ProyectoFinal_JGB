@@ -43,4 +43,4 @@ Giuseppe Suarez se encargará del hardening del sistema, incluyendo fail2ban, la
 Dejar operativos los dos nodos del proyecto, con acceso SSH seguro, túnel WireGuard configurado y Keycloak desplegado con la configuración inicial de identidad.
 
 **Evidencias:**  
-Se añadirá una captura del tablero de ProofHub al inicio del sprint y se subirán al repositorio los primeros commits con la estructura inicial del proyecto.
+Se añadirá una captura del tablero de ProofHub en la acta de Sprint Review.
