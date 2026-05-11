@@ -122,9 +122,11 @@ docker compose up -d
 
 Ahora lo que hacemos es un ssh desde nuestro cliente hacia el servidor y fallamos la contraseña aposta
 
+  ![Estado de los contenedores](imagenes/prueba.png)
+
 Así generamos logs y podemos ver estos como aparecen al instante los logs
 
-  ![Estado de los contenedores](imagenes/prueba.png)
+  ![Estado de los contenedores](imagenes/log-final.png)
 
 
 ### **2.2 Pruebas de inyección de logs en tiempo real**
