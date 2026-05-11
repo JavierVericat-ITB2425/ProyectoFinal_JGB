@@ -33,4 +33,12 @@ Creamos o editamos el archivo de configuración para los contenedores:
 ```bash
 sudo nano docker-compose.yml
 ```
+El contenido de este archivo seria el siguiente
+
+```bash
+include:
+  - keycloak/docker-compose.yml
+  - monitoring/docker-compose.yml
+  - nginx/docker-compose.yml
+```
 <img width="579" height="139" alt="image" src="https://github.com/user-attachments/assets/03e4864f-cc05-467f-87c9-e10dd2df12d0" />
